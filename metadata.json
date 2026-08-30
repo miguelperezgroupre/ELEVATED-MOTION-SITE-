@@ -1,0 +1,6 @@
+{
+  "name": "South Florida Elevated",
+  "description": "Luxury Real Estate Advisor Miguel Perez — extraordinary homes and exceptional results across Miami-Dade, Broward, and Palm Beach.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
