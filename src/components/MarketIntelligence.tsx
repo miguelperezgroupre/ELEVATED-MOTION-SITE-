@@ -36,8 +36,8 @@ export default function MarketIntelligence({ onOpenContact }: MarketIntelligence
         {/* Head with City Switcher Tabs */}
         <div className="sec-head">
           <div>
-            <span className="eyebrow">Market Intelligence</span>
-            <h2 className="h2 text-[#1a1e24]">The Data, <em className="it text-[#9a7629]">Decoded</em>.</h2>
+            <span className="eyebrow text-[16px]">Market Intelligence</span>
+            <h2 className="h2 text-[72px] text-[#1a1e24]">The Data, <em className="it text-[#9a7629]">Decoded</em>.</h2>
           </div>
 
           <div className="flex items-center border border-[#d1d5db] p-1 bg-white shadow-sm">
@@ -201,7 +201,7 @@ export default function MarketIntelligence({ onOpenContact }: MarketIntelligence
           <p className="font-sans text-xs text-[#6b7280] max-w-xl">
             Figures shown are sample values for demonstration. Connect a market data provider or MLS feed to publish live, sourced statistics.
           </p>
-          <button className="btn btn--ink btn--sm" onClick={onOpenContact}>
+          <button className="btn btn--gold btn--sm" onClick={onOpenContact}>
             <span>Get my neighborhood report</span>
             <ArrowRight className="w-4 h-4" />
           </button>

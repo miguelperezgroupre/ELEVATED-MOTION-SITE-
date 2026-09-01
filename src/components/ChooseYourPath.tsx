@@ -61,14 +61,14 @@ export default function ChooseYourPath({ onNavigate, onOpenContact }: ChooseYour
   ];
 
   return (
-    <section className="py-20 border-b border-[rgba(244,239,226,0.08)] bg-[#101618]">
+    <section className="py-20 border-b border-[rgba(244,239,226,0.08)] bg-[#0d1213]">
       <div className="wrap">
         <div className="text-center max-w-2xl mx-auto mb-14">
-          <span className="mono-label text-[#c9a24a]">Strategic Starting Points</span>
-          <h2 className="font-serif text-3xl sm:text-5xl text-[#f4efe2] font-normal mt-2">
+          <span className="mono-label text-[#c9a24a] text-[16px]">Strategic Starting Points</span>
+          <h2 className="font-serif text-[64px] text-[#f4efe2] font-normal mt-2">
             Choose Your Advisory <em className="it text-[#ffd9a0]">Path</em>
           </h2>
-          <p className="text-sm sm:text-base text-[#f4efe2]/70 font-light mt-3">
+          <p className="text-[19px] text-[#f4efe2]/70 font-light mt-3">
             Every real estate objective requires a distinct strategy. Select your focus to access tailored intelligence and advisory tools.
           </p>
         </div>

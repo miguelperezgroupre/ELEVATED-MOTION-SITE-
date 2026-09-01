@@ -295,22 +295,22 @@ export default function Hero({ onOpenContact, onNavigate }: HeroProps) {
           {/* Top Editorial Label */}
           <div className="flex items-center gap-3 animate-fadeIn">
             <span className="w-2 h-2 rounded-full bg-[#c9a24a] animate-pulse" />
-            <span className="font-mono text-xs sm:text-sm tracking-[0.25em] uppercase text-[#ffd9a0] font-semibold">
-              MIAMI • FORT LAUDERDALE • SOUTH FLORIDA
+            <span className="font-mono text-[20px] tracking-[0.25em] uppercase text-[#ffd9a0] font-semibold">
+              SOUTH FLORIDA ELEVATED
             </span>
           </div>
 
           {/* Center Main Display Typography */}
           <div className="max-w-4xl space-y-6">
-            <h1 className="font-serif text-5xl sm:text-7xl md:text-8xl lg:text-9xl text-[#f4efe2] font-normal leading-[0.98] tracking-tight">
-              South Florida,{' '}
-              <em className="it text-[#ffd9a0] block sm:inline">
-                Understood Differently
-              </em>.
+            <h1 className="font-serif text-[100px] text-[#f4efe2] font-normal leading-[0.98] tracking-tight italic">
+              Beyond The Address.<br />
+              <em className="text-[#ffd9a0] text-[41px] leading-[42px] block mt-4 not-italic">
+                Real Estate · Lifestyle · Intelligence · Advisory
+              </em>
             </h1>
 
-            <p className="font-sans text-base sm:text-xl md:text-2xl text-[#f4efe2]/85 font-light max-w-2xl leading-relaxed">
-              Where market expertise meets elevated representation across Miami, Fort Lauderdale, and Palm Beach.
+            <p className="font-sans text-[24px] text-[#f4efe2]/85 font-light max-w-2xl leading-relaxed">
+              Exceptional properties, distinctive neighborhoods, and the intelligence behind every move.
             </p>
 
             {/* Editorial CTAs */}
@@ -499,7 +499,7 @@ export default function Hero({ onOpenContact, onNavigate }: HeroProps) {
             pointerEvents: phase4Opacity > 0.4 ? 'auto' : 'none'
           }}
         >
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 items-center bg-[#141a1d]/90 border border-[#c9a24a]/40 p-6 sm:p-10 md:p-12 shadow-2xl backdrop-blur-md">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 items-center bg-[#04343F] border border-[#c9a24a]/40 p-6 sm:p-10 md:p-12 shadow-2xl backdrop-blur-md">
             
             {/* Advisor Portrait Image */}
             <div className="lg:col-span-5 relative group">
@@ -551,22 +551,22 @@ export default function Hero({ onOpenContact, onNavigate }: HeroProps) {
             {/* Advisor Narrative & Credentials */}
             <div className="lg:col-span-7 space-y-6">
               <div>
-                <span className="font-mono text-xs text-[#c9a24a] uppercase tracking-[0.2em] font-semibold block mb-2">
+                <span className="font-mono text-[14px] text-[#c9a24a] uppercase tracking-[0.2em] font-semibold block mb-2">
                   THE FIDUCIARY ADVOCATE
                 </span>
-                <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl text-[#f4efe2] font-normal leading-tight">
+                <h2 className="font-serif text-[64px] text-[#f4efe2] font-normal leading-tight">
                   Miguel <em className="it text-[#ffd9a0]">Perez</em>
                 </h2>
-                <p className="font-mono text-sm sm:text-base text-[#c9a24a] uppercase tracking-wider mt-1">
+                <p className="font-mono text-[18px] text-[#c9a24a] uppercase tracking-wider mt-1">
                   SOUTH FLORIDA REAL ESTATE ADVISOR
                 </p>
               </div>
 
-              <blockquote className="font-serif text-xl sm:text-2xl text-[#f4efe2] italic font-light border-l-2 border-[#c9a24a] pl-4 leading-relaxed">
+              <blockquote className="font-serif text-[34px] text-[#f4efe2] italic font-light border-l-2 border-[#c9a24a] pl-4 leading-relaxed">
                 "Local perspective. Strategic guidance. A higher standard of representation."
               </blockquote>
 
-              <p className="font-sans text-sm sm:text-base text-[#f4efe2]/80 font-light leading-relaxed">
+              <p className="font-sans text-[18px] text-[#f4efe2]/80 font-light leading-relaxed">
                 Serving buyers, sellers, and capital allocators across Miami-Dade, Broward, and Palm Beach with transparent underwriting and white-glove discretion.
               </p>
 
@@ -575,7 +575,7 @@ export default function Hero({ onOpenContact, onNavigate }: HeroProps) {
                 {['ABR® (Buyer Representative)', 'SRS (Seller Specialist)', 'PSA (Pricing Strategy)', 'SFR® (Resource)'].map((badge) => (
                   <span
                     key={badge}
-                    className="font-mono text-[10px] sm:text-[11px] px-2.5 py-1 bg-[#0B0B0B] border border-[rgba(244,239,226,0.15)] text-[#f4efe2]/90"
+                    className="font-mono text-[13px] px-2.5 py-1 bg-[#0B0B0B] border border-[rgba(244,239,226,0.15)] text-[#f4efe2]/90"
                   >
                     {badge}
                   </span>
@@ -588,16 +588,15 @@ export default function Hero({ onOpenContact, onNavigate }: HeroProps) {
                   onClick={() => onOpenContact('advisor', "I'd like to schedule a private advisory consultation with Miguel Perez.")}
                   className="btn btn--gold cursor-pointer inline-flex items-center gap-2"
                 >
-                  <span>CONNECT WITH MIGUEL</span>
+                  <span className="text-[16px]">CONNECT WITH MIGUEL</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
-
                 <a
                   href="tel:+17864601023"
-                  className="font-mono text-xs sm:text-sm text-[#ffd9a0] hover:text-[#c9a24a] flex items-center gap-2 p-2 transition-colors"
+                  className="font-mono text-[#ffd9a0] hover:text-[#c9a24a] flex items-center gap-2 p-2 transition-colors"
                 >
                   <Phone className="w-3.5 h-3.5 text-[#c9a24a]" />
-                  <span>(786) 460-1023</span>
+                  <span className="text-[18px]">(786) 460-1023</span>
                 </a>
               </div>
             </div>
@@ -618,10 +617,10 @@ export default function Hero({ onOpenContact, onNavigate }: HeroProps) {
           }}
         >
           <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
-            <span className="font-mono text-xs tracking-[0.25em] text-[#c9a24a] uppercase font-semibold">
+            <span className="font-mono text-[16px] tracking-[0.25em] text-[#c9a24a] uppercase font-semibold">
               START YOUR JOURNEY
             </span>
-            <h2 className="font-serif text-4xl sm:text-6xl md:text-7xl text-[#f4efe2] font-normal mt-2 leading-tight">
+            <h2 className="font-serif text-[64px] text-[#f4efe2] font-normal mt-2 leading-tight">
               Where Are You <em className="it text-[#ffd9a0]">Headed</em>?
             </h2>
             <p className="font-sans text-sm sm:text-base text-[#f4efe2]/80 font-light mt-3 max-w-xl mx-auto">
@@ -677,7 +676,7 @@ export default function Hero({ onOpenContact, onNavigate }: HeroProps) {
                       onNavigate(p.id);
                     }
                   }}
-                  className="group bg-[#141a1d] hover:bg-[#1f272b] border border-[rgba(244,239,226,0.12)] hover:border-[#c9a24a] p-5 sm:p-6 flex flex-col justify-between transition-all duration-300 cursor-pointer shadow-lg hover:-translate-y-1"
+                  className="group bg-[#04343F] hover:bg-[#07394c] border border-[rgba(244,239,226,0.12)] hover:border-[#c9a24a] p-5 sm:p-6 flex flex-col justify-between transition-all duration-300 cursor-pointer shadow-lg hover:-translate-y-1"
                 >
                   <div>
                     <div className="w-10 h-10 rounded border border-[#c9a24a]/40 bg-[#0B0B0B] flex items-center justify-center text-[#ffd9a0] group-hover:bg-[#c9a24a] group-hover:text-[#0B0B0B] transition-colors mb-4">

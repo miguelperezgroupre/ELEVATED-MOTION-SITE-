@@ -36,11 +36,11 @@ export default function AboutSection() {
           {/* Right: Biography, Credentials & Timeline */}
           <div className="lg:col-span-7 space-y-10">
             <div>
-              <span className="eyebrow">About Miguel</span>
-              <h2 className="h2 text-[#f4efe2] mt-3">
+              <span className="eyebrow text-[16px]">About Miguel</span>
+              <h2 className="h2 text-[72px] text-[#f4efe2] mt-3">
                 The Key to the <em className="it text-[#ffd9a0]">Coast.</em>
               </h2>
-              <p className="lede text-[#f4efe2]/85 mt-6 text-base sm:text-lg leading-relaxed">
+              <p className="lede text-[#f4efe2]/85 mt-6 text-[19px] leading-relaxed">
                 Miguel Perez advises buyers, sellers, and relocating professionals across Miami-Dade, Broward, and Palm Beach — with a practice built on waterfront, branded residences, and pre-construction. Licensed in Florida since 2012 and based at Luxe Properties, he holds the ABR®, SRS, PSA, and SFR® designations, and works a deliberately small book so every transaction gets the same white-glove standard: research before the first showing, representation through closing, and a relationship well after it.
               </p>
             </div>

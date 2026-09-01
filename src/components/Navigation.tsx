@@ -52,8 +52,8 @@ export default function Navigation({ currentView, onNavigate, onOpenContact }: N
         id="nav"
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled
-            ? 'bg-[#0B0B0B]/95 backdrop-blur-md border-b border-[rgba(244,239,226,0.08)] py-3.5 shadow-2xl'
-            : 'bg-gradient-to-b from-[#0B0B0B]/90 via-[#0B0B0B]/60 to-transparent py-5'
+            ? 'bg-[#0e0e0e]/95 backdrop-blur-md border-b border-[rgba(244,239,226,0.08)] py-3.5 shadow-2xl'
+            : 'bg-[#0e0e0e]/90 py-5'
         }`}
       >
         <div className="wrap flex items-center justify-between">
@@ -67,8 +67,8 @@ export default function Navigation({ currentView, onNavigate, onOpenContact }: N
               MP
             </div>
             <div className="flex flex-col">
-              <span className="font-serif text-lg sm:text-xl text-[#f4efe2] font-normal leading-tight group-hover:text-[#c9a24a] transition-colors">
-                South Florida <span className="italic">Elevated</span>
+              <span className="font-serif text-[24px] text-[#f4efe2] font-normal leading-tight group-hover:text-[#c9a24a] transition-colors italic">
+                Elevated
               </span>
               <span className="font-mono text-[9px] tracking-[0.22em] uppercase text-[#c9a24a]">
                 By Miguel Perez

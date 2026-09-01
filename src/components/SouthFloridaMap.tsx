@@ -11,16 +11,16 @@ export default function SouthFloridaMap({ onOpenContact }: SouthFloridaMapProps)
   const selected = selectedIndex !== null ? COMMUNITIES[selectedIndex] : null;
 
   return (
-    <section id="communities" className="sec sec--teal" aria-label="South Florida communities">
+    <section id="communities" className="sec bg-[#04343F] text-[#f4efe2]" aria-label="South Florida communities">
       <div className="wrap">
         {/* Head */}
         <div className="sec-head sec-head--center mb-16">
           <div>
-            <span className="eyebrow">The Cartographer</span>
-            <h2 className="h2 text-[#f4efe2] mt-4">
+            <span className="eyebrow text-[18px]">The Cartographer</span>
+            <h2 className="h2 text-[72px] text-[#f4efe2] mt-4">
               South Florida, <em className="it text-[#ffd9a0]">Mapped</em>
             </h2>
-            <p className="lede text-[#f4efe2]/80 mt-3 mx-auto">
+            <p className="lede text-[18px] font-normal text-[#f4efe2]/80 mt-3 mx-auto">
               Twelve communities, one coastline. Select a marker to read its market profile.
             </p>
           </div>

@@ -12,14 +12,14 @@ export default function ContactCTA({ onOpenContact }: ContactCTAProps) {
         <img
           alt="South Florida Coastline"
           aria-hidden="true"
-          className="w-full h-full object-cover opacity-25 scale-105"
+          className="w-full h-full object-cover opacity-60 scale-105"
           src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2200&q=80"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0e1416] via-[#0e1416]/70 to-[#0e1416]" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0e1416] via-transparent to-[#0e1416]" />
       </div>
 
       <div className="wrap relative z-10 text-center max-w-3xl mx-auto">
-        <span className="eyebrow eyebrow--dot mb-4">Your Next Chapter</span>
+        <span className="eyebrow eyebrow--dot mb-4 text-[16px]">Your Next Chapter</span>
 
         <h2 className="display text-4xl sm:text-6xl md:text-7xl font-normal text-[#f4efe2] mt-2 mb-6">
           Starts <em className="it text-[#ffd9a0]">Here</em>.

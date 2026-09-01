@@ -21,10 +21,10 @@ export default function Newsletter() {
   };
 
   return (
-    <section id="newsletter" className="sec sec--dark border-t border-[rgba(244,239,226,0.08)]" aria-label="Newsletter Subscription">
+    <section id="newsletter" className="sec bg-[#04343F] text-[#f4efe2] border-t border-[rgba(244,239,226,0.08)]" aria-label="Newsletter Subscription">
       <div className="wrap max-w-2xl mx-auto text-center">
-        <span className="eyebrow eyebrow--dot mb-3">Market Intelligence</span>
-        <h2 className="display text-3xl sm:text-5xl font-normal text-[#f4efe2] mb-4">
+        <span className="eyebrow eyebrow--dot mb-3 text-[16px]">Market Intelligence</span>
+        <h2 className="display text-[72px] font-normal text-[#f4efe2] mb-4">
           The Monthly <em className="it text-[#ffd9a0]">Brief</em>.
         </h2>
         <p className="lede text-[#f4efe2]/80 text-sm sm:text-base mb-10 mx-auto">
@@ -43,7 +43,7 @@ export default function Newsletter() {
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="flex flex-col sm:flex-row items-stretch gap-3">
               <div className="field flex-1 text-left">
-                <label htmlFor="nlEmail">Email address</label>
+                <label htmlFor="nlEmail" className="text-[12px]">Email address</label>
                 <input
                   id="nlEmail"
                   type="email"
@@ -51,7 +51,7 @@ export default function Newsletter() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@email.com"
-                  className="w-full"
+                  className="w-full bg-[#1a1818]"
                 />
               </div>
               <div className="sm:self-end">

@@ -44,16 +44,16 @@ export default function HomeValuation({ onOpenContact }: HomeValuationProps) {
   };
 
   return (
-    <section id="valuation" className="sec sec--dark" aria-label="Home valuation">
+    <section id="valuation" className="sec bg-[#04343F] text-[#f4efe2]" aria-label="Home valuation">
       <div className="wrap">
         {/* Head */}
         <div className="sec-head sec-head--center mb-16">
           <div>
-            <span className="eyebrow eyebrow--dot">Home Valuation</span>
-            <h2 className="h2 text-[#f4efe2] mt-4">
+            <span className="eyebrow eyebrow--dot text-[16px]">Home Valuation</span>
+            <h2 className="h2 text-[72px] text-[#f4efe2] mt-4">
               What's Your Home <em className="it text-[#ffd9a0]">Worth</em>?
             </h2>
-            <p className="lede text-[#f4efe2]/80 mt-3 mx-auto">
+            <p className="lede text-[18px] text-[#f4efe2]/80 mt-3 mx-auto">
               Start with an instant range based on comparable South Florida price-per-foot, then get a considered valuation from Miguel.
             </p>
           </div>
@@ -62,7 +62,7 @@ export default function HomeValuation({ onOpenContact }: HomeValuationProps) {
         {/* Valuation Form Card */}
         <form
           onSubmit={handleCalculate}
-          className="max-w-4xl mx-auto border border-[rgba(244,239,226,0.12)] bg-[#141a1d]/60 backdrop-blur-md p-6 sm:p-12 shadow-2xl space-y-6"
+          className="max-w-4xl mx-auto border border-[rgba(244,239,226,0.12)] bg-[#131a1b] backdrop-blur-md p-6 sm:p-12 shadow-2xl space-y-6"
         >
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div className="field">

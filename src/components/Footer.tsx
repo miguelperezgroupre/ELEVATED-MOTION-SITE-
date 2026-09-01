@@ -14,14 +14,14 @@ export default function Footer({ onNavigate, onOpenContact }: FooterProps) {
   };
 
   return (
-    <footer className="bg-[#090d0e] text-[#f4efe2] pt-20 pb-12 border-t border-[rgba(244,239,226,0.08)]">
+    <footer className="bg-[#040607] text-[#f4efe2] pt-20 pb-12 border-t border-[rgba(244,239,226,0.08)]">
       <div className="wrap space-y-16">
         {/* Top 4-Column Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12">
           {/* Brand Col */}
           <div className="lg:col-span-2 space-y-4">
             <div>
-              <span className="font-serif text-2xl tracking-tight text-[#f4efe2] font-normal leading-tight">
+              <span className="font-serif text-[30px] tracking-tight text-[#f4efe2] font-normal leading-tight">
                 South Florida <span className="italic font-serif">Elevated</span>
               </span>
               <span className="block font-mono text-[10px] tracking-[0.2em] uppercase text-[#c9a24a] mt-0.5">

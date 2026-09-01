@@ -16,8 +16,8 @@ export default function LifestyleCollections({ onOpenContact }: LifestyleCollect
         {/* Head */}
         <div className="sec-head sec-head--center mb-16">
           <div>
-            <span className="eyebrow eyebrow--dot">Lifestyle Collections</span>
-            <h2 className="h2 text-[#f4efe2] mt-4">
+            <span className="eyebrow eyebrow--dot text-[16px]">Lifestyle Collections</span>
+            <h2 className="h2 text-[74px] text-[#f4efe2] mt-4">
               Live By <em className="it text-[#ffd9a0]">Design</em>
             </h2>
           </div>

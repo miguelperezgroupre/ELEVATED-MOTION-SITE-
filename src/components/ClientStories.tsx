@@ -28,8 +28,8 @@ export default function ClientStories() {
         {/* Head */}
         <div className="sec-head sec-head--center mb-16">
           <div>
-            <span className="eyebrow">Client Stories</span>
-            <h2 className="h2 text-[#1a1e24] mt-4">In Their <em className="it text-[#9a7629]">Words</em></h2>
+            <span className="eyebrow text-[16px]">Client Stories</span>
+            <h2 className="h2 text-[72px] text-[#1a1e24] mt-4">In Their <em className="it text-[#9a7629]">Words</em></h2>
           </div>
         </div>
 

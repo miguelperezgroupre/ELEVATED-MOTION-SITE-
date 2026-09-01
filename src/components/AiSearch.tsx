@@ -76,11 +76,11 @@ export default function AiSearch({ onSelectProperty }: AiSearchProps) {
   };
 
   return (
-    <section id="ai" className="sec sec--dark border-t border-[rgba(244,239,226,0.08)]" aria-label="AI property search">
-      <div className="wrap">
+    <section id="ai" className="sec bg-[#04343F] text-[#f4efe2] border-t border-[rgba(244,239,226,0.08)]" aria-label="AI property search">
+      <div className="wrap flex flex-col items-center text-center">
         {/* Head */}
         <div className="max-w-3xl mb-12">
-          <span className="eyebrow eyebrow--dot mb-3">AI Property Search</span>
+          <span className="eyebrow eyebrow--dot mb-3 mx-auto justify-center">AI Property Search</span>
           <h2 className="h2 text-[#f4efe2]">
             Describe Your <em className="it text-[#ffd9a0]">Dream Home</em>
           </h2>
@@ -91,7 +91,7 @@ export default function AiSearch({ onSelectProperty }: AiSearchProps) {
 
         {/* AI Form */}
         <form
-          className="max-w-4xl"
+          className="max-w-4xl w-full"
           onSubmit={(e) => {
             e.preventDefault();
             handleSearch();
@@ -122,7 +122,7 @@ export default function AiSearch({ onSelectProperty }: AiSearchProps) {
           </div>
 
           {/* Preset chips */}
-          <div className="flex flex-wrap gap-2 mt-4">
+          <div className="flex flex-wrap justify-center gap-2 mt-4">
             {AI_EXAMPLES.map((example) => (
               <button
                 key={example}
@@ -137,7 +137,7 @@ export default function AiSearch({ onSelectProperty }: AiSearchProps) {
 
           {/* Status message */}
           {status && (
-            <div className="mt-4 font-mono text-xs text-[#c9a24a] flex items-center gap-2" role="status" aria-live="polite">
+            <div className="mt-4 font-mono text-xs text-[#c9a24a] flex items-center justify-center gap-2" role="status" aria-live="polite">
               <span className="w-2 h-2 rounded-full bg-[#c9a24a] animate-ping" />
               {status}
             </div>
@@ -149,7 +149,7 @@ export default function AiSearch({ onSelectProperty }: AiSearchProps) {
           {results && (
             <div className="space-y-8 animate-fadeIn">
               {/* Parsed criteria tags */}
-              <div className="flex flex-wrap items-center gap-2 pb-4 border-b border-[rgba(244,239,226,0.1)]">
+              <div className="flex flex-wrap items-center justify-center gap-2 pb-4 border-b border-[rgba(244,239,226,0.1)]">
                 <span className="font-mono text-[11px] text-[#f4efe2]/50 uppercase tracking-wider mr-2">
                   Extracted Filters:
                 </span>

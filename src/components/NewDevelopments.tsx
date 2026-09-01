@@ -16,8 +16,8 @@ export default function NewDevelopments({ onOpenContact }: NewDevelopmentsProps)
         {/* Head */}
         <div className="sec-head">
           <div>
-            <span className="eyebrow">New Developments</span>
-            <h2 className="h2 text-[#1a1e24]">
+            <span className="eyebrow text-[16px]">New Developments</span>
+            <h2 className="h2 text-[72px] text-[#1a1e24]">
               Rising <em className="it text-[#9a7629]">Icons</em>
             </h2>
           </div>

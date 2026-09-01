@@ -219,7 +219,7 @@ export default function FeaturedListings({ onSelectProperty, onOpenContact }: Fe
           <p className="font-mono text-xs text-[#6b7280]">
             Sample inventory shown — connect an MLS/IDX feed for live listings
           </p>
-          <button className="btn btn--ink" onClick={onOpenContact}>
+          <button className="btn btn--gold" onClick={onOpenContact}>
             <span>View the full portfolio</span>
             <ArrowRight className="w-4 h-4" />
           </button>
