@@ -8,7 +8,7 @@ interface ListingsViewProps {
   onOpenContact: (intent?: string, message?: string) => void;
 }
 
-const IDX_URL = "***";
+const IDX_URL = "https://sef.mlsmatrix.com/Matrix/public/IDX.aspx?idx=4a851ff3";
 
 export default function ListingsView({ onSelectProperty, onOpenContact }: ListingsViewProps) {
   const [viewMode, setViewMode] = useState<'idx' | 'featured'>('idx');
