@@ -26,6 +26,7 @@ import DevelopmentsView from './components/views/DevelopmentsView';
 import NeighborhoodsView from './components/views/NeighborhoodsView';
 import InsightsView from './components/views/InsightsView';
 import AboutView from './components/views/AboutView';
+import ListingsView from './views/ListingsView';
 
 import { Property, NeighborhoodDetail } from './types';
 
@@ -40,7 +41,7 @@ export default function App() {
   useEffect(() => {
     const handleHash = () => {
       const hash = window.location.hash.replace('#', '').toLowerCase();
-      if (['buy', 'sell', 'relocate', 'invest', 'developments', 'neighborhoods', 'insights', 'about'].includes(hash)) {
+      if (['buy', 'sell', 'relocate', 'invest', 'developments', 'neighborhoods', 'insights', 'about', 'listings'].includes(hash)) {
         setCurrentView(hash as NavView);
       }
     };
@@ -206,6 +207,12 @@ export default function App() {
           />
         )}
 
+        {currentView === 'listings' && (
+          <ListingsView
+            onSelectProperty={(p) => setSelectedProperty(p)}
+            onOpenContact={handleOpenContact}
+          />
+        )}
         {currentView === 'about' && (
           <AboutView
             onOpenContact={handleOpenContact}
