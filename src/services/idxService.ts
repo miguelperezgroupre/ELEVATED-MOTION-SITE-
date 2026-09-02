@@ -1,9 +1,27 @@
 import { Property, Development, MarketCityData } from '../types';
 
-const BASE_URL = import.meta.env.VITE_BRIDGEDATA_BASE_URL || 'https://api.bridgedataoutput.com/api/v2/miamire';
-const SERVER_TOKEN = import.meta.env.VITE_BRIDGEDATA_SERVER_TOKEN || 'DEMO_TOKEN';
+// ── Configuration ─────────────────────────────────────────────
+// These are set via Vite environment variables (.env file)
+// VITE_BRIDGEDATA_SERVER_TOKEN = your server token from Bridgedata
+// VITE_BRIDGEDATA_BROWSER_TOKEN = your browser token from Bridgedata
+// VITE_BRIDGEDATA_DATASET = e.g. 'miamire' or 'test' (for testing)
+// VITE_BRIDGEDATA_USE_ODATA = 'true' for OData endpoint, 'false' for REST
 
-// Map Bridgedata's RESO fields to your Property interface
+const SERVER_TOKEN = import.meta.env.VITE_BRIDGEDATA_SERVER_TOKEN || '';
+const BROWSER_TOKEN = import.meta.env.VITE_BRIDGEDATA_BROWSER_TOKEN || '';
+const DATASET = import.meta.env.VITE_BRIDGEDATA_DATASET || 'miamire';
+const USE_ODATA = import.meta.env.VITE_BRIDGEDATA_USE_ODATA === 'true';
+
+// The token to use — prefer server token, fall back to browser token
+const ACCESS_TOKEN = SERVER_TOKEN || BROWSER_TOKEN || '';
+
+// Base URL depends on whether we're using OData or REST
+const BASE_URL = USE_ODATA
+  ? `https://api.bridgedataoutput.com/api/v2/OData/${DATASET}`
+  : `https://api.bridgedataoutput.com/api/v2/pub`;
+
+// ── Types ─────────────────────────────────────────────────────
+
 interface BridgedataProperty {
   ResourceId: string;
   ListPrice: number;
@@ -22,39 +40,52 @@ interface BridgedataProperty {
   LotSizeSquareFeet?: number;
   YearBuilt?: number;
   Photos?: { Uri: string; Order: number }[];
-  UnitNumber?: string;
   StreetNumber?: string;
   StreetName?: string;
   StreetSuffix?: string;
-  ListOfficeName?: string;
-  StandardStatus?: string;
+  UnitNumber?: string;
   Neighborhood?: string;
   PropertySubType?: string;
+  StandardStatus?: string;
+  MlsId?: string;
+  Media?: { MediaURL?: string; MediaCategory?: string }[];
 }
 
+// ── Mock Fallback Data ────────────────────────────────────────
+// Used when the API is unavailable or credentials are invalid
+
+import { PROPERTIES } from '../data';
+
+// ── Service ───────────────────────────────────────────────────
+
 class IdxService {
+  private isUsingMockData = false;
+
   private async fetchWithToken(endpoint: string, params: Record<string, string> = {}): Promise<any> {
+    if (!ACCESS_TOKEN) {
+      throw new Error('No Bridgedata API token configured. Set VITE_BRIDGEDATA_SERVER_TOKEN in .env');
+    }
+
     const queryString = new URLSearchParams({
       ...params,
-      access_token: SERVER_TOKEN,
+      access_token: ACCESS_TOKEN,
     }).toString();
 
     const url = `${BASE_URL}/${endpoint}?${queryString}`;
-    console.log(`[IdxService] Fetching: ${url.substring(0, 100)}...`);
 
     try {
       const response = await fetch(url);
       if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+        const errBody = await response.json().catch(() => ({}));
+        const msg = errBody?.bundle?.message || errBody?.error?.message || `HTTP ${response.status}`;
+        throw new Error(msg);
       }
       return await response.json();
     } catch (error) {
-      console.error(`[IdxService] Error fetching ${endpoint}:`, error);
+      console.error(`[IdxService] Fetch error:`, error);
       throw error;
     }
   }
-
-  // ── Property Listings ──────────────────────────────────────
 
   async getProperties(params: {
     city?: string;
@@ -68,42 +99,82 @@ class IdxService {
     status?: string;
     sort?: string;
   } = {}): Promise<Property[]> {
-    // Build OData $filter
+    // Try the real API first
+    try {
+      const data = await this.fetchFromApi(params);
+      this.isUsingMockData = false;
+      return data;
+    } catch (error) {
+      console.warn('[IdxService] API failed, falling back to mock data:', error);
+      this.isUsingMockData = true;
+      return this.getMockProperties(params);
+    }
+  }
+
+  private async fetchFromApi(params: {
+    city?: string; propertyType?: string; minPrice?: number; maxPrice?: number;
+    beds?: number; baths?: number; limit?: number; offset?: number;
+    status?: string; sort?: string;
+  }): Promise<Property[]> {
+    if (USE_ODATA) {
+      return this.fetchODataProperties(params);
+    } else {
+      return this.fetchRestProperties(params);
+    }
+  }
+
+  private async fetchODataProperties(params: {
+    city?: string; propertyType?: string; minPrice?: number; maxPrice?: number;
+    beds?: number; baths?: number; limit?: number; offset?: number;
+    status?: string; sort?: string;
+  }): Promise<Property[]> {
     const filters: string[] = [];
 
-    // Default to active listings
     if (params.status) {
       filters.push(`StandardStatus eq '${params.status}'`);
     } else {
       filters.push(`StandardStatus eq 'Active'`);
     }
-
-    if (params.city) {
-      filters.push(`City eq '${params.city}'`);
-    }
-
-    if (params.minPrice) {
-      filters.push(`ListPrice ge ${params.minPrice}`);
-    }
-
-    if (params.maxPrice) {
-      filters.push(`ListPrice le ${params.maxPrice}`);
-    }
-
-    if (params.beds) {
-      filters.push(`BedroomsTotal ge ${params.beds}`);
-    }
-
-    if (params.baths) {
-      filters.push(`BathroomsTotalInteger ge ${params.baths}`);
-    }
-
+    if (params.city) filters.push(`City eq '${params.city}'`);
+    if (params.minPrice) filters.push(`ListPrice ge ${params.minPrice}`);
+    if (params.maxPrice) filters.push(`ListPrice le ${params.maxPrice}`);
+    if (params.beds) filters.push(`BedroomsTotal ge ${params.beds}`);
+    if (params.baths) filters.push(`BathroomsTotalInteger ge ${params.baths}`);
     if (params.propertyType && params.propertyType !== 'all') {
       filters.push(`PropertyType eq '${params.propertyType}'`);
     }
 
-    // MiamiRE MLS specific filter
-    filters.push(`MlsId eq 'MiamiRE'`);
+    const queryParams: Record<string, string> = {
+      $filter: filters.join(' and '),
+      $top: String(params.limit || 24),
+      $skip: String(params.offset || 0),
+      $orderby: params.sort || 'ListPrice desc',
+      $count: 'true',
+    };
+
+    const data = await this.fetchWithToken('Property', queryParams);
+    return (data.value || []).map((l: BridgedataProperty, i: number) => this.mapListing(l, i));
+  }
+
+  private async fetchRestProperties(params: {
+    city?: string; propertyType?: string; minPrice?: number; maxPrice?: number;
+    beds?: number; baths?: number; limit?: number; offset?: number;
+    status?: string; sort?: string;
+  }): Promise<Property[]> {
+    const filters: string[] = [];
+    if (params.status) {
+      filters.push(`StandardStatus eq '${params.status}'`);
+    } else {
+      filters.push(`StandardStatus eq 'Active'`);
+    }
+    if (params.city) filters.push(`City eq '${params.city}'`);
+    if (params.minPrice) filters.push(`ListPrice ge ${params.minPrice}`);
+    if (params.maxPrice) filters.push(`ListPrice le ${params.maxPrice}`);
+    if (params.beds) filters.push(`BedroomsTotal ge ${params.beds}`);
+    if (params.baths) filters.push(`BathroomsTotalInteger ge ${params.baths}`);
+    if (params.propertyType && params.propertyType !== 'all') {
+      filters.push(`PropertyType eq '${params.propertyType}'`);
+    }
 
     const queryParams: Record<string, string> = {
       $filter: filters.join(' and '),
@@ -114,160 +185,135 @@ class IdxService {
     };
 
     const data = await this.fetchWithToken('listings', queryParams);
-
-    // Transform Bridgedata response to your Property interface
-    const properties: Property[] = (data.value || data.bundle || []).map(
-      (listing: BridgedataProperty) => ({
-        id: listing.ResourceId,
-        name: `${listing.StreetNumber || ''} ${listing.StreetName || ''} ${listing.StreetSuffix || ''}`.trim(),
-        city: listing.City || '',
-        area: this.mapCityToArea(listing.City),
-        badge: this.getBadge(listing),
-        price: listing.ListPrice || 0,
-        beds: listing.BedroomsTotal || 0,
-        baths: listing.BathroomsTotalInteger || 0,
-        sqft: listing.LivingArea || 0,
-        type: listing.PropertyType?.includes('Single Family') ? 'house' : 'condo',
-        grad: this.getGradient(),
-        img: listing.Photos?.[0]?.Uri || '/placeholder.jpg',
-        tags: this.extractTags(listing),
-        desc: listing.PublicRemarks || '',
-        neighborhood: listing.Neighborhood,
-        featured: false,
-      })
-    );
-
-    return properties;
+    return (data.value || data.bundle || []).map((l: BridgedataProperty, i: number) => this.mapListing(l, i));
   }
 
-  // ── Single Property Detail ────────────────────────────────
-
   async getPropertyById(id: string): Promise<Property | null> {
-    const data = await this.fetchWithToken(`listings/${id}`);
+    try {
+      if (USE_ODATA) {
+        const data = await this.fetchWithToken(`Property(${id})`);
+        const listing: BridgedataProperty = data;
+        if (!listing?.ResourceId) return null;
+        return this.mapListing(listing, 0);
+      } else {
+        const data = await this.fetchWithToken(`listings/${id}`);
+        const listing: BridgedataProperty = data.value || data;
+        if (!listing?.ResourceId) return null;
+        return this.mapListing(listing, 0);
+      }
+    } catch {
+      // Fallback to mock
+      return PROPERTIES.find(p => p.id === id) || null;
+    }
+  }
 
-    const listing: BridgedataProperty = data.value || data;
+  async isApiWorking(): Promise<boolean> {
+    try {
+      await this.fetchWithToken('Property', { $top: '1' });
+      return true;
+    } catch {
+      return false;
+    }
+  }
 
-    if (!listing || !listing.ResourceId) return null;
+  // ── Mock Data Fallback ────────────────────────────────────
+
+  private getMockProperties(params: {
+    city?: string; propertyType?: string; minPrice?: number; maxPrice?: number;
+    beds?: number; baths?: number; limit?: number; offset?: number; sort?: string;
+  }): Property[] {
+    let result = [...PROPERTIES];
+
+    if (params.city) {
+      result = result.filter(p => p.city.toLowerCase().includes(params.city!.toLowerCase()));
+    }
+    if (params.propertyType && params.propertyType !== 'all') {
+      const isHouse = params.propertyType.toLowerCase().includes('single family') || params.propertyType.toLowerCase().includes('townhouse');
+      result = result.filter(p => p.type === (isHouse ? 'house' : 'condo'));
+    }
+    if (params.minPrice) result = result.filter(p => p.price >= params.minPrice!);
+    if (params.maxPrice) result = result.filter(p => p.price <= params.maxPrice!);
+    if (params.beds) result = result.filter(p => p.beds >= params.beds!);
+    if (params.baths) result = result.filter(p => p.baths >= params.baths!);
+
+    result.sort((a, b) => {
+      switch (params.sort) {
+        case 'ListPrice asc': return a.price - b.price;
+        case 'BedroomsTotal desc': return b.beds - a.beds;
+        case 'LivingArea desc': return b.sqft - a.sqft;
+        default: return b.price - a.price;
+      }
+    });
+
+    return result.slice(0, params.limit || 24);
+  }
+
+  // ── Mapping ─────────────────────────────────────────────
+
+  private mapListing(l: BridgedataProperty, i: number): Property {
+    // Get photo URL - handle both OData (Media) and REST (Photos) formats
+    let img = '/placeholder.jpg';
+    if (l.Photos?.[0]?.Uri) {
+      img = l.Photos[0].Uri;
+    } else if (l.Media?.[0]?.MediaURL) {
+      img = l.Media[0].MediaURL;
+    }
 
     return {
-      id: listing.ResourceId,
-      name: `${listing.StreetNumber || ''} ${listing.StreetName || ''} ${listing.StreetSuffix || ''}`.trim(),
-      city: listing.City || '',
-      area: this.mapCityToArea(listing.City),
-      badge: this.getBadge(listing),
-      price: listing.ListPrice || 0,
-      beds: listing.BedroomsTotal || 0,
-      baths: listing.BathroomsTotalInteger || 0,
-      sqft: listing.LivingArea || 0,
-      type: listing.PropertyType?.includes('Single Family') ? 'house' : 'condo',
-      grad: this.getGradient(),
-      img: listing.Photos?.[0]?.Uri || '/placeholder.jpg',
-      tags: this.extractTags(listing),
-      desc: listing.PublicRemarks || '',
-      neighborhood: listing.Neighborhood,
+      id: l.ResourceId || `prop-${i}`,
+      name: `${l.StreetNumber || ''} ${l.StreetName || ''} ${l.StreetSuffix || ''}`.trim() || `Property #${i + 1}`,
+      city: l.City || '',
+      area: this.mapCityToArea(l.City),
+      badge: this.getBadge(l),
+      price: l.ListPrice || 0,
+      beds: l.BedroomsTotal || 0,
+      baths: l.BathroomsTotalInteger || 0,
+      sqft: l.LivingArea || 0,
+      type: this.getPropertyType(l),
+      grad: this.gradients[i % this.gradients.length],
+      img,
+      tags: this.extractTags(l),
+      desc: l.PublicRemarks || '',
+      neighborhood: l.Neighborhood || l.City,
       featured: false,
     };
   }
 
-  // ── Market Statistics ─────────────────────────────────────
-
-  async getMarketStats(city?: string): Promise<any> {
-    const params: Record<string, string> = {
-      $apply: `groupby((City))aggregate(ListPrice with average as AvgPrice, ListPrice with max as MaxPrice, ListPrice with min as MinPrice, ListPrice with count as TotalListings)`,
-    };
-
-    if (city) {
-      params.$filter = `City eq '${city}'`;
-    }
-
-    return await this.fetchWithToken('listings', params);
-  }
-
-  // ── New Developments / Pre-construction (via custom fields) ──
-
-  async getNewDevelopments(): Promise<Development[]> {
-    const data = await this.getProperties({
-      status: 'Active',
-      limit: 50,
-      sort: 'ListPrice desc',
-    });
-
-    // Filter for new construction — exact field depends on MLS
-    // MiamiRE may use PropertySubType = 'New Construction'
-    const filtered = data.filter((p) => p.tags.includes('New construction'));
-
-    // Map to Development interface
-    return filtered.slice(0, 6).map((p) => ({
-      id: `dev-${p.id}`,
-      name: p.name,
-      loc: p.city,
-      area: this.mapCityToDevArea(p.city),
-      from: `From $${(p.price / 2).toLocaleString()}`,
-      dev: 'MLS Listing',
-      year: new Date().getFullYear().toString(),
-      status: 'Active',
-      grad: p.grad,
-      img: p.img,
-      residences: 0,
-      desc: p.desc,
-    }));
-  }
-
-  // ── Helpers ─────────────────────────────────────────────
-
-  private mapCityToArea(city: string): 'miami' | 'ftl' | 'pb' {
+  private mapCityToArea(city: string | undefined): 'miami' | 'ftl' | 'pb' {
     const c = city?.toLowerCase() || '';
-    if (c.includes('miami') || c.includes('sunny') || c.includes('coconut') || c.includes('brickell') || c.includes('edgewater') || c.includes('aventura') || c.includes('beach')) {
-      return 'miami';
-    }
-    if (c.includes('fort lauderdale') || c.includes('lauderdale') || c.includes('las olas') || c.includes('tarpon') || c.includes('victoria park') || c.includes('wilton') || c.includes('broward')) {
-      return 'ftl';
-    }
-    if (c.includes('palm beach') || c.includes('boca') || c.includes('delray')) {
-      return 'pb';
-    }
+    if (/miami|sunny|grove|gables|brickell|edgewater|aventura|beach/.test(c)) return 'miami';
+    if (/fort lauderdale|lauderdale|las olas|tarpon|victoria park|wilton|broward/.test(c)) return 'ftl';
+    if (/palm beach|boca|delray|jupiter/.test(c)) return 'pb';
     return 'miami';
   }
 
-  private mapCityToDevArea(city: string): Development['area'] {
-    const c = city?.toLowerCase() || '';
-    if (c.includes('sunny')) return 'sunnyisles';
-    if (c.includes('edgewater')) return 'edgewater';
-    if (c.includes('brickell') || c.includes('downtown miami')) return 'brickell';
-    if (c.includes('aventura')) return 'aventura';
-    if (c.includes('fort lauderdale') || c.includes('lauderdale')) return 'ftl';
-    return 'miami';
+  private getBadge(l: BridgedataProperty): string {
+    if (l.WaterFront) return 'Waterfront';
+    if (l.NewConstruction) return 'New Construction';
+    if (l.PropertyType?.toLowerCase().includes('condo')) return 'Condo';
+    if (l.Pool) return 'Pool';
+    return 'Listed';
   }
 
-  private getBadge(listing: BridgedataProperty): string {
-    if (listing.WaterFront) return 'Waterfront';
-    if (listing.NewConstruction) return 'New Construction';
-    if (listing.PropertyType === 'Condo' || listing.PropertyType === 'Condominium') return 'Condo';
-    if (listing.Pool) return 'Pool';
-    return 'Active';
+  private getPropertyType(l: BridgedataProperty): 'house' | 'condo' {
+    const t = (l.PropertyType || '').toLowerCase();
+    return t.includes('single family') || t.includes('townhouse') || t.includes('house') || t.includes('residential') ? 'house' : 'condo';
   }
 
-  private extractTags(listing: BridgedataProperty): string[] {
+  private extractTags(l: BridgedataProperty): string[] {
     const tags: string[] = [];
-    if (listing.WaterFront) tags.push('Waterfront');
-    if (listing.NewConstruction) tags.push('New construction');
-    if (listing.Pool) tags.push('Pool');
-    if (listing.LotSizeSquareFeet && listing.LotSizeSquareFeet > 10000) tags.push('Large lot');
-    if (listing.YearBuilt && listing.YearBuilt >= 2020) tags.push('Newer construction');
-    if (listing.PropertyType === 'Condo' || listing.PropertyType === 'Condominium') tags.push('Condo');
-    if (listing.PropertyType?.includes('Single Family')) tags.push('House');
+    if (l.WaterFront) tags.push('Waterfront');
+    if (l.NewConstruction) tags.push('New construction');
+    if (l.Pool) tags.push('Pool');
+    if ((l.LotSizeSquareFeet || 0) > 10000) tags.push('Large lot');
+    if ((l.YearBuilt || 0) >= 2020) tags.push('Newer construction');
+    if (l.PropertyType?.toLowerCase().includes('condo')) tags.push('Condo');
+    if (this.getPropertyType(l) === 'house') tags.push('House');
     tags.push('Luxury');
     return tags;
   }
 
   private gradients = ['g-dusk', 'g-sunset', 'g-ocean', 'g-night', 'g-interior', 'g-tower'];
-  private gradIndex = 0;
-
-  private getGradient(): string {
-    const g = this.gradients[this.gradIndex % this.gradients.length];
-    this.gradIndex++;
-    return g;
-  }
 }
 
 export const idxService = new IdxService();
