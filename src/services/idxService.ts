@@ -23,7 +23,8 @@ const BASE_URL = USE_ODATA
 // ── Types ─────────────────────────────────────────────────────
 
 interface BridgedataProperty {
-  ResourceId: string;
+  ListingKey?: string;
+  ListingId?: string;
   ListPrice: number;
   BedroomsTotal: number;
   BathroomsTotalInteger: number;
@@ -33,22 +34,21 @@ interface BridgedataProperty {
   StateOrProvince: string;
   PostalCode: string;
   PublicRemarks: string;
-  ListingStatus: string;
-  WaterFront?: boolean;
-  NewConstruction?: boolean;
-  Pool?: boolean;
+  StandardStatus: string;
+  WaterfrontYN?: boolean;
+  NewConstructionYN?: boolean;
+  PoolPrivateYN?: boolean;
   LotSizeSquareFeet?: number;
   YearBuilt?: number;
-  Photos?: { Uri: string; Order: number }[];
   StreetNumber?: string;
   StreetName?: string;
   StreetSuffix?: string;
   UnitNumber?: string;
-  Neighborhood?: string;
+  SubdivisionName?: string;
   PropertySubType?: string;
-  StandardStatus?: string;
-  MlsId?: string;
-  Media?: { MediaURL?: string; MediaCategory?: string }[];
+  UnparsedAddress?: string;
+  PhotosCount?: number;
+  Media?: { MediaURL?: string; MediaCategory?: string; MediaObjectID?: string; MediaKey?: string }[];
 }
 
 // ── Mock Fallback Data ────────────────────────────────────────
@@ -191,14 +191,14 @@ class IdxService {
   async getPropertyById(id: string): Promise<Property | null> {
     try {
       if (USE_ODATA) {
-        const data = await this.fetchWithToken(`Property(${id})`);
+        const data = await this.fetchWithToken(`Property('${id}')`);
         const listing: BridgedataProperty = data;
-        if (!listing?.ResourceId) return null;
+        if (!listing?.ListingKey && !listing?.ListingId) return null;
         return this.mapListing(listing, 0);
       } else {
         const data = await this.fetchWithToken(`listings/${id}`);
         const listing: BridgedataProperty = data.value || data;
-        if (!listing?.ResourceId) return null;
+        if (!listing?.ListingKey && !listing?.ListingId) return null;
         return this.mapListing(listing, 0);
       }
     } catch {
@@ -253,15 +253,17 @@ class IdxService {
   private mapListing(l: BridgedataProperty, i: number): Property {
     // Get photo URL - handle both OData (Media) and REST (Photos) formats
     let img = '/placeholder.jpg';
-    if (l.Photos?.[0]?.Uri) {
-      img = l.Photos[0].Uri;
-    } else if (l.Media?.[0]?.MediaURL) {
+    if (l.Media?.[0]?.MediaURL) {
       img = l.Media[0].MediaURL;
+    } else if (l.Photos?.[0]?.Uri) {
+      img = l.Photos[0].Uri;
+    } else if (l.Photos?.[0]?.Uri800) {
+      img = l.Photos[0].Uri800;
     }
 
     return {
-      id: l.ResourceId || `prop-${i}`,
-      name: `${l.StreetNumber || ''} ${l.StreetName || ''} ${l.StreetSuffix || ''}`.trim() || `Property #${i + 1}`,
+      id: l.ListingKey || l.ListingId || `prop-${i}`,
+      name: l.UnparsedAddress || `${l.StreetNumber || ''} ${l.StreetName || ''} ${l.StreetSuffix || ''}`.trim() || `Property #${i + 1}`,
       city: l.City || '',
       area: this.mapCityToArea(l.City),
       badge: this.getBadge(l),
@@ -274,7 +276,7 @@ class IdxService {
       img,
       tags: this.extractTags(l),
       desc: l.PublicRemarks || '',
-      neighborhood: l.Neighborhood || l.City,
+      neighborhood: l.SubdivisionName || l.City,
       featured: false,
     };
   }
@@ -288,10 +290,10 @@ class IdxService {
   }
 
   private getBadge(l: BridgedataProperty): string {
-    if (l.WaterFront) return 'Waterfront';
-    if (l.NewConstruction) return 'New Construction';
+    if (l.WaterfrontYN) return 'Waterfront';
+    if (l.NewConstructionYN) return 'New Construction';
     if (l.PropertyType?.toLowerCase().includes('condo')) return 'Condo';
-    if (l.Pool) return 'Pool';
+    if (l.PoolPrivateYN) return 'Pool';
     return 'Listed';
   }
 
@@ -302,9 +304,9 @@ class IdxService {
 
   private extractTags(l: BridgedataProperty): string[] {
     const tags: string[] = [];
-    if (l.WaterFront) tags.push('Waterfront');
-    if (l.NewConstruction) tags.push('New construction');
-    if (l.Pool) tags.push('Pool');
+    if (l.WaterfrontYN) tags.push('Waterfront');
+    if (l.NewConstructionYN) tags.push('New construction');
+    if (l.PoolPrivateYN) tags.push('Pool');
     if ((l.LotSizeSquareFeet || 0) > 10000) tags.push('Large lot');
     if ((l.YearBuilt || 0) >= 2020) tags.push('Newer construction');
     if (l.PropertyType?.toLowerCase().includes('condo')) tags.push('Condo');

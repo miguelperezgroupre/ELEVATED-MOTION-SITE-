@@ -51,9 +51,12 @@ class LeadService {
         const response = await fetch(`${GHL_API}/contacts/`, {
           method: 'POST',
           headers: {
-            'Authorization': `Bearer ***}`,
+            'Authorization': `Bearer ${GHL_TOKEN}`,
             'Version': '2021-07-28',
             'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Origin': 'https://www.southfloridaelevated.com',
+            'Referer': 'https://www.southfloridaelevated.com/',
           },
           body: JSON.stringify(body),
         });

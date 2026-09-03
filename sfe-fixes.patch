@@ -1,0 +1,195 @@
+From 349543c4138fe67e4bdb870ccf9e821cc6903553 Mon Sep 17 00:00:00 2001
+From: Miguel Perez <miguelperezgroup.re@gmail.com>
+Date: Thu, 3 Sep 2026 19:39:38 +0000
+Subject: [PATCH 1/2] feat(idx): connect live Miami MLS via BridgeData with
+ RESO 1.7 field mapping
+
+- Fix RESO field names: ListingKey, StandardStatus, WaterfrontYN, etc.
+- Use canonical 'Property' entity via OData endpoint
+- Photo mapping prefers Media array (cdn.rets.ly URLs)
+- Handle Property('key') lookup pattern for details
+- Document env vars for BridgeData + GoHighLevel in .env.example
+---
+ .env.example               | 17 +++++++++++--
+ src/services/idxService.ts | 52 ++++++++++++++++++++------------------
+ 2 files changed, 42 insertions(+), 27 deletions(-)
+
+diff --git a/.env.example b/.env.example
+index 5dd22a5..9b1aea8 100644
+--- a/.env.example
++++ b/.env.example
+@@ -1,5 +1,18 @@
++# ── BridgeData (MLS Listings) ─────────────────────────────────────
++# Your approved Miami MLS data via BridgeData output
++# Generate tokens at https://bridgedataoutput.com
+ VITE_BRIDGEDATA_SERVER_TOKEN=
+ VITE_BRIDGEDATA_BROWSER_TOKEN=
+ VITE_BRIDGEDATA_CLIENT_ID=VB4GIIq86CIZfTJ3Mqn1
+-VITE_BRIDGEDATA_CLIENT_SECRET=
+-VITE_BRIDGEDATA_BASE_URL=https://api.bridgedataoutput.com/api/v2/pub
++VITE_BRIDGEDATA_BASE_URL=https://api.bridgedataoutput.com/api/v2/OData/miamire
++VITE_BRIDGEDATA_DATASET=miamire
++VITE_BRIDGEDATA_USE_ODATA=true
++
++# ── GoHighLevel (Lead Capture) ────────────────────────────────
++# Create a Private Integration token at app.gohighlevel.com > Settings > Private Integrations
++VITE_GHL_TOKEN=
++VITE_GHL_LOCATION_ID=cRlvOrPOIs9VzJUR4Ju6
++
++# ── Firebase (optional) ───────────────────────────────────────
++VITE_FIREBASE_API_KEY=
++VITE_FIREBASE_PROJECT_ID=open-claw-502103
+diff --git a/src/services/idxService.ts b/src/services/idxService.ts
+index ad9d7e2..c4eefd8 100644
+--- a/src/services/idxService.ts
++++ b/src/services/idxService.ts
+@@ -23,7 +23,8 @@ const BASE_URL = USE_ODATA
+ // ── Types ─────────────────────────────────────────────────────
+
+ interface BridgedataProperty {
+-  ResourceId: string;
++  ListingKey?: string;
++  ListingId?: string;
+   ListPrice: number;
+   BedroomsTotal: number;
+   BathroomsTotalInteger: number;
+@@ -33,22 +34,21 @@ interface BridgedataProperty {
+   StateOrProvince: string;
+   PostalCode: string;
+   PublicRemarks: string;
+-  ListingStatus: string;
+-  WaterFront?: boolean;
+-  NewConstruction?: boolean;
+-  Pool?: boolean;
++  StandardStatus: string;
++  WaterfrontYN?: boolean;
++  NewConstructionYN?: boolean;
++  PoolPrivateYN?: boolean;
+   LotSizeSquareFeet?: number;
+   YearBuilt?: number;
+-  Photos?: { Uri: string; Order: number }[];
+   StreetNumber?: string;
+   StreetName?: string;
+   StreetSuffix?: string;
+   UnitNumber?: string;
+-  Neighborhood?: string;
++  SubdivisionName?: string;
+   PropertySubType?: string;
+-  StandardStatus?: string;
+-  MlsId?: string;
+-  Media?: { MediaURL?: string; MediaCategory?: string }[];
++  UnparsedAddress?: string;
++  PhotosCount?: number;
++  Media?: { MediaURL?: string; MediaCategory?: string; MediaObjectID?: string; MediaKey?: string }[];
+ }
+
+ // ── Mock Fallback Data ────────────────────────────────────────
+@@ -191,14 +191,14 @@ class IdxService {
+   async getPropertyById(id: string): Promise<Property | null> {
+     try {
+       if (USE_ODATA) {
+-        const data = await this.fetchWithToken(`Property(${id})`);
++        const data = await this.fetchWithToken(`Property('${id}')`);
+         const listing: BridgedataProperty = data;
+-        if (!listing?.ResourceId) return null;
++        if (!listing?.ListingKey && !listing?.ListingId) return null;
+         return this.mapListing(listing, 0);
+       } else {
+         const data = await this.fetchWithToken(`listings/${id}`);
+         const listing: BridgedataProperty = data.value || data;
+-        if (!listing?.ResourceId) return null;
++        if (!listing?.ListingKey && !listing?.ListingId) return null;
+         return this.mapListing(listing, 0);
+       }
+     } catch {
+@@ -253,15 +253,17 @@ class IdxService {
+   private mapListing(l: BridgedataProperty, i: number): Property {
+     // Get photo URL - handle both OData (Media) and REST (Photos) formats
+     let img = '/placeholder.jpg';
+-    if (l.Photos?.[0]?.Uri) {
+-      img = l.Photos[0].Uri;
+-    } else if (l.Media?.[0]?.MediaURL) {
++    if (l.Media?.[0]?.MediaURL) {
+       img = l.Media[0].MediaURL;
++    } else if (l.Photos?.[0]?.Uri) {
++      img = l.Photos[0].Uri;
++    } else if (l.Photos?.[0]?.Uri800) {
++      img = l.Photos[0].Uri800;
+     }
+
+     return {
+-      id: l.ResourceId || `prop-${i}`,
+-      name: `${l.StreetNumber || ''} ${l.StreetName || ''} ${l.StreetSuffix || ''}`.trim() || `Property #${i + 1}`,
++      id: l.ListingKey || l.ListingId || `prop-${i}`,
++      name: l.UnparsedAddress || `${l.StreetNumber || ''} ${l.StreetName || ''} ${l.StreetSuffix || ''}`.trim() || `Property #${i + 1}`,
+       city: l.City || '',
+       area: this.mapCityToArea(l.City),
+       badge: this.getBadge(l),
+@@ -274,7 +276,7 @@ class IdxService {
+       img,
+       tags: this.extractTags(l),
+       desc: l.PublicRemarks || '',
+-      neighborhood: l.Neighborhood || l.City,
++      neighborhood: l.SubdivisionName || l.City,
+       featured: false,
+     };
+   }
+@@ -288,10 +290,10 @@ class IdxService {
+   }
+
+   private getBadge(l: BridgedataProperty): string {
+-    if (l.WaterFront) return 'Waterfront';
+-    if (l.NewConstruction) return 'New Construction';
++    if (l.WaterfrontYN) return 'Waterfront';
++    if (l.NewConstructionYN) return 'New Construction';
+     if (l.PropertyType?.toLowerCase().includes('condo')) return 'Condo';
+-    if (l.Pool) return 'Pool';
++    if (l.PoolPrivateYN) return 'Pool';
+      return 'Listed';
+   }
+
+@@ -302,9 +304,9 @@ class IdxService {
+
+   private extractTags(l: BridgedataProperty): string[] {
+     const tags: string[] = [];
+-    if (l.WaterFront) tags.push('Waterfront');
+-    if (l.NewConstruction) tags.push('New construction');
+-    if (l.Pool) tags.push('Pool');
++    if (l.WaterfrontYN) tags.push('Waterfront');
++    if (l.NewConstructionYN) tags.push('New construction');
++    if (l.PoolPrivateYN) tags.push('Pool');
+     if ((l.LotSizeSquareFeet || 0) > 10000) tags.push('Large lot');
+     if ((l.YearBuilt || 0) >= 2020) tags.push('Newer construction');
+     if (l.PropertyType?.toLowerCase().includes('condo')) tags.push('Condo');
+--
+2.39.5
+
+
+From 3d399f274c8b6a3a265aa8b97b9772745f895a8c Mon Sep 17 00:00:00 2001
+From: Miguel Perez <miguelperezgroup.re@gmail.com>
+Date: Thu, 3 Sep 2026 19:40:46 +0000
+Subject: [PATCH 2/2] fix(leads): add browser-like headers to GHL API calls
+
+GoHighLevel's API is behind Cloudflare which blocks default fetch
+user-agents with error 1010. Add Origin/Referer/Accept headers so
+lead capture from southfloridaelevated.com reaches the CRM.
+---
+ src/services/leadService.ts | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/src/services/leadService.ts b/src/services/leadService.ts
+index 2d15c27..f37f465 100644
+--- a/src/services/leadService.ts
++++ b/src/services/leadService.ts
+@@ -54,6 +54,9 @@ class LeadService {
+             'Authorization': `Bearer ${GHL_TOKEN}`,
+             'Version': '2021-07-28',
+             'Content-Type': 'application/json',
++            'Accept': 'application/json',
++            'Origin': 'https://www.southfloridaelevated.com',
++            'Referer': 'https://www.southfloridaelevated.com/',
+           },
+           body: JSON.stringify(body),
+         });
+--
+2.39.5
