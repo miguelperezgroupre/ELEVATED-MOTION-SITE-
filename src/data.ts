@@ -200,8 +200,8 @@ export const PROPERTIES: Property[] = [
 /**
  * Live featured inventory represented by Miguel Perez / Luxe Properties.
  * Source: https://luxeknows.com/properties/sale  (pulled 2026-09-05)
- * Photos are served from the brokerage MLS CDN; each card links to the full
- * listing page. Refresh this list when the brokerage feed changes.
+ * Photos are self-hosted under public/listings/; each card links to the full
+ * listing page on the brokerage site. Refresh both when the feed changes.
  */
 export const FEATURED_LISTINGS: FeaturedListing[] = [
   {
@@ -216,7 +216,7 @@ export const FEATURED_LISTINGS: FeaturedListing[] = [
     baths: 7,
     sqft: 6211,
     mlsNumber: "A11934934",
-    img: "https://dlajgvw9htjpb.cloudfront.net/cms/b986753f-9283-49d4-8834-27ce98e77b22/A11934934/-6904621928171764569.jpg",
+    img: "/listings/176-s-hibiscus-dr.jpg",
     href: "https://luxeknows.com/properties/176-s-hibiscus-drive-miami-beach-fl-33139-1c02c03a215c0184e4d2b984bbcedc5f",
     grad: "g-dusk",
     openHouse: { start: "2026-09-06T14:00:00-04:00", end: "2026-09-06T16:00:00-04:00", label: "Sat 9/6 · 2:00–4:00 PM" }
@@ -233,7 +233,7 @@ export const FEATURED_LISTINGS: FeaturedListing[] = [
     baths: 7,
     sqft: 6530,
     mlsNumber: "A11948169",
-    img: "https://dlajgvw9htjpb.cloudfront.net/cms/b986753f-9283-49d4-8834-27ce98e77b22/A11948169/4836069763669333164.jpg",
+    img: "/listings/6175-sw-128th-st.jpg",
     href: "https://luxeknows.com/properties/6175-sw-128th-st-pinecrest-fl-us-33156-2569af743c6e1ec36fdf6e79f4f98d84",
     grad: "g-sunset",
     openHouse: null
@@ -250,7 +250,7 @@ export const FEATURED_LISTINGS: FeaturedListing[] = [
     baths: 6,
     sqft: null,
     mlsNumber: "A11947536",
-    img: "https://dlajgvw9htjpb.cloudfront.net/cms/b986753f-9283-49d4-8834-27ce98e77b22/A11947536/-9090263402390920406.jpg",
+    img: "/listings/159-ne-99th-st.jpg",
     href: "https://luxeknows.com/properties/159-ne-99th-st-miami-shores-fl-33138-1ae6538ad3c55a561f38059b49b1d9bd",
     grad: "g-ocean",
     openHouse: null
@@ -267,7 +267,7 @@ export const FEATURED_LISTINGS: FeaturedListing[] = [
     baths: 7,
     sqft: 6361,
     mlsNumber: "A12038273",
-    img: "https://dlajgvw9htjpb.cloudfront.net/cms/b986753f-9283-49d4-8834-27ce98e77b22/A12038273/7179171829123979349.jpg",
+    img: "/listings/11111-sw-77th-ave.jpg",
     href: "https://luxeknows.com/properties/11111-sw-77th-ave-pinecrest-fl-us-33156-8ef168b720899dfc9bc48868590f2d82",
     grad: "g-night",
     openHouse: null
@@ -284,7 +284,7 @@ export const FEATURED_LISTINGS: FeaturedListing[] = [
     baths: 2,
     sqft: 1598,
     mlsNumber: "A12018110",
-    img: "https://dlajgvw9htjpb.cloudfront.net/cms/b986753f-9283-49d4-8834-27ce98e77b22/A12018110/-8867488416838126149.jpg",
+    img: "/listings/1442-nw-2nd-st.jpg",
     href: "https://luxeknows.com/properties/1442-nw-2nd-st-miami-fl-33125-4fd370142302614182e67e3594534922",
     grad: "g-interior",
     openHouse: null
@@ -301,7 +301,7 @@ export const FEATURED_LISTINGS: FeaturedListing[] = [
     baths: 4,
     sqft: 3090,
     mlsNumber: "A11974471",
-    img: "https://dlajgvw9htjpb.cloudfront.net/cms/b986753f-9283-49d4-8834-27ce98e77b22/A11974471/8293866947132710306.jpg",
+    img: "/listings/1720-espanola-dr.jpg",
     href: "https://luxeknows.com/properties/1720-espanola-dr-miami-fl-us-33133-432544e3f3ec7267dcaa49521ef35654",
     grad: "g-tower",
     openHouse: null
@@ -318,7 +318,7 @@ export const FEATURED_LISTINGS: FeaturedListing[] = [
     baths: 4,
     sqft: 2596,
     mlsNumber: "A12064940",
-    img: "https://dlajgvw9htjpb.cloudfront.net/cms/b986753f-9283-49d4-8834-27ce98e77b22/A12064940/7463769437463449301.jpg",
+    img: "/listings/74049-overseas-hwy.jpg",
     href: "https://luxeknows.com/properties/74049-overseas-hwy-islamorada-fl-us-33036-57dac20795829cbdad7f083c9ce453d2",
     grad: "g-ocean",
     openHouse: null
@@ -335,7 +335,7 @@ export const FEATURED_LISTINGS: FeaturedListing[] = [
     baths: 7,
     sqft: 6575,
     mlsNumber: "A11889717",
-    img: "https://dlajgvw9htjpb.cloudfront.net/cms/b986753f-9283-49d4-8834-27ce98e77b22/A11889717/-3571982609774340868.jpg",
+    img: "/listings/4440-ne-23rd-ave.jpg",
     href: "https://luxeknows.com/properties/4440-ne-23rd-ave-lighthouse-point-fl-us-33064-f5dc780809565de78f10aa9c878fba8a",
     grad: "g-dusk",
     openHouse: { start: "2026-09-06T15:00:00-04:00", end: "2026-09-06T17:00:00-04:00", label: "Sat 9/6 · 3:00–5:00 PM" }
@@ -352,7 +352,7 @@ export const FEATURED_LISTINGS: FeaturedListing[] = [
     baths: 5,
     sqft: 3436,
     mlsNumber: "A12074523",
-    img: "https://dlajgvw9htjpb.cloudfront.net/cms/b986753f-9283-49d4-8834-27ce98e77b22/A12074523/-5140084149266752119.jpg",
+    img: "/listings/607-se-6th-st.jpg",
     href: "https://luxeknows.com/properties/607-se-6th-st-fort-lauderdale-fl-us-33301-c661d29bb24401b70fb75f64d00ece5f",
     grad: "g-night",
     openHouse: null
@@ -369,7 +369,7 @@ export const FEATURED_LISTINGS: FeaturedListing[] = [
     baths: 4,
     sqft: null,
     mlsNumber: "A11964304",
-    img: "https://dlajgvw9htjpb.cloudfront.net/cms/b986753f-9283-49d4-8834-27ce98e77b22/A11964304/8335909722005354829.jpg",
+    img: "/listings/1170-e-hallandale-2503.jpg",
     href: "https://luxeknows.com/properties/1170-e-hallandale-beach-blvd-unit-2503-hallandale-beach-fl-33009-14439ce4cafb8b5eedf4206b98537623",
     grad: "g-interior",
     openHouse: null
