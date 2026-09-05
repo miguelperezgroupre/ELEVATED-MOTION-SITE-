@@ -37,6 +37,33 @@ export interface Property {
   featured?: boolean;
 }
 
+export interface FeaturedListing {
+  id: string;
+  /** Street line, e.g. "176 S Hibiscus Drive" */
+  address: string;
+  city: string;
+  state: string;
+  zip: string;
+  status: 'For Sale' | 'For Rent' | 'Pending' | 'Sold';
+  price: number;
+  beds: number;
+  baths: number;
+  /** Null when the MLS record has no living-area figure. */
+  sqft: number | null;
+  mlsNumber?: string;
+  /** Hero photo URL (brokerage MLS CDN). */
+  img: string;
+  /** Outbound link to the full listing page on the brokerage site. */
+  href: string;
+  /** Placeholder gradient class shown behind the photo while it loads. */
+  grad: string;
+  openHouse?: {
+    start: string;
+    end: string;
+    label: string;
+  } | null;
+}
+
 export interface LifestyleItem {
   name: string;
   count: number;
