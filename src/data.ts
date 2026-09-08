@@ -406,11 +406,11 @@ export const LIFESTYLE: LifestyleItem[] = [
     desc: "Fairway frontage and membership pathways, from Doral to the Gardens."
   },
   {
-    name: "Private Islands",
-    count: 6,
+    name: "Miami Beach Islands",
+    count: 14,
     grad: "g-ocean",
-    img: U("photo-1559128010-7c1ad6e1b6a5", 1600),
-    desc: "Guard-gated keys in Biscayne Bay, traded quietly and rarely listed twice."
+    img: U("photo-1514214246283-d427a95c5d2f", 1600),
+    desc: "Exclusive barrier islands offering unparalleled privacy, waterfront luxury, and direct beach access."
   },
   {
     name: "Boating Lifestyle",
