@@ -1,0 +1,46 @@
+# https://www.southfloridaelevated.com/robots.txt
+
+# --- Default: allow everything except the API + query-string dupes ---
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /*.json$
+Disallow: /?*
+
+# --- Classic search engines ---
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# --- AI / generative-search crawlers (kept ALLOWED so they can cite the site) ---
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# --- Sitemap ---
+Sitemap: https://www.southfloridaelevated.com/sitemap.xml

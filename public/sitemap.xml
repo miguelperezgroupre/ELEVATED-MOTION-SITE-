@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  South Florida Elevated sitemap.
+
+  NOTE: the app currently uses hash-based routing (/#buy, /#news, ...), so the
+  homepage is the only distinct URL search engines can index. Once routing moves
+  to real paths + prerendering, add one <url> block per page (buy, sell, invest,
+  relocate, developments, listings, neighborhoods + spokes, about, contact,
+  privacy, terms, and each /news/<slug> article) and update <lastmod> on change.
+
+  After deploying: submit https://www.southfloridaelevated.com/sitemap.xml in
+  Google Search Console and Bing Webmaster Tools.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://www.southfloridaelevated.com/</loc>
+    <lastmod>2026-09-08</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+</urlset>
