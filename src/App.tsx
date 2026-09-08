@@ -27,12 +27,15 @@ import NeighborhoodsView from './components/views/NeighborhoodsView';
 import InsightsView from './components/views/InsightsView';
 import AboutView from './components/views/AboutView';
 import ListingsView from './views/ListingsView';
+import BlogView from './views/BlogView';
+import FeaturedListingModal from './components/FeaturedListingModal';
 
-import { Property, NeighborhoodDetail } from './types';
+import { Property, FeaturedListing, NeighborhoodDetail } from './types';
 
 export default function App() {
   const [currentView, setCurrentView] = useState<NavView>('home');
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
+  const [selectedListing, setSelectedListing] = useState<FeaturedListing | null>(null);
   const [contactModalOpen, setContactModalOpen] = useState(false);
   const [contactIntent, setContactIntent] = useState('general');
   const [contactMessage, setContactMessage] = useState('');
@@ -41,7 +44,7 @@ export default function App() {
   useEffect(() => {
     const handleHash = () => {
       const hash = window.location.hash.replace('#', '').toLowerCase();
-      if (['buy', 'sell', 'relocate', 'invest', 'developments', 'neighborhoods', 'insights', 'about', 'listings'].includes(hash)) {
+      if (['buy', 'sell', 'relocate', 'invest', 'developments', 'neighborhoods', 'insights', 'news', 'about', 'listings'].includes(hash)) {
         setCurrentView(hash as NavView);
       }
     };
@@ -105,7 +108,7 @@ export default function App() {
             {/* Featured Luxury Residences */}
             <div id="collection">
               <FeaturedListings
-                onSelectProperty={(p) => setSelectedProperty(p)}
+                onSelectListing={(l) => setSelectedListing(l)}
                 onOpenContact={() => handleOpenContact('buyer')}
               />
             </div>
@@ -207,9 +210,13 @@ export default function App() {
           />
         )}
 
+        {currentView === 'news' && (
+          <BlogView onOpenContact={handleOpenContact} />
+        )}
+
         {currentView === 'listings' && (
           <ListingsView
-            onSelectProperty={(p) => setSelectedProperty(p)}
+            onSelectListing={(l) => setSelectedListing(l)}
             onOpenContact={handleOpenContact}
           />
         )}
@@ -223,6 +230,13 @@ export default function App() {
       {/* Persistent global footer */}
       <Footer
         onNavigate={handleNavigate}
+        onOpenContact={handleOpenContact}
+      />
+
+      {/* Native featured-listing detail (no outbound links) */}
+      <FeaturedListingModal
+        listing={selectedListing}
+        onClose={() => setSelectedListing(null)}
         onOpenContact={handleOpenContact}
       />
 

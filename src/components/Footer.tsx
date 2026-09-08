@@ -84,6 +84,16 @@ export default function Footer({ onNavigate, onOpenContact }: FooterProps) {
                 </button>
               </li>
               <li>
+                <button onClick={() => handleNav('news')} className="hover:text-[#c9a24a] transition-colors cursor-pointer bg-transparent border-none p-0">
+                  News & Commentary
+                </button>
+              </li>
+              <li>
+                <button onClick={() => handleNav('listings')} className="hover:text-[#c9a24a] transition-colors cursor-pointer bg-transparent border-none p-0">
+                  Featured Listings
+                </button>
+              </li>
+              <li>
                 <button onClick={() => handleNav('about')} className="hover:text-[#c9a24a] transition-colors cursor-pointer bg-transparent border-none p-0">
                   About Miguel Perez
                 </button>

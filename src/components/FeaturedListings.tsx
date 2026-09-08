@@ -1,16 +1,13 @@
 import React, { useState } from 'react';
-import { Heart, Bed, Bath, Maximize2, ArrowRight, CalendarClock } from 'lucide-react';
+import { Heart, Bed, Bath, Maximize2, CalendarClock } from 'lucide-react';
 import { FEATURED_LISTINGS, money } from '../data';
-import { FeaturedListing, Property } from '../types';
+import { FeaturedListing } from '../types';
 
 interface FeaturedListingsProps {
-  /** Retained for API compatibility with the home view; unused now that
-   *  cards link straight to the brokerage listing pages. */
-  onSelectProperty?: (property: Property) => void;
+  /** Opens the in-site listing detail view. */
+  onSelectListing: (listing: FeaturedListing) => void;
   onOpenContact?: () => void;
 }
-
-const BROKERAGE_ALL_LISTINGS = 'https://luxeknows.com/properties/sale';
 
 function specLine(l: FeaturedListing): string {
   return [
@@ -22,7 +19,7 @@ function specLine(l: FeaturedListing): string {
     .join('  ·  ');
 }
 
-export default function FeaturedListings({ onOpenContact }: FeaturedListingsProps) {
+export default function FeaturedListings({ onSelectListing, onOpenContact }: FeaturedListingsProps) {
   const [favorites, setFavorites] = useState<Record<string, boolean>>({});
 
   const toggleFavorite = (e: React.MouseEvent, id: string) => {
@@ -51,12 +48,9 @@ export default function FeaturedListings({ onOpenContact }: FeaturedListingsProp
         {/* Top Split Grid: Hero Card + Secondary Card */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8">
           {/* Main Large Card */}
-          <a
-            href={hero.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-cursor="view"
-            className="group lg:col-span-8 relative bg-white border border-[#e5e7eb] hover:border-[#9a7629] transition-all duration-300 overflow-hidden flex flex-col shadow-sm hover:shadow-xl"
+          <div
+            onClick={() => onSelectListing(hero)}
+            className="group lg:col-span-8 relative bg-white border border-[#e5e7eb] hover:border-[#9a7629] transition-all duration-300 overflow-hidden flex flex-col shadow-sm hover:shadow-xl cursor-pointer"
           >
             <div className={`relative h-[360px] sm:h-[480px] w-full overflow-hidden ${hero.grad}`}>
               <img
@@ -124,15 +118,12 @@ export default function FeaturedListings({ onOpenContact }: FeaturedListingsProp
                 </div>
               </div>
             </div>
-          </a>
+          </div>
 
           {/* Secondary Tall Card */}
-          <a
-            href={tall.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-cursor="view"
-            className="group lg:col-span-4 relative bg-white border border-[#e5e7eb] hover:border-[#9a7629] transition-all duration-300 overflow-hidden flex flex-col shadow-sm hover:shadow-xl"
+          <div
+            onClick={() => onSelectListing(tall)}
+            className="group lg:col-span-4 relative bg-white border border-[#e5e7eb] hover:border-[#9a7629] transition-all duration-300 overflow-hidden flex flex-col shadow-sm hover:shadow-xl cursor-pointer"
           >
             <div className={`relative h-[280px] lg:h-[480px] w-full overflow-hidden ${tall.grad}`}>
               <img
@@ -185,19 +176,16 @@ export default function FeaturedListings({ onOpenContact }: FeaturedListingsProp
                 <div className="font-mono text-xs text-[#4b5563]">{specLine(tall)}</div>
               </div>
             </div>
-          </a>
+          </div>
         </div>
 
         {/* Remaining listings */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {rest.map((l) => (
-            <a
+            <div
               key={l.id}
-              href={l.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              data-cursor="view"
-              className="group relative bg-white border border-[#e5e7eb] hover:border-[#9a7629] transition-all duration-300 overflow-hidden flex flex-col shadow-sm hover:shadow-xl"
+              onClick={() => onSelectListing(l)}
+              className="group relative bg-white border border-[#e5e7eb] hover:border-[#9a7629] transition-all duration-300 overflow-hidden flex flex-col shadow-sm hover:shadow-xl cursor-pointer"
             >
               <div className={`relative h-64 w-full overflow-hidden ${l.grad}`}>
                 <img
@@ -248,26 +236,20 @@ export default function FeaturedListings({ onOpenContact }: FeaturedListingsProp
                   <div className="font-mono text-xs text-[#4b5563] text-right">{specLine(l)}</div>
                 </div>
               </div>
-            </a>
+            </div>
           ))}
         </div>
 
         {/* Section Foot */}
         <div className="mt-14 pt-8 border-t border-[#e5e7eb] flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
           <p className="font-mono text-xs text-[#6b7280]">
-            Inventory represented by Miguel Perez · Luxe Properties. Listing data via the MLS.
+            Inventory represented by Miguel Perez. Listing data via the MLS.
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-3">
-            {onOpenContact && (
-              <button className="btn" onClick={onOpenContact}>
-                <span>Request a private showing</span>
-              </button>
-            )}
-            <a className="btn btn--gold" href={BROKERAGE_ALL_LISTINGS} target="_blank" rel="noopener noreferrer">
-              <span>View all listings</span>
-              <ArrowRight className="w-4 h-4" />
-            </a>
-          </div>
+          {onOpenContact && (
+            <button className="btn" onClick={onOpenContact}>
+              <span>Request a private showing</span>
+            </button>
+          )}
         </div>
       </div>
     </section>

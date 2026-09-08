@@ -1,4 +1,4 @@
-import { Property, FeaturedListing, LifestyleItem, Community, Development, MarketCityData, Story, ParsedQuery, NeighborhoodDetail, CaseStudy, InsightArticle } from './types';
+import { Property, FeaturedListing, BlogPost, LifestyleItem, Community, Development, MarketCityData, Story, ParsedQuery, NeighborhoodDetail, CaseStudy, InsightArticle } from './types';
 
 const U = (id: string, w = 1600) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
 
@@ -198,10 +198,10 @@ export const PROPERTIES: Property[] = [
 ];
 
 /**
- * Live featured inventory represented by Miguel Perez / Luxe Properties.
- * Source: https://luxeknows.com/properties/sale  (pulled 2026-09-05)
- * Photos are self-hosted under public/listings/; each card links to the full
- * listing page on the brokerage site. Refresh both when the feed changes.
+ * Featured inventory presented by Miguel Perez · South Florida Elevated.
+ * Photos are self-hosted under public/listings/. Property facts are recreated
+ * natively on this site; each opens an in-site detail view (no outbound links).
+ * Refresh photos and figures when the collection changes.
  */
 export const FEATURED_LISTINGS: FeaturedListing[] = [
   {
@@ -213,12 +213,28 @@ export const FEATURED_LISTINGS: FeaturedListing[] = [
     status: "For Sale",
     price: 18499000,
     beds: 6,
-    baths: 7,
+    baths: 6,
+    halfBaths: 1,
     sqft: 6211,
+    lotSize: "10,500 sq ft",
+    yearBuilt: 2002,
+    propertyType: "Single-family · Two story",
     mlsNumber: "A11934934",
     img: "/listings/176-s-hibiscus-dr.jpg",
-    href: "https://luxeknows.com/properties/176-s-hibiscus-drive-miami-beach-fl-33139-1c02c03a215c0184e4d2b984bbcedc5f",
     grad: "g-dusk",
+    description:
+      "Welcome to luxury waterfront living at 176 S Hibiscus Drive in the heart of Miami Beach. This 6-bed, 6.5-bath residence offers 60 feet of prime waterfront on one of the most prestigious guard-gated islands in Miami Beach, with breathtaking views of the downtown skyline. The interior pairs a Mia Cucina kitchen, wine cellar, bar and marble flooring with generous entertaining volumes, while the waterside is built for boating — two boat lifts, a private dock, a summer kitchen and a whole-home generator.",
+    features: [
+      "60 ft of protected waterfront",
+      "Two boat lifts (40,000 & 20,000 lb)",
+      "Private dock & summer kitchen",
+      "Whole-home generator",
+      "Mia Cucina kitchen & wine cellar",
+      "Marble flooring throughout",
+      "In-ground pool & built-in grill",
+      "2-car garage",
+      "Downtown skyline & bay views",
+    ],
     openHouse: { start: "2026-09-06T14:00:00-04:00", end: "2026-09-06T16:00:00-04:00", label: "Sat 9/6 · 2:00–4:00 PM" }
   },
   {
@@ -232,10 +248,25 @@ export const FEATURED_LISTINGS: FeaturedListing[] = [
     beds: 6,
     baths: 7,
     sqft: 6530,
+    lotSize: "0.89 acres",
+    yearBuilt: 2020,
+    propertyType: "Single-family · One story",
     mlsNumber: "A11948169",
     img: "/listings/6175-sw-128th-st.jpg",
-    href: "https://luxeknows.com/properties/6175-sw-128th-st-pinecrest-fl-us-33156-2569af743c6e1ec36fdf6e79f4f98d84",
     grad: "g-sunset",
+    description:
+      "A one-story modern estate built in 2020 with refined finishes and a clean architectural presence, offering a bright open floorplan framed by oversized windows and doors. The Italian kitchen — sleek cabinetry, quartz counters, Wolf and Sub-Zero appliances — flows into the family room and out to the covered terrace and summer kitchen. Six en-suite bedrooms, a den or office and a dedicated wine room complete the interior; the primary suite is a private retreat with a spa-inspired bath. The backyard delivers a true resort experience: infinity pool, hot tub, sauna, cold plunge and fire-pit seating on expansive green grounds, moments from premier Pinecrest schools.",
+    features: [
+      "Italian kitchen, Wolf & Sub-Zero appliances",
+      "Six en-suite bedrooms",
+      "Dedicated wine room",
+      "Den / home office",
+      "Spa-inspired primary bath, floating soaking tub",
+      "Porcelain floors, high ceilings",
+      "Covered terrace & summer kitchen",
+      "Infinity pool, hot tub, sauna, cold plunge",
+      "Fire-pit lounge, 2-car garage",
+    ],
     openHouse: null
   },
   {
@@ -248,11 +279,26 @@ export const FEATURED_LISTINGS: FeaturedListing[] = [
     price: 6495900,
     beds: 6,
     baths: 6,
-    sqft: null,
+    sqft: 5412,
+    lotSize: "8,625 sq ft",
+    yearBuilt: 2026,
+    propertyType: "New construction · Two story",
     mlsNumber: "A11947536",
     img: "/listings/159-ne-99th-st.jpg",
-    href: "https://luxeknows.com/properties/159-ne-99th-st-miami-shores-fl-33138-1ae6538ad3c55a561f38059b49b1d9bd",
     grad: "g-ocean",
+    description:
+      "Villa 159 is a modern new-construction residence scheduled for completion in Q4 2026, in the highly desirable Miami Shores neighborhood. This two-story home offers approximately 5,412 square feet with 6 bedrooms, 6 bathrooms and a 2-car garage, delivering refined contemporary architecture and elevated indoor-outdoor living: an open-concept plan, a gourmet kitchen with an oversized island, a spa-inspired primary bath and a resort-style pool with covered patio and summer kitchen.",
+    features: [
+      "New construction — Q4 2026 completion",
+      "High-impact windows & doors",
+      "Open-concept great room",
+      "Gourmet kitchen, oversized island",
+      "Spa-inspired primary bath, soaking tub",
+      "Dual vanities & oversized shower",
+      "Resort-style in-ground pool",
+      "Covered patio & summer kitchen",
+      "2-car garage",
+    ],
     openHouse: null
   },
   {
@@ -265,11 +311,27 @@ export const FEATURED_LISTINGS: FeaturedListing[] = [
     price: 6300000,
     beds: 7,
     baths: 7,
+    halfBaths: 1,
     sqft: 6361,
+    lotSize: "1.25 acres",
+    yearBuilt: 2006,
+    propertyType: "Mediterranean · Two story",
     mlsNumber: "A12038273",
     img: "/listings/11111-sw-77th-ave.jpg",
-    href: "https://luxeknows.com/properties/11111-sw-77th-ave-pinecrest-fl-us-33156-8ef168b720899dfc9bc48868590f2d82",
     grad: "g-night",
+    description:
+      "Set on a spectacular 1.25-acre corner estate in the heart of Pinecrest, this fully renovated 7-bedroom, 6.5-bath residence offers approximately 6,361 square feet of thoughtfully designed living space that blends sophistication, comfort and resort-style living. A chef's kitchen with Sub-Zero and Viking appliances anchors the plan; the primary suite adds three custom closets and a spa-inspired bath with a soaking tub and dual rain shower. Outside: an in-ground pool, gazebo, basketball court, circular driveway and more than fifteen mature mango and avocado trees.",
+    features: [
+      "1.25-acre gated corner estate",
+      "Fully renovated",
+      "Chef's kitchen, Sub-Zero & Viking",
+      "Marble & tile flooring",
+      "Primary suite, three custom closets",
+      "Spa bath, soaking tub & dual rain shower",
+      "Media room & den / library",
+      "In-ground pool, gazebo, basketball court",
+      "3-car garage, 15+ fruit trees",
+    ],
     openHouse: null
   },
   {
@@ -283,10 +345,23 @@ export const FEATURED_LISTINGS: FeaturedListing[] = [
     beds: 4,
     baths: 2,
     sqft: 1598,
+    lotSize: "7,000 sq ft",
+    yearBuilt: 1927,
+    propertyType: "Residential · Redevelopment opportunity",
     mlsNumber: "A12018110",
     img: "/listings/1442-nw-2nd-st.jpg",
-    href: "https://luxeknows.com/properties/1442-nw-2nd-st-miami-fl-33125-4fd370142302614182e67e3594534922",
     grad: "g-interior",
+    description:
+      "An exceptional parcel on a generous 7,000-square-foot lot in one of Miami's most sought-after investment corridors. East Little Havana's NW 2nd Street corridor is seeing strong appreciation with robust rental demand and redevelopment potential, and current zoning allows real flexibility — ideal for an owner-occupant looking to add value or an investor seeking income-generating upside. Established neighborhood near Downtown, I-95, Wynwood and cultural amenities; comparable multifamily properties on this corridor trade quickly.",
+    features: [
+      "7,000 sq ft lot",
+      "East Little Havana investment corridor",
+      "Flexible zoning — value-add potential",
+      "Redevelopment / income upside",
+      "Minutes to I-95, Wynwood & Downtown",
+      "Mature fruit trees",
+      "Municipal water & public sewer",
+    ],
     openHouse: null
   },
   {
@@ -300,10 +375,24 @@ export const FEATURED_LISTINGS: FeaturedListing[] = [
     beds: 5,
     baths: 4,
     sqft: 3090,
+    lotSize: "10,500 sq ft",
+    yearBuilt: 1925,
+    propertyType: "Old Spanish · Two story",
     mlsNumber: "A11974471",
     img: "/listings/1720-espanola-dr.jpg",
-    href: "https://luxeknows.com/properties/1720-espanola-dr-miami-fl-us-33133-432544e3f3ec7267dcaa49521ef35654",
     grad: "g-tower",
+    description:
+      "Inspired by early Miami Old Spanish architecture, this Coconut Grove estate marries old-world soul with heavy-duty engineering. While public records state 1925, the home functions as modern construction following ground-up structural reconstruction spanning 1999 to 2023 — full impact glass, concrete-reinforced expansions and 400-amp service, perched 16 feet above sea level in a preferred X flood zone (no flood insurance required). The total footprint of roughly 4,000 square feet includes a 3,090 sq ft main home, a detached multi-use guest cottage and a climate-controlled garage with a Tesla charger, plus a sparkling pool and lush, pesticide-free native gardens.",
+    features: [
+      "Coconut Grove Old Spanish estate",
+      "Ground-up structural rebuild, 1999–2023",
+      "16 ft elevation · X flood zone (no flood insurance)",
+      "Full impact glass, 400-amp service",
+      "Detached guest cottage",
+      "Climate-controlled garage, Tesla charger",
+      "~4,000 sq ft total living space",
+      "Pool & native pesticide-free gardens",
+    ],
     openHouse: null
   },
   {
@@ -317,10 +406,24 @@ export const FEATURED_LISTINGS: FeaturedListing[] = [
     beds: 4,
     baths: 4,
     sqft: 2596,
+    lotSize: "0.5 acres",
+    yearBuilt: 1970,
+    propertyType: "Oceanfront · Two story",
     mlsNumber: "A12064940",
     img: "/listings/74049-overseas-hwy.jpg",
-    href: "https://luxeknows.com/properties/74049-overseas-hwy-islamorada-fl-us-33036-57dac20795829cbdad7f083c9ce453d2",
     grad: "g-ocean",
+    description:
+      "A rare chance to own an oceanside single-family home in the heart of Islamorada, on a private corner half-acre lot with your own private beach. Currently operating as a successful VRBO vacation rental, the property is turnkey and sold fully furnished — continue operating it from day one or enjoy it as a private island retreat. The two-story plan offers 4 bedrooms, 4 bathrooms and two full kitchens: the upper level has 3 bedrooms, 2 baths and a private balcony; the lower level is a handicap-friendly layout with a bedroom, bath, cabana bath and second kitchen. Step out to the private pool, then a few steps more to the sand. New A/C and metal roof; minutes to Robbie's Marina and Theater of the Sea.",
+    features: [
+      "Oceanfront corner half-acre lot",
+      "Private beach & pool",
+      "Turnkey VRBO rental, sold furnished",
+      "Two full kitchens",
+      "Upper level: 3 bed / 2 bath + balcony",
+      "Lower level: handicap-friendly + cabana bath",
+      "New A/C system & metal roof",
+      "Minutes to Robbie's Marina",
+    ],
     openHouse: null
   },
   {
@@ -332,12 +435,27 @@ export const FEATURED_LISTINGS: FeaturedListing[] = [
     status: "For Sale",
     price: 3500000,
     beds: 7,
-    baths: 7,
+    baths: 6,
+    halfBaths: 1,
     sqft: 6575,
+    lotSize: "0.32 acres",
+    yearBuilt: 1974,
+    propertyType: "Waterfront · Two story",
     mlsNumber: "A11889717",
     img: "/listings/4440-ne-23rd-ave.jpg",
-    href: "https://luxeknows.com/properties/4440-ne-23rd-ave-lighthouse-point-fl-us-33064-f5dc780809565de78f10aa9c878fba8a",
     grad: "g-dusk",
+    description:
+      "One of the largest waterfront estates available in Lighthouse Point, this 6,575-square-foot residence sits on roughly 100 feet along the North Grand Canal with about 97 feet of dockage and a boat lift — and no fixed bridges to the ocean. The chef's kitchen anchors the home and opens onto expansive outdoor entertaining space with a private pool. Seven bedrooms and 6.5 baths, including a separate guest suite with its own full bath and kitchenette, give rare flexibility for multi-generational living, extended guests or a dedicated home office, and full impact glass runs throughout.",
+    features: [
+      "~100 ft on the North Grand Canal",
+      "~97 ft dockage + boat lift",
+      "No fixed bridges to the ocean",
+      "Chef's kitchen with cooking island",
+      "Separate guest suite with kitchenette",
+      "Full impact glass throughout",
+      "In-ground pool & fireplace",
+      "Slate roof, marble & ceramic flooring",
+    ],
     openHouse: { start: "2026-09-06T15:00:00-04:00", end: "2026-09-06T17:00:00-04:00", label: "Sat 9/6 · 3:00–5:00 PM" }
   },
   {
@@ -349,12 +467,27 @@ export const FEATURED_LISTINGS: FeaturedListing[] = [
     status: "For Sale",
     price: 3100000,
     beds: 4,
-    baths: 5,
+    baths: 4,
+    halfBaths: 1,
     sqft: 3436,
+    lotSize: "9,733 sq ft",
+    yearBuilt: 2022,
+    propertyType: "Single-family · Two story",
     mlsNumber: "A12074523",
     img: "/listings/607-se-6th-st.jpg",
-    href: "https://luxeknows.com/properties/607-se-6th-st-fort-lauderdale-fl-us-33301-c661d29bb24401b70fb75f64d00ece5f",
     grad: "g-night",
+    description:
+      "A private tropical sanctuary in the heart of Fort Lauderdale — a 4-bedroom, 4.5-bath residence built in 2022 and designed for effortless indoor-outdoor living. Inspired by the calm of a boutique island retreat, the home features expansive entertaining spaces, a chef's kitchen with premium appliances, volume ceilings and a converted game room, all wrapped around a resort-style pool and lush landscaping. A 2-car garage plus golf-cart parking round it out.",
+    features: [
+      "Built 2022",
+      "Resort-style pool & lush landscaping",
+      "Converted game room",
+      "Chef's kitchen, premium appliances",
+      "Volume / vaulted ceilings",
+      "Built-in grill",
+      "Walk-in closets & den / office",
+      "2-car garage + golf-cart parking",
+    ],
     openHouse: null
   },
   {
@@ -366,13 +499,126 @@ export const FEATURED_LISTINGS: FeaturedListing[] = [
     status: "For Sale",
     price: 2834640,
     beds: 3,
-    baths: 4,
+    baths: 3,
+    halfBaths: 1,
     sqft: null,
+    yearBuilt: 2027,
+    propertyType: "Condo · Two-level penthouse",
     mlsNumber: "A11964304",
     img: "/listings/1170-e-hallandale-2503.jpg",
-    href: "https://luxeknows.com/properties/1170-e-hallandale-beach-blvd-unit-2503-hallandale-beach-fl-33009-14439ce4cafb8b5eedf4206b98537623",
     grad: "g-interior",
+    description:
+      "East Tower Penthouse 2503 is a rare two-level residence with 3 bedrooms, 3.5 bathrooms and a private rooftop sky lounge with terrace and spa. The main level opens across living and dining areas to a chef's kitchen with island, in a split-bedroom plan framed by Atlantic Ocean, Intracoastal and lake views. Full-service building amenities include a heated pool and spa, fitness center, sauna, billiard room, business center, clubhouse, doorman and on-site guard, plus a 3-car garage.",
+    features: [
+      "Two-level East Tower penthouse",
+      "Private rooftop sky lounge, terrace & spa",
+      "Wet bar",
+      "Chef's kitchen with island",
+      "Split-bedroom plan",
+      "Atlantic Ocean & Intracoastal views",
+      "Heated pool, spa, fitness center, sauna",
+      "Doorman & on-site guard, 3-car garage",
+    ],
     openHouse: null
+  }
+];
+
+/**
+ * Editorial news & commentary authored by Miguel Perez for South Florida Elevated.
+ * Original writing — no third-party syndication. Update the dateline as new posts publish.
+ */
+export const BLOG_POSTS: BlogPost[] = [
+  {
+    slug: "sofla-luxury-market-q3-2026",
+    title: "South Florida's Q3 2026 Luxury Market: Where the Momentum Is",
+    category: "Market News",
+    date: "September 2026",
+    readTime: "6 min read",
+    author: "Miguel Perez",
+    excerpt:
+      "Waterfront and new-construction inventory is still clearing quickly, while dated interior product is finally negotiating. A district-by-district read on the third quarter.",
+    body: [
+      "Three quarters into 2026, the headline for South Florida luxury is divergence. The market is not uniformly hot or cold — it is splitting along two lines: proximity to water, and how recently the home was built or renovated. Turnkey waterfront and 2020-or-newer construction continue to trade at or above ask with short marketing times. Everything that needs work is sitting, and sellers there are meeting buyers halfway for the first time since 2020.",
+      "In Miami Beach and the guard-gated islands, protected frontage remains the scarcest asset on the coast. A 60-foot lot on Hibiscus or Palm still draws multiple parties because that supply cannot be manufactured. The premium for a functioning dock with two lifts and no fixed bridges has, if anything, widened this year.",
+      "Pinecrest and Miami Shores are the quiet story. Family buyers priced out of the Grove and Gables are moving south and north for lot size, and new one-story estates on half-acre-plus parcels are the single most competitive segment I am working right now. Days-on-market for that specific profile is under three weeks.",
+      "Brickell and Edgewater condos are a different market entirely — liquid, investor-driven, and sensitive to lease comps. Pre-construction contracts signed in 2023 are delivering into a market that has appreciated, so most of those buyers are sitting on paper gains before closing.",
+      "The Keys and Islamorada continue to reward buyers who underwrite for rental income. A furnished oceanside home with an established VRBO history is priced on yield, not just comps, and that math still works at current rates.",
+      "The practical takeaway: if you are selling turnkey waterfront, price it to the top of the range and hold. If you are selling anything that reads as dated, price it to sell and stop chasing the market down. If you are buying, the negotiating leverage is entirely in the second category.",
+    ],
+    img: U("photo-1506953823976-52e1fdc0149a", 1600),
+    featured: true
+  },
+  {
+    slug: "brickell-edgewater-tower-pipeline",
+    title: "The Brickell–Edgewater Tower Pipeline: What Actually Delivers Before 2028",
+    category: "Development",
+    date: "August 2026",
+    readTime: "7 min read",
+    author: "Miguel Perez",
+    excerpt:
+      "Reservations are easy to announce and hard to build. Here is how I separate towers that will top off on schedule from the ones that will slip.",
+    body: [
+      "Every quarter brings another branded tower announcement along Biscayne Bay. For a buyer allocating capital into pre-construction, the announcement is noise — what matters is the developer's track record, the deposit structure, and whether the site is actually under construction.",
+      "The first filter is delivery history. Developers who have finished comparable towers in this cycle are a materially different risk than first-time sponsors, regardless of the brand name on the building. A hospitality brand licenses its name; it does not pour the concrete.",
+      "The second filter is the deposit schedule. Staggered 10–20% structures tied to construction milestones give you built-in leverage against inflation and a natural checkpoint to reassess. Front-loaded schedules transfer risk to you early.",
+      "The third filter is simple observation. Is there a crane on the site? Has the foundation been poured? Reservations convert to hard contracts at very different rates depending on the answer, and a reservation is fully refundable for a reason.",
+      "For buyers who want bay frontage and can wait, the lowest-unit-count boutique projects have held pricing best in resale. Scarcity inside the building matters as much as scarcity in the neighborhood.",
+    ],
+    img: U("photo-1470071459604-3b5ec3a7fe05", 1600)
+  },
+  {
+    slug: "waterfront-dockage-pricing-2026",
+    title: "Pricing Waterfront by the Linear Foot: A 2026 Buyer's Framework",
+    category: "Advisory",
+    date: "August 2026",
+    readTime: "5 min read",
+    author: "Miguel Perez",
+    excerpt:
+      "Not all frontage is equal. Bridge clearance, canal depth and inlet distance can swing value more than the house on the lot.",
+    body: [
+      "When clients ask what waterfront costs in South Florida, the honest answer is that the house is often the smaller variable. Two identical homes can differ by seven figures based entirely on what is in front of the seawall.",
+      "Start with fixed bridges. A lot with no fixed bridges between the dock and the ocean commands a large premium because it does not cap the size of vessel a future buyer can keep there. One low bridge between you and the inlet narrows your resale pool considerably.",
+      "Then canal depth and width. Mean low-water depth determines what floats at your dock year-round, and turning basin width determines whether a captain will even bring a larger boat in. These are measurable; get them measured before you write an offer.",
+      "Inlet distance is the last factor. Ten minutes of no-wake versus forty minutes is the difference between using a boat on a weeknight and not. In Fort Lauderdale, Las Olas isles trade at a premium partly because the run to Port Everglades is short and deep.",
+      "The framework I use with buyers: price the dockage and water access first, as if the lot were vacant, then price the improvements separately. If the seller has those two numbers inverted, that is your opening.",
+    ],
+    img: U("photo-1567899378494-47b22a2ae96a", 1600)
+  },
+  {
+    slug: "pinecrest-miami-shores-family-market",
+    title: "Pinecrest and Miami Shores: The Family-Estate Market Nobody's Talking About",
+    category: "Neighborhood",
+    date: "July 2026",
+    readTime: "5 min read",
+    author: "Miguel Perez",
+    excerpt:
+      "While attention stays on the coast, the fastest-moving single-family segment in Miami-Dade this summer is inland, on half-acre lots.",
+    body: [
+      "The coverage of Miami real estate is overwhelmingly coastal, but the tightest inventory I am seeing in 2026 is inland: newly built or fully renovated one- and two-story estates in Pinecrest and Miami Shores.",
+      "The driver is straightforward. Families want lot size, top public and private schools, and a garden their children can actually use. Pinecrest delivers acre and half-acre parcels with mature canopy; Miami Shores delivers walkable village scale a few minutes from the bay. Both are a shorter commute to Brickell than buyers expect.",
+      "New construction on these lots is clearing in under three weeks when it is priced correctly. A 2020-or-newer one-story with a resort backyard — infinity pool, summer kitchen, room for a sport court — is the single most requested profile in my current buyer pipeline.",
+      "For sellers of older homes in these neighborhoods, the land is doing the work. Many transactions are effectively lot sales to buyers who intend to build, and pricing to that reality shortens the process dramatically.",
+      "If you are considering a move to either area, the window to tour before the fall school-calendar rush is now. Inventory does not build up here; it turns over.",
+    ],
+    img: U("photo-1587174486073-ae5e5cff23aa", 1600)
+  },
+  {
+    slug: "florida-keys-second-home-rental",
+    title: "The Islamorada Second Home That Pays for Itself",
+    category: "Lifestyle",
+    date: "July 2026",
+    readTime: "4 min read",
+    author: "Miguel Perez",
+    excerpt:
+      "Turnkey, furnished, and already booked — how buyers are underwriting oceanside Keys homes on rental yield rather than pure comps.",
+    body: [
+      "The most rational way to buy in the Florida Keys right now is to treat the purchase as a small hospitality business that also happens to be your vacation home.",
+      "Oceanside single-family homes in Islamorada with an established short-term rental history trade on a different basis than dark second homes. When a property comes fully furnished with a real booking calendar and a documented VRBO track record, the buyer can underwrite to net operating income, and at today's rates that math frequently works.",
+      "The features that matter for yield are specific: a private beach or dock, a pool, a flexible floor plan that sleeps two groups comfortably, and recent capital items — roof, A/C — already handled so you are not deferring maintenance into your first season.",
+      "Location within Islamorada still matters for both rate and personal use. Minutes to Robbie's Marina and Theater of the Sea keeps the calendar full and keeps your own weekends easy.",
+      "For buyers who want the Keys but have hesitated on carrying cost, a turnkey rental-ready home changes the conversation from expense to cash flow.",
+    ],
+    img: U("photo-1512917774080-9991f1c4c750", 1600)
   }
 ];
 

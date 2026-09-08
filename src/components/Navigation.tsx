@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Phone, Menu, X, ArrowRight } from 'lucide-react';
 
-export type NavView = 'home' | 'buy' | 'sell' | 'relocate' | 'invest' | 'developments' | 'neighborhoods' | 'insights' | 'about' | 'listings';
+export type NavView = 'home' | 'buy' | 'sell' | 'relocate' | 'invest' | 'developments' | 'neighborhoods' | 'insights' | 'news' | 'about' | 'listings';
 
 interface NavigationProps {
   currentView: NavView;
@@ -30,6 +30,7 @@ export default function Navigation({ currentView, onNavigate, onOpenContact }: N
     { id: 'developments', label: 'Developments' },
     { id: 'neighborhoods', label: 'Neighborhoods' },
     { id: 'insights', label: 'Insights' },
+    { id: 'news', label: 'News' },
     { id: 'listings', label: 'Listings' }, { id: 'about', label: 'About' },
   ];
 
