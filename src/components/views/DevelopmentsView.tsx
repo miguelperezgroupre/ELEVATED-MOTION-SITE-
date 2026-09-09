@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { ArrowRight, Building2, Calendar, MapPin, Sparkles, CheckCircle2, Shield, DollarSign, X, Layers } from 'lucide-react';
 import { DEVELOPMENTS } from '../../data';
 import { Development } from '../../types';
+import ImageZoomModal from '../ImageZoomModal';
 
 interface DevelopmentsViewProps {
   onOpenContact: (intent?: string, message?: string) => void;
@@ -27,32 +28,37 @@ export default function DevelopmentsView({ onOpenContact }: DevelopmentsViewProp
 
   return (
     <div className="pt-24 pb-20 animate-fadeIn">
-      {/* 1. Developments Hero */}
-      <section className="relative py-16 sm:py-24 border-b border-[rgba(244,239,226,0.1)] bg-gradient-to-b from-[#0B0B0B] via-[#141a1d] to-[#0B0B0B]">
-        <div className="wrap">
-          <div className="max-w-3xl">
-            <span className="eyebrow eyebrow--dot mb-3">Pre-Construction Intelligence · South Florida Elevated</span>
-            <h1 className="font-serif text-4xl sm:text-6xl text-[#f4efe2] font-normal leading-[1.08] tracking-tight">
-              South Florida <em className="it text-[#ffd9a0]">Developments</em>.
-            </h1>
-            <p className="font-serif text-2xl sm:text-3xl text-[#c9a24a] italic mt-2">
-              Explore the projects reshaping the region.
-            </p>
-            <p className="text-base sm:text-lg text-[#f4efe2]/80 mt-6 font-light leading-relaxed">
-              We provide direct developer access, early reservation tier pricing, floor plan audits, and deposit schedule analysis across South Florida's most iconic branded residential towers.
-            </p>
+      {/* 1. Developments Hero with Zoomable Background */}
+      <section className="relative h-96 overflow-hidden">
+        <ImageZoomModal
+          imageUrl="https://images.unsplash.com/photo-1486152873482-f32e40df8816?auto=format&fit=crop&w=2000&q=85"
+          altText="Modern tower construction - South Florida Developments"
+        >
+          <div className="absolute inset-0 flex flex-col justify-center px-6 sm:px-12 md:px-20 max-w-7xl mx-auto">
+            <div className="max-w-3xl">
+              <span className="eyebrow eyebrow--dot mb-3">Pre-Construction Intelligence · South Florida Elevated</span>
+              <h1 className="font-serif text-4xl sm:text-6xl text-[#f4efe2] font-normal leading-[1.08] tracking-tight">
+                South Florida <em className="it text-[#ffd9a0]">Developments</em>.
+              </h1>
+              <p className="font-serif text-2xl sm:text-3xl text-[#c9a24a] italic mt-2">
+                Explore the projects reshaping the region.
+              </p>
+              <p className="text-base sm:text-lg text-[#f4efe2]/80 mt-6 font-light leading-relaxed">
+                We provide direct developer access, early reservation tier pricing, floor plan audits, and deposit schedule analysis across South Florida's most iconic branded residential towers.
+              </p>
 
-            <div className="flex flex-wrap gap-4 mt-8">
-              <button
-                onClick={() => onOpenContact('development', 'I would like to request current pre-construction pricing and availability across South Florida towers.')}
-                className="btn btn--gold"
-              >
-                <span>Request Project Availability</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
+              <div className="flex flex-wrap gap-4 mt-8">
+                <button
+                  onClick={() => onOpenContact('development', 'I would like to request current pre-construction pricing and availability across South Florida towers.')}
+                  className="btn btn--gold"
+                >
+                  <span>Request Project Availability</span>
+                  <ArrowRight className="w-4 h-4" />
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        </ImageZoomModal>
       </section>
 
       {/* 2. Filter Bar */}

@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { Compass, Check, ArrowRight, MapPin, Sparkles, Sun, DollarSign, Waves, Building2, Trees, ShieldCheck } from 'lucide-react';
 import { NEIGHBORHOODS } from '../../data';
 import { NeighborhoodDetail } from '../../types';
+import ImageZoomModal from '../ImageZoomModal';
 
 interface RelocateViewProps {
   onOpenContact: (intent?: string, message?: string) => void;
@@ -52,35 +53,40 @@ export default function RelocateView({ onOpenContact, onSelectNeighborhood }: Re
 
   return (
     <div className="pt-24 pb-20 animate-fadeIn">
-      {/* 1. Relocation Hero */}
-      <section className="relative py-16 sm:py-24 border-b border-[rgba(244,239,226,0.1)] bg-gradient-to-b from-[#0B0B0B] via-[#141a1d] to-[#0B0B0B]">
-        <div className="wrap">
-          <div className="max-w-3xl">
-            <span className="eyebrow eyebrow--dot mb-3">Relocation Intelligence · South Florida Elevated</span>
-            <h1 className="font-serif text-4xl sm:text-6xl text-[#f4efe2] font-normal leading-[1.08] tracking-tight">
-              Moving to South <em className="it text-[#ffd9a0]">Florida</em>?
-            </h1>
-            <p className="font-serif text-2xl sm:text-3xl text-[#c9a24a] italic mt-2">
-              Start with the neighborhood — not the house.
-            </p>
-            <p className="text-base sm:text-lg text-[#f4efe2]/80 mt-6 font-light leading-relaxed">
-              South Florida is not a single market; it is a tapestry of distinct micro-cultures, bridge heights, tax nuances, and lifestyle rhythms. Miguel guides individuals and families relocating from New York, Chicago, California, and across the globe to discover where they actually belong.
-            </p>
+      {/* 1. Relocation Hero with Zoomable Background */}
+      <section className="relative h-96 overflow-hidden">
+        <ImageZoomModal
+          imageUrl="https://images.unsplash.com/photo-1495521821757-a1efb6729352?auto=format&fit=crop&w=2000&q=85"
+          altText="South Florida coastal aerial - Moving to South Florida?"
+        >
+          <div className="absolute inset-0 flex flex-col justify-center px-6 sm:px-12 md:px-20 max-w-7xl mx-auto">
+            <div className="max-w-3xl">
+              <span className="eyebrow eyebrow--dot mb-3">Relocation Intelligence · South Florida Elevated</span>
+              <h1 className="font-serif text-4xl sm:text-6xl text-[#f4efe2] font-normal leading-[1.08] tracking-tight">
+                Moving to South <em className="it text-[#ffd9a0]">Florida</em>?
+              </h1>
+              <p className="font-serif text-2xl sm:text-3xl text-[#c9a24a] italic mt-2">
+                Start with the neighborhood — not the house.
+              </p>
+              <p className="text-base sm:text-lg text-[#f4efe2]/80 mt-6 font-light leading-relaxed">
+                South Florida is not a single market; it is a tapestry of distinct micro-cultures, bridge heights, tax nuances, and lifestyle rhythms. Miguel guides individuals and families relocating from New York, Chicago, California, and across the globe to discover where they actually belong.
+              </p>
 
-            <div className="flex flex-wrap gap-4 mt-8">
-              <a href="#lifestyle-quiz" className="btn btn--gold">
-                <span>Take the Lifestyle Match Quiz</span>
-                <ArrowRight className="w-4 h-4" />
-              </a>
-              <button
-                onClick={() => onOpenContact('relocation', `I am planning a relocation from ${originCity} to South Florida and would like advisory assistance.`)}
-                className="btn"
-              >
-                <span>Plan My Move</span>
-              </button>
+              <div className="flex flex-wrap gap-4 mt-8">
+                <a href="#lifestyle-quiz" className="btn btn--gold">
+                  <span>Take the Lifestyle Match Quiz</span>
+                  <ArrowRight className="w-4 h-4" />
+                </a>
+                <button
+                  onClick={() => onOpenContact('relocation', `I am planning a relocation from ${originCity} to South Florida and would like advisory assistance.`)}
+                  className="btn"
+                >
+                  <span>Plan My Move</span>
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        </ImageZoomModal>
       </section>
 
       {/* 2. Interactive Lifestyle Decision Engine */}

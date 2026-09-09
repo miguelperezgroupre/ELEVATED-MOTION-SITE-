@@ -1,5 +1,6 @@
 import React from 'react';
 import { ArrowRight, ShieldCheck, Award, MapPin, Compass, CheckCircle2, Phone, Mail } from 'lucide-react';
+import ImageZoomModal from '../ImageZoomModal';
 
 interface AboutViewProps {
   onOpenContact: (intent?: string, message?: string) => void;
@@ -8,22 +9,27 @@ interface AboutViewProps {
 export default function AboutView({ onOpenContact }: AboutViewProps) {
   return (
     <div className="pt-24 pb-20 animate-fadeIn">
-      {/* 1. About Hero */}
-      <section className="relative py-16 sm:py-24 border-b border-[rgba(244,239,226,0.1)] bg-gradient-to-b from-[#0B0B0B] via-[#141a1d] to-[#0B0B0B]">
-        <div className="wrap">
-          <div className="max-w-3xl">
-            <span className="eyebrow eyebrow--dot mb-3">The Trusted Advisor · South Florida Elevated</span>
-            <h1 className="font-serif text-4xl sm:text-6xl text-[#f4efe2] font-normal leading-[1.08] tracking-tight">
-              More than a <em className="it text-[#ffd9a0]">Realtor</em>.
-            </h1>
-            <p className="font-serif text-2xl sm:text-3xl text-[#c9a24a] italic mt-2">
-              Your South Florida Advisor.
-            </p>
-            <p className="text-base sm:text-lg text-[#f4efe2]/80 mt-6 font-light leading-relaxed">
-              "I've watched South Florida transform from a seasonal vacation haven into one of the world's most dynamic capital markets. Now I help people make smarter, more confident decisions within it."
-            </p>
+      {/* 1. About Hero with Zoomable Background */}
+      <section className="relative h-96 overflow-hidden">
+        <ImageZoomModal
+          imageUrl="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2000&q=85"
+          altText="Luxury architecture interior - More than a Realtor"
+        >
+          <div className="absolute inset-0 flex flex-col justify-center px-6 sm:px-12 md:px-20 max-w-7xl mx-auto">
+            <div className="max-w-3xl">
+              <span className="eyebrow eyebrow--dot mb-3">The Trusted Advisor · South Florida Elevated</span>
+              <h1 className="font-serif text-4xl sm:text-6xl text-[#f4efe2] font-normal leading-[1.08] tracking-tight">
+                More than a <em className="it text-[#ffd9a0]">Realtor</em>.
+              </h1>
+              <p className="font-serif text-2xl sm:text-3xl text-[#c9a24a] italic mt-2">
+                Your South Florida Advisor.
+              </p>
+              <p className="text-base sm:text-lg text-[#f4efe2]/80 mt-6 font-light leading-relaxed">
+                "I've watched South Florida transform from a seasonal vacation haven into one of the world's most dynamic capital markets. Now I help people make smarter, more confident decisions within it."
+              </p>
+            </div>
           </div>
-        </div>
+        </ImageZoomModal>
       </section>
 
       {/* 2. Miguel's Story & Background */}

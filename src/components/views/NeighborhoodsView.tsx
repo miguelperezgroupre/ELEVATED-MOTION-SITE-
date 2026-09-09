@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { ArrowRight, MapPin, Sparkles, Compass, Check, DollarSign, Trees, Waves, Building2 } from 'lucide-react';
 import { NEIGHBORHOODS } from '../../data';
 import { NeighborhoodDetail } from '../../types';
+import ImageZoomModal from '../ImageZoomModal';
 
 interface NeighborhoodsViewProps {
   onOpenContact: (intent?: string, message?: string) => void;
@@ -19,22 +20,27 @@ export default function NeighborhoodsView({ onOpenContact }: NeighborhoodsViewPr
 
   return (
     <div className="pt-24 pb-20 animate-fadeIn">
-      {/* 1. Neighborhoods Hero */}
-      <section className="relative py-16 sm:py-24 border-b border-[rgba(244,239,226,0.1)] bg-gradient-to-b from-[#0B0B0B] via-[#141a1d] to-[#0B0B0B]">
-        <div className="wrap">
-          <div className="max-w-3xl">
-            <span className="eyebrow eyebrow--dot mb-3">Geographic Authority · South Florida Elevated</span>
-            <h1 className="font-serif text-4xl sm:text-6xl text-[#f4efe2] font-normal leading-[1.08] tracking-tight">
-              Where do you <em className="it text-[#ffd9a0]">Belong</em>?
-            </h1>
-            <p className="font-serif text-2xl sm:text-3xl text-[#c9a24a] italic mt-2">
-              South Florida isn't one market. It's a collection of lifestyles.
-            </p>
-            <p className="text-base sm:text-lg text-[#f4efe2]/80 mt-6 font-light leading-relaxed">
-              From the deep-water finger canals of Las Olas to the historic banyan canopies of Coconut Grove and the vertical luxury of Brickell, discover the distinct character, price trends, and daily rhythms of South Florida's premier enclaves.
-            </p>
+      {/* 1. Neighborhoods Hero with Zoomable Background */}
+      <section className="relative h-96 overflow-hidden">
+        <ImageZoomModal
+          imageUrl="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=2000&q=85"
+          altText="Neighborhood streetscape - Where do you Belong?"
+        >
+          <div className="absolute inset-0 flex flex-col justify-center px-6 sm:px-12 md:px-20 max-w-7xl mx-auto">
+            <div className="max-w-3xl">
+              <span className="eyebrow eyebrow--dot mb-3">Geographic Authority · South Florida Elevated</span>
+              <h1 className="font-serif text-4xl sm:text-6xl text-[#f4efe2] font-normal leading-[1.08] tracking-tight">
+                Where do you <em className="it text-[#ffd9a0]">Belong</em>?
+              </h1>
+              <p className="font-serif text-2xl sm:text-3xl text-[#c9a24a] italic mt-2">
+                South Florida isn't one market. It's a collection of lifestyles.
+              </p>
+              <p className="text-base sm:text-lg text-[#f4efe2]/80 mt-6 font-light leading-relaxed">
+                From the deep-water finger canals of Las Olas to the historic banyan canopies of Coconut Grove and the vertical luxury of Brickell, discover the distinct character, price trends, and daily rhythms of South Florida's premier enclaves.
+              </p>
+            </div>
           </div>
-        </div>
+        </ImageZoomModal>
       </section>
 
       {/* 2. Regional Filter Tabs */}

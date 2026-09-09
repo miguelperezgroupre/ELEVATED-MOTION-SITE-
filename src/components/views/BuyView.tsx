@@ -1,6 +1,7 @@
 import { Property } from '../../types';
 import { PROPERTIES } from '../../data';
 import ListingCard from '../ListingCard';
+import ImageZoomModal from '../ImageZoomModal';
 
 interface BuyViewProps {
   onSelectProperty: (property: Property) => void;
@@ -14,19 +15,24 @@ export default function BuyView({
 }: BuyViewProps) {
   return (
     <div className="relative min-h-screen pt-28 pb-20">
-      {/* Hero Banner */}
-      <section className="bg-[#0e1416] border-b border-[rgba(244,239,226,0.08)]">
-        <div className="wrap py-16">
-          <div className="max-w-3xl">
-            <span className="eyebrow text-[#c9a24a]">Buy</span>
-            <h1 className="h2 text-[#f4efe2] mt-3">
-              Find Your <em className="it text-[#ffd9a0]">Place</em> in South Florida
-            </h1>
-            <p className="lede text-[#f4efe2]/70 mt-4">
-              Explore a curated selection of featured properties represented by Miguel Perez.
-            </p>
+      {/* Hero Banner with Zoomable Background */}
+      <section className="relative h-96 overflow-hidden">
+        <ImageZoomModal
+          imageUrl="https://images.unsplash.com/photo-1512318311289-96ec2e147924?auto=format&fit=crop&w=2000&q=85"
+          altText="Waterfront luxury home - Find Your Place"
+        >
+          <div className="absolute inset-0 flex flex-col justify-center px-6 sm:px-12 md:px-20 max-w-7xl mx-auto">
+            <div className="max-w-3xl">
+              <span className="eyebrow text-[#c9a24a]">Buy</span>
+              <h1 className="h2 text-[#f4efe2] mt-3">
+                Find Your <em className="it text-[#ffd9a0]">Place</em> in South Florida
+              </h1>
+              <p className="lede text-[#f4efe2]/70 mt-4">
+                Explore a curated selection of featured properties represented by Miguel Perez.
+              </p>
+            </div>
           </div>
-        </div>
+        </ImageZoomModal>
       </section>
 
       <section className="bg-[#0e1416]">
