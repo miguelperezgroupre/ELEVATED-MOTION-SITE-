@@ -84,18 +84,14 @@ export default function Footer({ onNavigate, onOpenContact }: FooterProps) {
                 </button>
               </li>
               <li>
-                <button onClick={() => handleNav('news')} className="hover:text-[#c9a24a] transition-colors cursor-pointer bg-transparent border-none p-0">
-                  News & Commentary
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleNav('listings')} className="hover:text-[#c9a24a] transition-colors cursor-pointer bg-transparent border-none p-0">
-                  Featured Listings
-                </button>
-              </li>
-              <li>
                 <button onClick={() => handleNav('about')} className="hover:text-[#c9a24a] transition-colors cursor-pointer bg-transparent border-none p-0">
                   About Miguel Perez
+                </button>
+              </li>
+              <li>
+                <button onClick={() => handleNav('demo')} className="hover:text-[#c9a24a] transition-colors cursor-pointer bg-transparent border-none p-0 flex items-center gap-1.5 text-[#f4efe2]/75 hover:text-[#ffd9a0]">
+                  <span>Cinematic Motion Demo</span>
+                  <span className="text-[9px] px-1.5 py-0.2 rounded bg-[#c9a24a]/20 text-[#ffd9a0] font-mono tracking-wider uppercase">Reel</span>
                 </button>
               </li>
             </ul>

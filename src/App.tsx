@@ -27,15 +27,14 @@ import NeighborhoodsView from './components/views/NeighborhoodsView';
 import InsightsView from './components/views/InsightsView';
 import AboutView from './components/views/AboutView';
 import ListingsView from './views/ListingsView';
-import BlogView from './views/BlogView';
-import FeaturedListingModal from './components/FeaturedListingModal';
+import ElevatedAiSearchView from './views/ElevatedAiSearchView';
+import Demo from '@/components/ui/demo';
 
-import { Property, FeaturedListing, NeighborhoodDetail } from './types';
+import { Property, NeighborhoodDetail } from './types';
 
 export default function App() {
   const [currentView, setCurrentView] = useState<NavView>('home');
   const [selectedProperty, setSelectedProperty] = useState<Property | null>(null);
-  const [selectedListing, setSelectedListing] = useState<FeaturedListing | null>(null);
   const [contactModalOpen, setContactModalOpen] = useState(false);
   const [contactIntent, setContactIntent] = useState('general');
   const [contactMessage, setContactMessage] = useState('');
@@ -44,7 +43,7 @@ export default function App() {
   useEffect(() => {
     const handleHash = () => {
       const hash = window.location.hash.replace('#', '').toLowerCase();
-      if (['buy', 'sell', 'relocate', 'invest', 'developments', 'neighborhoods', 'insights', 'news', 'about', 'listings'].includes(hash)) {
+      if (['buy', 'sell', 'relocate', 'invest', 'developments', 'neighborhoods', 'insights', 'about', 'listings', 'ai-search', 'demo'].includes(hash)) {
         setCurrentView(hash as NavView);
       }
     };
@@ -108,7 +107,7 @@ export default function App() {
             {/* Featured Luxury Residences */}
             <div id="collection">
               <FeaturedListings
-                onSelectListing={(l) => setSelectedListing(l)}
+                onSelectProperty={(p) => setSelectedProperty(p)}
                 onOpenContact={() => handleOpenContact('buyer')}
               />
             </div>
@@ -210,13 +209,15 @@ export default function App() {
           />
         )}
 
-        {currentView === 'news' && (
-          <BlogView onOpenContact={handleOpenContact} />
-        )}
-
         {currentView === 'listings' && (
           <ListingsView
-            onSelectListing={(l) => setSelectedListing(l)}
+            onSelectProperty={(p) => setSelectedProperty(p)}
+            onOpenContact={handleOpenContact}
+          />
+        )}
+        {currentView === 'ai-search' && (
+          <ElevatedAiSearchView
+            onSelectProperty={(p) => setSelectedProperty(p)}
             onOpenContact={handleOpenContact}
           />
         )}
@@ -225,18 +226,16 @@ export default function App() {
             onOpenContact={handleOpenContact}
           />
         )}
+        {currentView === 'demo' && (
+          <div className="pt-24 min-h-screen bg-[#0e1416]">
+            <Demo />
+          </div>
+        )}
       </main>
 
       {/* Persistent global footer */}
       <Footer
         onNavigate={handleNavigate}
-        onOpenContact={handleOpenContact}
-      />
-
-      {/* Native featured-listing detail (no outbound links) */}
-      <FeaturedListingModal
-        listing={selectedListing}
-        onClose={() => setSelectedListing(null)}
         onOpenContact={handleOpenContact}
       />
 

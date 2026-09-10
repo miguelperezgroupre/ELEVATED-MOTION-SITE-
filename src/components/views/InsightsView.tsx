@@ -2,7 +2,6 @@ import React, { useState, useMemo } from 'react';
 import { ArrowRight, FileText, CheckCircle2, TrendingUp, Sparkles, BookOpen, Clock, Download } from 'lucide-react';
 import { INSIGHT_ARTICLES, MARKET, MONTHS } from '../../data';
 import { InsightArticle } from '../../types';
-import ImageZoomModal from '../ImageZoomModal';
 
 interface InsightsViewProps {
   onOpenContact: (intent?: string, message?: string) => void;
@@ -42,40 +41,43 @@ export default function InsightsView({ onOpenContact }: InsightsViewProps) {
 
   return (
     <div className="pt-24 pb-20 animate-fadeIn">
-      {/* 1. Insights Hero with Zoomable Background */}
-      <section className="relative h-96 overflow-hidden">
-        <ImageZoomModal
-          imageUrl="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=2000&q=85"
-          altText="Modern office study - South Florida Real Estate News"
-        >
-          <div className="absolute inset-0 flex flex-col justify-center px-6 sm:px-12 md:px-20 max-w-7xl mx-auto">
-            <div className="max-w-3xl">
-              <span className="eyebrow eyebrow--dot mb-3">Research & Advisory · South Florida Elevated</span>
-              <h1 className="font-serif text-4xl sm:text-6xl text-[#f4efe2] font-normal leading-[1.08] tracking-tight">
-                South Florida <em className="it text-[#ffd9a0]">Intelligence</em>.
-              </h1>
-              <p className="font-serif text-2xl sm:text-3xl text-[#c9a24a] italic mt-2">
-                What's happening beneath the headlines.
-              </p>
-              <p className="text-base sm:text-lg text-[#f4efe2]/80 mt-6 font-light leading-relaxed">
-                We decode real data, capital migrations, building structural reserve audits, and waterfront supply constraints so you can navigate South Florida real estate with uncompromised clarity.
-              </p>
+      {/* 1. Insights Hero */}
+      <section className="relative py-16 sm:py-24 border-b border-[rgba(244,239,226,0.1)] bg-[#0B0B0B] overflow-hidden">
+        <div className="hero-image-wrap pointer-events-none">
+          <img 
+            src="https://images.unsplash.com/photo-1573489871576-0f1e8e2c0e86?auto=format&fit=crop&w=1920&q=80" 
+            alt="South Florida Market Insights" 
+            className="w-full h-full object-cover opacity-30 hero-motion-float"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0B] via-[#0B0B0B]/60 to-transparent" />
+        </div>
+        <div className="wrap relative z-10">
+          <div className="max-w-3xl">
+            <span className="eyebrow eyebrow--dot mb-3">Research & Advisory · South Florida Elevated</span>
+            <h1 className="font-serif text-4xl sm:text-6xl text-[#f4efe2] font-normal leading-[1.08] tracking-tight">
+              South Florida <em className="it text-[#ffd9a0]">Intelligence</em>.
+            </h1>
+            <p className="font-serif text-2xl sm:text-3xl text-[#c9a24a] italic mt-2">
+              What's happening beneath the headlines.
+            </p>
+            <p className="text-base sm:text-lg text-[#f4efe2]/80 mt-6 font-light leading-relaxed">
+              We decode real data, capital migrations, building structural reserve audits, and waterfront supply constraints so you can navigate South Florida real estate with uncompromised clarity.
+            </p>
 
-              <div className="flex flex-wrap gap-4 mt-8">
-                <a href="#market-report-lead" className="btn btn--gold">
-                  <span>Download Q3 Market Report</span>
-                  <Download className="w-4 h-4" />
-                </a>
-                <button
-                  onClick={() => onOpenContact('report', 'I would like to receive Miguel Perez monthly private market intelligence briefings.')}
-                  className="btn"
-                >
-                  <span>Subscribe to Monthly Brief</span>
-                </button>
-              </div>
+            <div className="flex flex-wrap gap-4 mt-8">
+              <a href="#market-report-lead" className="btn btn--gold">
+                <span>Download Q3 Market Report</span>
+                <Download className="w-4 h-4" />
+              </a>
+              <button
+                onClick={() => onOpenContact('report', 'I would like to receive Miguel Perez monthly private market intelligence briefings.')}
+                className="btn"
+              >
+                <span>Subscribe to Monthly Brief</span>
+              </button>
             </div>
           </div>
-        </ImageZoomModal>
+        </div>
       </section>
 
       {/* 2. Interactive Market Benchmark Chart Section */}

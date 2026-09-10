@@ -48,44 +48,20 @@ export interface FeaturedListing {
   price: number;
   beds: number;
   baths: number;
-  /** Half baths (powder rooms), when the record breaks them out. */
-  halfBaths?: number;
-  /** Null when the record has no living-area figure. */
+  /** Null when the MLS record has no living-area figure. */
   sqft: number | null;
-  /** Human-readable lot size, e.g. "10,500 sq ft" or "1.25 acres". */
-  lotSize?: string;
-  yearBuilt?: number;
-  /** e.g. "Single-family · Two story" */
-  propertyType?: string;
   mlsNumber?: string;
-  /** Self-hosted hero photo under /public/listings/. */
+  /** Hero photo URL (brokerage MLS CDN). */
   img: string;
+  /** Outbound link to the full listing page on the brokerage site. */
+  href: string;
   /** Placeholder gradient class shown behind the photo while it loads. */
   grad: string;
-  /** Full marketing description, shown on the native detail view. */
-  description?: string;
-  /** Notable interior / exterior / waterfront features. */
-  features?: string[];
   openHouse?: {
     start: string;
     end: string;
     label: string;
   } | null;
-}
-
-export interface BlogPost {
-  slug: string;
-  title: string;
-  category: 'Market News' | 'Neighborhood' | 'Development' | 'Advisory' | 'Lifestyle';
-  date: string;
-  readTime: string;
-  author: string;
-  /** One- or two-sentence standfirst shown on cards and at the top of the post. */
-  excerpt: string;
-  /** Body copy as an ordered list of paragraphs. */
-  body: string[];
-  img: string;
-  featured?: boolean;
 }
 
 export interface LifestyleItem {

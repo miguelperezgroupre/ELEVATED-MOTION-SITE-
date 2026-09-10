@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { ArrowRight, TrendingUp, DollarSign, Calculator, ShieldCheck, PieChart, Layers, Building2, Anchor } from 'lucide-react';
 import { money } from '../../data';
-import ImageZoomModal from '../ImageZoomModal';
 
 interface InvestViewProps {
   onOpenContact: (intent?: string, message?: string) => void;
@@ -24,40 +23,43 @@ export default function InvestView({ onOpenContact, onNavigateToDevelopments }: 
 
   return (
     <div className="pt-24 pb-20 animate-fadeIn">
-      {/* 1. Invest Hero with Zoomable Background */}
-      <section className="relative h-96 overflow-hidden">
-        <ImageZoomModal
-          imageUrl="https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=2000&q=85"
-          altText="Miami Brickell skyline - Real estate as an Asset"
-        >
-          <div className="absolute inset-0 flex flex-col justify-center px-6 sm:px-12 md:px-20 max-w-7xl mx-auto">
-            <div className="max-w-3xl">
-              <span className="eyebrow eyebrow--dot mb-3">Capital Advisory · South Florida Elevated</span>
-              <h1 className="font-serif text-4xl sm:text-6xl text-[#f4efe2] font-normal leading-[1.08] tracking-tight">
-                Real estate as an <em className="it text-[#ffd9a0]">Asset</em>.
-              </h1>
-              <p className="font-serif text-2xl sm:text-3xl text-[#c9a24a] italic mt-2">
-                South Florida isn't simply a place to live. It's a market to understand.
-              </p>
-              <p className="text-base sm:text-lg text-[#f4efe2]/80 mt-6 font-light leading-relaxed">
-                From pre-construction deposit arbitrage in Sunny Isles and Edgewater to irreplaceable deep-water dockage in Las Olas, we help family offices and private investors evaluate South Florida property with institutional financial discipline.
-              </p>
+      {/* 1. Invest Hero */}
+      <section className="relative py-16 sm:py-24 border-b border-[rgba(244,239,226,0.1)] bg-[#0B0B0B] overflow-hidden">
+        <div className="hero-image-wrap pointer-events-none">
+          <img 
+            src="https://images.unsplash.com/photo-1540201083431-7b001a1c97a9?auto=format&fit=crop&w=1920&q=80" 
+            alt="Miami Skyline Investment" 
+            className="w-full h-full object-cover opacity-30 hero-motion-pan"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0B] via-[#0B0B0B]/60 to-transparent" />
+        </div>
+        <div className="wrap relative z-10">
+          <div className="max-w-3xl">
+            <span className="eyebrow eyebrow--dot mb-3">Capital Advisory · South Florida Elevated</span>
+            <h1 className="font-serif text-4xl sm:text-6xl text-[#f4efe2] font-normal leading-[1.08] tracking-tight">
+              Real estate as an <em className="it text-[#ffd9a0]">Asset</em>.
+            </h1>
+            <p className="font-serif text-2xl sm:text-3xl text-[#c9a24a] italic mt-2">
+              South Florida isn't simply a place to live. It's a market to understand.
+            </p>
+            <p className="text-base sm:text-lg text-[#f4efe2]/80 mt-6 font-light leading-relaxed">
+              From pre-construction deposit arbitrage in Sunny Isles and Edgewater to irreplaceable deep-water dockage in Las Olas, we help family offices and private investors evaluate South Florida property with institutional financial discipline.
+            </p>
 
-              <div className="flex flex-wrap gap-4 mt-8">
-                <button
-                  onClick={() => onOpenContact('investor', 'I would like to explore South Florida investment opportunities with Miguel.')}
-                  className="btn btn--gold"
-                >
-                  <span>Explore Investment Opportunities</span>
-                  <ArrowRight className="w-4 h-4" />
-                </button>
-                <a href="#investment-calculator" className="btn">
-                  <span>Run Returns Model</span>
-                </a>
-              </div>
+            <div className="flex flex-wrap gap-4 mt-8">
+              <button
+                onClick={() => onOpenContact('investor', 'I would like to explore South Florida investment opportunities with Miguel.')}
+                className="btn btn--gold"
+              >
+                <span>Explore Investment Opportunities</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+              <a href="#investment-calculator" className="btn">
+                <span>Run Returns Model</span>
+              </a>
             </div>
           </div>
-        </ImageZoomModal>
+        </div>
       </section>
 
       {/* 2. The 6-Step Investment Framework */}

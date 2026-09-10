@@ -6,6 +6,8 @@ import rateLimit from "express-rate-limit";
 import { createServer as createViteServer } from "vite";
 import "dotenv/config";
 
+import { performRagSearch } from "./server/services/ragService.js";
+
 async function startServer() {
   const app = express();
   const PORT = 3000;
@@ -35,9 +37,10 @@ async function startServer() {
   // We keep the Bridgedata Token entirely server-side.
   app.use("/api/", apiLimiter);
 
-  app.get("/api/listings", async (req, res) => {
+  app.get("/api/odata/Property", async (req, res) => {
     try {
-      const BASE_URL = process.env.BRIDGEDATA_BASE_URL || 'https://api.bridgedataoutput.com/api/v2/miamire';
+      const DATASET = process.env.BRIDGEDATA_DATASET || 'miamire';
+      const BASE_URL = `https://api.bridgedataoutput.com/api/v2/OData/${DATASET}`;
       const TOKEN = process.env.BRIDGEDATA_SERVER_TOKEN;
       
       if (!TOKEN) {
@@ -45,11 +48,10 @@ async function startServer() {
         return res.status(500).json({ error: "Server configuration error" });
       }
 
-      // Reconstruct query string securely
       const queryParams = new URLSearchParams(req.query as Record<string, string>);
       queryParams.set("access_token", TOKEN);
 
-      const url = `${BASE_URL}/listings?${queryParams.toString()}`;
+      const url = `${BASE_URL}/Property?${queryParams.toString()}`;
       
       const response = await fetch(url);
       if (!response.ok) {
@@ -64,9 +66,53 @@ async function startServer() {
     }
   });
 
-  app.get("/api/listings/:id", async (req, res) => {
+  app.get("/api/odata/Property\\(':id'\\)", async (req, res) => {
     try {
-      const BASE_URL = process.env.BRIDGEDATA_BASE_URL || 'https://api.bridgedataoutput.com/api/v2/miamire';
+      const DATASET = process.env.BRIDGEDATA_DATASET || 'miamire';
+      const BASE_URL = `https://api.bridgedataoutput.com/api/v2/OData/${DATASET}`;
+      const TOKEN = process.env.BRIDGEDATA_SERVER_TOKEN;
+      
+      if (!TOKEN) return res.status(500).json({ error: "Server configuration error" });
+
+      const url = `${BASE_URL}/Property('${encodeURIComponent(req.params.id)}')?access_token=${TOKEN}`;
+      
+      const response = await fetch(url);
+      if (!response.ok) throw new Error(`Bridge API returned ${response.status}`);
+      
+      const data = await response.json();
+      res.json(data);
+    } catch (error) {
+      console.error("[Backend] Error fetching property detail:", error);
+      res.status(500).json({ error: "Failed to fetch property detail securely." });
+    }
+  });
+
+  app.get("/api/pub/listings", async (req, res) => {
+    try {
+      const BASE_URL = 'https://api.bridgedataoutput.com/api/v2/pub';
+      const TOKEN = process.env.BRIDGEDATA_SERVER_TOKEN;
+      
+      if (!TOKEN) return res.status(500).json({ error: "Server configuration error" });
+
+      const queryParams = new URLSearchParams(req.query as Record<string, string>);
+      queryParams.set("access_token", TOKEN);
+
+      const url = `${BASE_URL}/listings?${queryParams.toString()}`;
+      
+      const response = await fetch(url);
+      if (!response.ok) throw new Error(`Bridge API returned ${response.status}`);
+      
+      const data = await response.json();
+      res.json(data);
+    } catch (error) {
+      console.error("[Backend] Error fetching properties:", error);
+      res.status(500).json({ error: "Failed to fetch property data securely." });
+    }
+  });
+
+  app.get("/api/pub/listings/:id", async (req, res) => {
+    try {
+      const BASE_URL = 'https://api.bridgedataoutput.com/api/v2/pub';
       const TOKEN = process.env.BRIDGEDATA_SERVER_TOKEN;
       
       if (!TOKEN) return res.status(500).json({ error: "Server configuration error" });
@@ -81,6 +127,54 @@ async function startServer() {
     } catch (error) {
       console.error("[Backend] Error fetching property detail:", error);
       res.status(500).json({ error: "Failed to fetch property detail securely." });
+    }
+  });
+
+  // Secure Lead Capture Proxy (GoHighLevel)
+  app.use(express.json());
+  
+  app.post("/api/elevated-search", apiLimiter, async (req, res) => {
+    try {
+      const { query } = req.body;
+      if (!query || typeof query !== 'string') {
+        return res.status(400).json({ error: "Valid search query is required." });
+      }
+      
+      const answer = await performRagSearch(query);
+      res.json({ answer });
+    } catch (error) {
+      console.error("[Backend] Elevated search error:", error);
+      res.status(500).json({ error: "Secure vector query failed." });
+    }
+  });
+
+  app.post("/api/leads", async (req, res) => {
+    try {
+      const GHL_TOKEN = process.env.GHL_TOKEN;
+      if (!GHL_TOKEN) {
+        return res.status(500).json({ error: "Server configuration error for CRM" });
+      }
+
+      const response = await fetch('https://services.leadconnectorhq.com/contacts/', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${GHL_TOKEN}`,
+          'Version': '2021-07-28',
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify(req.body),
+      });
+
+      if (!response.ok) {
+        throw new Error(`CRM returned ${response.status}`);
+      }
+
+      const data = await response.json();
+      res.json(data);
+    } catch (error) {
+      console.error("[Backend] Error submitting lead:", error);
+      res.status(500).json({ error: "Failed to submit lead securely." });
     }
   });
 

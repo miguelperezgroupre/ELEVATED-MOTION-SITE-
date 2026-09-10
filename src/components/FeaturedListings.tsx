@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { Heart, Bed, Bath, Maximize2, CalendarClock } from 'lucide-react';
+import { Heart, Bed, Bath, Maximize2, ArrowRight, CalendarClock } from 'lucide-react';
 import { FEATURED_LISTINGS, money } from '../data';
-import { FeaturedListing } from '../types';
+import { FeaturedListing, Property } from '../types';
 
 interface FeaturedListingsProps {
-  /** Opens the in-site listing detail view. */
-  onSelectListing: (listing: FeaturedListing) => void;
+  onSelectProperty?: (property: Property) => void;
   onOpenContact?: () => void;
 }
 
@@ -19,7 +18,28 @@ function specLine(l: FeaturedListing): string {
     .join('  ·  ');
 }
 
-export default function FeaturedListings({ onSelectListing, onOpenContact }: FeaturedListingsProps) {
+function mapFeaturedToProperty(fl: FeaturedListing): Property {
+  return {
+    id: fl.id,
+    name: fl.address,
+    city: fl.city,
+    area: fl.city.toLowerCase().includes('miami') ? 'miami' : fl.city.toLowerCase().includes('lauderdale') ? 'ftl' : 'pb',
+    badge: fl.status,
+    price: fl.price,
+    beds: fl.beds,
+    baths: fl.baths,
+    sqft: fl.sqft || 0,
+    type: fl.address.toLowerCase().includes('condo') || fl.address.toLowerCase().includes('apt') || fl.address.toLowerCase().includes('unit') ? 'condo' : 'house',
+    grad: fl.grad,
+    img: fl.img,
+    tags: [],
+    desc: `${fl.address}, ${fl.city}, ${fl.state} ${fl.zip}`,
+    neighborhood: fl.city,
+    featured: true
+  };
+}
+
+export default function FeaturedListings({ onSelectProperty, onOpenContact }: FeaturedListingsProps) {
   const [favorites, setFavorites] = useState<Record<string, boolean>>({});
 
   const toggleFavorite = (e: React.MouseEvent, id: string) => {
@@ -49,7 +69,8 @@ export default function FeaturedListings({ onSelectListing, onOpenContact }: Fea
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8">
           {/* Main Large Card */}
           <div
-            onClick={() => onSelectListing(hero)}
+            onClick={() => onSelectProperty?.(mapFeaturedToProperty(hero))}
+            data-cursor="view"
             className="group lg:col-span-8 relative bg-white border border-[#e5e7eb] hover:border-[#9a7629] transition-all duration-300 overflow-hidden flex flex-col shadow-sm hover:shadow-xl cursor-pointer"
           >
             <div className={`relative h-[360px] sm:h-[480px] w-full overflow-hidden ${hero.grad}`}>
@@ -122,7 +143,8 @@ export default function FeaturedListings({ onSelectListing, onOpenContact }: Fea
 
           {/* Secondary Tall Card */}
           <div
-            onClick={() => onSelectListing(tall)}
+            onClick={() => onSelectProperty?.(mapFeaturedToProperty(tall))}
+            data-cursor="view"
             className="group lg:col-span-4 relative bg-white border border-[#e5e7eb] hover:border-[#9a7629] transition-all duration-300 overflow-hidden flex flex-col shadow-sm hover:shadow-xl cursor-pointer"
           >
             <div className={`relative h-[280px] lg:h-[480px] w-full overflow-hidden ${tall.grad}`}>
@@ -184,7 +206,8 @@ export default function FeaturedListings({ onSelectListing, onOpenContact }: Fea
           {rest.map((l) => (
             <div
               key={l.id}
-              onClick={() => onSelectListing(l)}
+              onClick={() => onSelectProperty?.(mapFeaturedToProperty(l))}
+              data-cursor="view"
               className="group relative bg-white border border-[#e5e7eb] hover:border-[#9a7629] transition-all duration-300 overflow-hidden flex flex-col shadow-sm hover:shadow-xl cursor-pointer"
             >
               <div className={`relative h-64 w-full overflow-hidden ${l.grad}`}>
@@ -243,13 +266,19 @@ export default function FeaturedListings({ onSelectListing, onOpenContact }: Fea
         {/* Section Foot */}
         <div className="mt-14 pt-8 border-t border-[#e5e7eb] flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
           <p className="font-mono text-xs text-[#6b7280]">
-            Inventory represented by Miguel Perez. Listing data via the MLS.
+            Inventory represented by Miguel Perez · Luxe Properties. Listing data via the MLS.
           </p>
-          {onOpenContact && (
-            <button className="btn" onClick={onOpenContact}>
-              <span>Request a private showing</span>
-            </button>
-          )}
+          <div className="flex flex-wrap items-center justify-center gap-3">
+            {onOpenContact && (
+              <button className="btn" onClick={onOpenContact}>
+                <span>Request a private showing</span>
+              </button>
+            )}
+            <a className="btn btn--gold" href="#listings">
+              <span>View all listings</span>
+              <ArrowRight className="w-4 h-4" />
+            </a>
+          </div>
         </div>
       </div>
     </section>

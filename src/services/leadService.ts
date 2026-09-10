@@ -1,5 +1,3 @@
-const GHL_API = 'https://services.leadconnectorhq.com';
-const GHL_TOKEN = import.meta.env.VITE_GHL_TOKEN || '';
 const GHL_LOCATION_ID = import.meta.env.VITE_GHL_LOCATION_ID || 'cRlvOrPOIs9VzJUR4Ju6';
 
 export interface LeadData {
@@ -28,48 +26,40 @@ class LeadService {
     if (data.type === 'newsletter') tags.push('Newsletter Subscriber');
     if (data.type === 'valuation') tags.push('Home Valuation Request');
 
-    // Try GHL
-    if (GHL_TOKEN) {
-      try {
-        const body: Record<string, any> = {
-          locationId: GHL_LOCATION_ID,
-          firstName,
-          lastName,
-          email: data.email,
-          phone: data.phone || undefined,
-          tags,
-          customField: {
-            message: data.message || '',
-            intent: data.intent || 'General',
-            source: data.source || 'southfloridaelevated.com',
-          },
-        };
+    try {
+      const body: Record<string, any> = {
+        locationId: GHL_LOCATION_ID,
+        firstName,
+        lastName,
+        email: data.email,
+        phone: data.phone || undefined,
+        tags,
+        customField: {
+          message: data.message || '',
+          intent: data.intent || 'General',
+          source: data.source || 'southfloridaelevated.com',
+        },
+      };
 
-        if (data.sqft) body.customField.sqft = data.sqft;
-        if (data.propertyType) body.customField.propertyType = data.propertyType;
+      if (data.sqft) body.customField.sqft = data.sqft;
+      if (data.propertyType) body.customField.propertyType = data.propertyType;
 
-        const response = await fetch(`${GHL_API}/contacts/`, {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${GHL_TOKEN}`,
-            'Version': '2021-07-28',
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            'Origin': 'https://www.southfloridaelevated.com',
-            'Referer': 'https://www.southfloridaelevated.com/',
-          },
-          body: JSON.stringify(body),
-        });
+      const response = await fetch(`/api/leads`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+      });
 
-        if (response.ok) return { success: true, method: 'ghl' };
-        console.warn('[LeadService] GHL failed, falling back to email');
-      } catch (err) {
-        console.warn('[LeadService] GHL error, falling back to email');
-      }
+      if (response.ok) return { success: true, method: 'ghl' };
+      console.warn('[LeadService] Backend proxy failed, falling back to local');
+    } catch (err) {
+      console.warn('[LeadService] Network error, falling back to local', err);
     }
 
     // Fallback: store for now
-    console.log('[LeadService] Lead captured:', data.email, data.intent);
+    console.log('[LeadService] Lead captured locally:', data.email, data.intent);
     return { success: true, method: 'local' };
   }
 }

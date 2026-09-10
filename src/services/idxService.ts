@@ -12,13 +12,10 @@ const BROWSER_TOKEN = import.meta.env.VITE_BRIDGEDATA_BROWSER_TOKEN || '';
 const DATASET = import.meta.env.VITE_BRIDGEDATA_DATASET || 'miamire';
 const USE_ODATA = import.meta.env.VITE_BRIDGEDATA_USE_ODATA === 'true';
 
-// The token to use — prefer server token, fall back to browser token
-const ACCESS_TOKEN = SERVER_TOKEN || BROWSER_TOKEN || '';
-
 // Base URL depends on whether we're using OData or REST
 const BASE_URL = USE_ODATA
-  ? `https://api.bridgedataoutput.com/api/v2/OData/${DATASET}`
-  : `https://api.bridgedataoutput.com/api/v2/pub`;
+  ? `/api/odata`
+  : `/api/pub`;
 
 // ── Types ─────────────────────────────────────────────────────
 
@@ -49,6 +46,7 @@ interface BridgedataProperty {
   UnparsedAddress?: string;
   PhotosCount?: number;
   Media?: { MediaURL?: string; MediaCategory?: string; MediaObjectID?: string; MediaKey?: string }[];
+  Photos?: { Uri?: string; Uri800?: string; Order?: number }[];
 }
 
 // ── Mock Fallback Data ────────────────────────────────────────
@@ -62,15 +60,7 @@ class IdxService {
   private isUsingMockData = false;
 
   private async fetchWithToken(endpoint: string, params: Record<string, string> = {}): Promise<any> {
-    if (!ACCESS_TOKEN) {
-      throw new Error('No Bridgedata API token configured. Set VITE_BRIDGEDATA_SERVER_TOKEN in .env');
-    }
-
-    const queryString = new URLSearchParams({
-      ...params,
-      access_token: ACCESS_TOKEN,
-    }).toString();
-
+    const queryString = new URLSearchParams(params).toString();
     const url = `${BASE_URL}/${endpoint}?${queryString}`;
 
     try {

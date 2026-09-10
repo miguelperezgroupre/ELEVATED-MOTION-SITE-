@@ -422,3 +422,45 @@ img.failed {
   font-size: 10px;
   fill: #6b7280;
 }
+
+/* Cinematic Hero Motions (5-8 second extremely slow loops, 3-8% parallax) */
+@keyframes cinematicPushIn {
+  0% { transform: scale(1.0); }
+  100% { transform: scale(1.06); }
+}
+
+@keyframes cinematicPanLeft {
+  0% { transform: translateX(0%) scale(1.05); }
+  100% { transform: translateX(-3%) scale(1.05); }
+}
+
+@keyframes cinematicPanRight {
+  0% { transform: translateX(0%) scale(1.05); }
+  100% { transform: translateX(3%) scale(1.05); }
+}
+
+@keyframes cinematicFloat {
+  0% { transform: translateY(0%) scale(1.03); }
+  50% { transform: translateY(-2%) scale(1.03); }
+  100% { transform: translateY(0%) scale(1.03); }
+}
+
+.hero-motion-push {
+  animation: cinematicPushIn 20s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.hero-motion-pan {
+  animation: cinematicPanRight 25s ease-in-out alternate infinite;
+}
+
+.hero-motion-float {
+  animation: cinematicFloat 15s ease-in-out infinite;
+}
+
+.hero-image-wrap {
+  overflow: hidden;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
