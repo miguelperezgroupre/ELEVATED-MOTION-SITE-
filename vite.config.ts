@@ -13,6 +13,18 @@ export default defineConfig(() => {
     },
     build: {
       outDir: 'dist',
+      rollupOptions: {
+        output: {
+          manualChunks(id) {
+            // Keep the React runtime in its own long-lived, cacheable chunk.
+            if (id.includes('node_modules')) {
+              if (id.includes('react-dom') || id.includes('/react/') || id.includes('scheduler')) {
+                return 'react-vendor';
+              }
+            }
+          },
+        },
+      },
     },
     server: {
       // HMR is disabled in AI Studio via DISABLE_HMR env var.

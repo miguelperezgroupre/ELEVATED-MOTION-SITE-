@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import CustomCursor from './components/CustomCursor';
 import Navigation, { NavView } from './components/Navigation';
 import Hero from './components/Hero';
@@ -19,18 +19,19 @@ import Modals from './components/Modals';
 import AccessibilityWidget from './components/AccessibilityWidget';
 import LanguageMenu from './components/LanguageMenu';
 
-// Dedicated Full-Page Sitemap Views
-import BuyView from './components/views/BuyView';
-import SellView from './components/views/SellView';
-import RelocateView from './components/views/RelocateView';
-import InvestView from './components/views/InvestView';
-import DevelopmentsView from './components/views/DevelopmentsView';
-import NeighborhoodsView from './components/views/NeighborhoodsView';
-import InsightsView from './components/views/InsightsView';
-import AboutView from './components/views/AboutView';
-import ListingsView from './views/ListingsView';
-import ElevatedAiSearchView from './views/ElevatedAiSearchView';
-import Demo from '@/components/ui/demo';
+// Dedicated full-page views are code-split (React.lazy) so their code — and their
+// heavy deps like react-markdown / framer-motion — stay out of the initial bundle.
+const BuyView = lazy(() => import('./components/views/BuyView'));
+const SellView = lazy(() => import('./components/views/SellView'));
+const RelocateView = lazy(() => import('./components/views/RelocateView'));
+const InvestView = lazy(() => import('./components/views/InvestView'));
+const DevelopmentsView = lazy(() => import('./components/views/DevelopmentsView'));
+const NeighborhoodsView = lazy(() => import('./components/views/NeighborhoodsView'));
+const InsightsView = lazy(() => import('./components/views/InsightsView'));
+const AboutView = lazy(() => import('./components/views/AboutView'));
+const ListingsView = lazy(() => import('./views/ListingsView'));
+const ElevatedAiSearchView = lazy(() => import('./views/ElevatedAiSearchView'));
+const Demo = lazy(() => import('@/components/ui/demo'));
 
 import { Property, NeighborhoodDetail } from './types';
 
@@ -87,6 +88,7 @@ export default function App() {
       />
 
       <main>
+        <Suspense fallback={<div className="min-h-screen bg-[#0e1416]" aria-busy="true" aria-live="polite" />}>
         {currentView === 'home' && (
           <div className="animate-fadeIn">
             {/* Cinematic Hero */}
@@ -233,6 +235,7 @@ export default function App() {
             <Demo />
           </div>
         )}
+        </Suspense>
       </main>
 
       {/* Persistent global footer */}
