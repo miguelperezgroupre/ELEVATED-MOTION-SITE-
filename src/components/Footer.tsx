@@ -1,4 +1,5 @@
 import { NavView } from './Navigation';
+import LanguageMenu from './LanguageMenu';
 
 interface FooterProps {
   onNavigate: (view: NavView) => void;
@@ -133,6 +134,13 @@ export default function Footer({ onNavigate, onOpenContact }: FooterProps) {
           </div>
 
           <div className="flex flex-wrap items-center gap-6">
+            <LanguageMenu variant="inline" />
+            <button
+              onClick={() => window.dispatchEvent(new Event('sfe:open-a11y'))}
+              className="hover:text-[#c9a24a] transition-colors cursor-pointer bg-transparent border-none font-mono text-[11px]"
+            >
+              Accessibility
+            </button>
             <a href="#" className="hover:text-[#c9a24a] transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-[#c9a24a] transition-colors">Terms of Representation</a>
           </div>

@@ -81,7 +81,7 @@ export default function CustomCursor() {
     <>
       {/* Center dot */}
       <div
-        className={`fixed pointer-events-none z-[100] -translate-x-1/2 -translate-y-1/2 rounded-full transition-opacity duration-300 ${
+        className={`sfe-cursor fixed pointer-events-none z-[100] -translate-x-1/2 -translate-y-1/2 rounded-full transition-opacity duration-300 ${
           cursorType === 'default'
             ? 'w-1.5 h-1.5 bg-[#c9a24a] opacity-90'
             : cursorType === 'sm'
@@ -94,7 +94,7 @@ export default function CustomCursor() {
 
       {/* Ring / interactive bubble */}
       <div
-        className={`fixed pointer-events-none z-[100] -translate-x-1/2 -translate-y-1/2 rounded-full flex items-center justify-center transition-all duration-300 ease-out border ${
+        className={`sfe-cursor fixed pointer-events-none z-[100] -translate-x-1/2 -translate-y-1/2 rounded-full flex items-center justify-center transition-all duration-300 ease-out border ${
           cursorType === 'default'
             ? 'w-8 h-8 border-[rgba(201,162,74,0.4)] bg-transparent'
             : cursorType === 'sm'

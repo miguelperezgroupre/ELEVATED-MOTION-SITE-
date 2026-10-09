@@ -16,6 +16,8 @@ import ContactCTA from './components/ContactCTA';
 import Newsletter from './components/Newsletter';
 import Footer from './components/Footer';
 import Modals from './components/Modals';
+import AccessibilityWidget from './components/AccessibilityWidget';
+import LanguageMenu from './components/LanguageMenu';
 
 // Dedicated Full-Page Sitemap Views
 import BuyView from './components/views/BuyView';
@@ -238,6 +240,10 @@ export default function App() {
         onNavigate={handleNavigate}
         onOpenContact={handleOpenContact}
       />
+
+      {/* Floating accessibility controls & language switcher */}
+      <AccessibilityWidget />
+      <LanguageMenu />
 
       {/* Global Interactive Modals (Property Detail & Intent-Aware Consultation) */}
       <Modals
