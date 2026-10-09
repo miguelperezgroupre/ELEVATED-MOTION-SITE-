@@ -116,7 +116,7 @@ export default function MarketIntelligence({ onOpenContact }: MarketIntelligence
               <button
                 type="button"
                 onClick={onOpenContact}
-                className="link-gold text-[#9a7629] font-mono text-xs flex items-center gap-1 hover:underline"
+                className="link-gold text-[#6f5320] font-mono text-xs flex items-center gap-1 hover:underline"
               >
                 <span>Full report</span>
                 <ArrowUpRight className="w-3.5 h-3.5" />

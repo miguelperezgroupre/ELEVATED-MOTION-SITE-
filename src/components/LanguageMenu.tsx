@@ -143,7 +143,7 @@ export default function LanguageMenu({ variant = 'floating', className = '' }: L
               <span className="flex flex-col leading-tight">
                 <span className="text-[13px]">{l.native}</span>
                 {l.native !== l.name && (
-                  <span className="text-[10px] text-[#f4efe2]/45">{l.name}</span>
+                  <span className="text-[10px] text-[#f4efe2]/60">{l.name}</span>
                 )}
               </span>
               {selected && <Check className="w-3.5 h-3.5 text-[#c9a24a]" aria-hidden="true" />}

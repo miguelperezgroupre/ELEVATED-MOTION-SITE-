@@ -196,7 +196,7 @@ export default function AccessibilityWidget() {
                     />
                     <span className="flex-1 min-w-0">
                       <span className="block text-[13px] text-[#f4efe2] leading-tight">{label}</span>
-                      <span className="block text-[10px] text-[#f4efe2]/45 leading-tight mt-0.5">
+                      <span className="block text-[10px] text-[#f4efe2]/60 leading-tight mt-0.5">
                         {hint}
                       </span>
                     </span>
@@ -219,7 +219,7 @@ export default function AccessibilityWidget() {
 
             {/* Footer actions */}
             <div className="flex items-center justify-between pt-1">
-              <span className="inline-flex items-center gap-1.5 font-mono text-[10px] text-[#f4efe2]/45">
+              <span className="inline-flex items-center gap-1.5 font-mono text-[10px] text-[#f4efe2]/60">
                 <Sparkles className="w-3 h-3 text-[#c9a24a]" aria-hidden="true" />
                 {activeCount > 0 ? `${activeCount} active` : 'No adjustments'}
               </span>

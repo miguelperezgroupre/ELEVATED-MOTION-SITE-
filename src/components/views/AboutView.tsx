@@ -42,9 +42,11 @@ export default function AboutView({ onOpenContact }: AboutViewProps) {
             <div className="lg:col-span-5 relative">
               <div className="aspect-[4/5] border border-[rgba(201,162,74,0.4)] overflow-hidden shadow-2xl relative">
                 <img
-                  src={localStorage.getItem('mp_custom_headshot') || "https://6a9240c9923dbf1a1a861ed6.imgix.net/sandbox/MP%20NEW%20HEADHSOT.png"}
+                  src={localStorage.getItem('mp_custom_headshot') || "/headshot-placeholder.svg"}
                   alt="Miguel Perez - South Florida Real Estate Advisor"
                   referrerPolicy="no-referrer"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover object-top"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B0B] via-transparent to-transparent opacity-60" />

@@ -70,7 +70,7 @@ export default function Newsletter() {
           </form>
         )}
 
-        <p className="font-mono text-[9px] uppercase tracking-widest text-[#f4efe2]/30 mt-8">
+        <p className="font-mono text-[9px] uppercase tracking-widest text-[#f4efe2]/55 mt-8">
           Unsubscribe at any time. We respect your privacy.
         </p>
       </div>

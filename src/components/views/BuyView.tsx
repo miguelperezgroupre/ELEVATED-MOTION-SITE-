@@ -96,7 +96,7 @@ export default function BuyView({
                 onLoad={() => setIframeLoaded(true)}
               />
             </div>
-            <p className="text-[10px] text-[#f4efe2]/30 mt-3 text-center leading-relaxed">
+            <p className="text-[10px] text-[#f4efe2]/55 mt-3 text-center leading-relaxed">
               The multiple listing information is provided by the Miami Association of REALTORS&reg; from a copyrighted compilation of listings. 
               The compilation of listings and each individual are &copy;2026 Miami Association of REALTORS&reg;. All Rights Reserved.
             </p>
@@ -105,7 +105,7 @@ export default function BuyView({
       ) : (
         <section className="bg-[#0e1416]">
           <div className="wrap py-12">
-            <p className="text-[12px] uppercase tracking-[0.12em] text-[#f4efe2]/40 mb-6">
+            <p className="text-[12px] uppercase tracking-[0.12em] text-[#f4efe2]/55 mb-6">
               {PROPERTIES.length} featured properties
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">

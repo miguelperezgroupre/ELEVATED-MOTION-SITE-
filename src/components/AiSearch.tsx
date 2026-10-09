@@ -258,7 +258,7 @@ export default function AiSearch({ onSelectProperty }: AiSearchProps) {
                 ))}
               </div>
 
-              <p className="font-mono text-[11px] text-[#f4efe2]/40 text-center pt-4">
+              <p className="font-mono text-[11px] text-[#f4efe2]/60 text-center pt-4">
                 Matched against a curated sample portfolio of {PROPERTIES.length} residences — not a live MLS feed. Connect an IDX provider to search the full market.
               </p>
             </div>

@@ -150,6 +150,8 @@ export default function RelocateView({ onOpenContact, onSelectNeighborhood }: Re
                     <img
                       src={n.img}
                       alt={n.name}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                     <div className="absolute top-3 left-3 bg-[#0B0B0B]/85 px-3 py-1 font-mono text-[10px] text-[#ffd9a0] border border-[rgba(244,239,226,0.2)]">

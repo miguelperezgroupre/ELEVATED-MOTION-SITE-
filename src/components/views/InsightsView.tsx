@@ -196,6 +196,8 @@ export default function InsightsView({ onOpenContact }: InsightsViewProps) {
                   <img
                     src={art.img}
                     alt={art.title}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   <div className="absolute top-3 left-3 bg-[#0B0B0B]/85 px-3 py-1 font-mono text-[10px] text-[#ffd9a0] border border-[rgba(244,239,226,0.2)]">
@@ -300,7 +302,7 @@ export default function InsightsView({ onOpenContact }: InsightsViewProps) {
                       <span>Get Market Intelligence Report</span>
                       <Download className="w-3.5 h-3.5" />
                     </button>
-                    <p className="font-mono text-[9px] text-[#f4efe2]/40 text-center">
+                    <p className="font-mono text-[9px] text-[#f4efe2]/60 text-center">
                       Zero spam. Strict privacy protected.
                     </p>
                   </form>
@@ -338,6 +340,8 @@ export default function InsightsView({ onOpenContact }: InsightsViewProps) {
                 <img
                   src={selectedArticle.img}
                   alt={selectedArticle.title}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover"
                 />
               </div>

@@ -25,6 +25,8 @@ export default function ZoomableImage({ src, alt, className = '' }: ZoomableImag
         <img 
           src={src} 
           alt={alt} 
+          loading="lazy"
+          decoding="async"
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
         />
         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">

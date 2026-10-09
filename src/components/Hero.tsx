@@ -223,8 +223,13 @@ export default function Hero({ onOpenContact, onNavigate }: HeroProps) {
 
           {/* Visual Layer B: High-Definition Panoramic Aerial Imagery */}
           <img
-            src="https://images.unsplash.com/photo-1506953823976-52e1fdc0149a?auto=format&fit=crop&w=2400&q=85"
+            src="https://images.unsplash.com/photo-1506953823976-52e1fdc0149a?auto=format&fit=crop&w=1600&q=70"
+            srcSet="https://images.unsplash.com/photo-1506953823976-52e1fdc0149a?auto=format&fit=crop&w=960&q=70 960w, https://images.unsplash.com/photo-1506953823976-52e1fdc0149a?auto=format&fit=crop&w=1440&q=70 1440w, https://images.unsplash.com/photo-1506953823976-52e1fdc0149a?auto=format&fit=crop&w=1920&q=70 1920w"
+            sizes="100vw"
             alt="South Florida Coastal Aerial Perspective"
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
             className="absolute inset-0 w-full h-full object-cover object-center  mix-blend-screen"
             style={{
               opacity: clamp(mapRange(progress, 0.0, 0.45, 0.75, 0.15), 0, 0.75)
@@ -233,8 +238,12 @@ export default function Hero({ onOpenContact, onNavigate }: HeroProps) {
 
           {/* Visual Layer C: Modern Architecture & Luxury Waterfront Residence */}
           <img
-            src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2400&q=85"
+            src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=70"
+            srcSet="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=960&q=70 960w, https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1440&q=70 1440w, https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=70 1920w"
+            sizes="100vw"
             alt="Modern South Florida Luxury Architecture"
+            loading="eager"
+            decoding="async"
             className="absolute inset-0 w-full h-full object-cover object-center  mix-blend-luminosity"
             style={{
               opacity: clamp(mapRange(progress, 0.25, 0.75, 0, 0.55), 0, 0.55)
@@ -248,7 +257,7 @@ export default function Hero({ onOpenContact, onNavigate }: HeroProps) {
         </div>
 
         {/* Phase Indicator / Scrubber HUD (Right Margin) */}
-        <div className="absolute right-6 top-1/2 -translate-y-1/2 z-30 hidden md:flex flex-col items-end gap-3 font-mono text-[10px] tracking-widest text-[#f4efe2]/40">
+        <div className="absolute right-6 top-1/2 -translate-y-1/2 z-30 hidden md:flex flex-col items-end gap-3 font-mono text-[10px] tracking-widest text-[#f4efe2]/60">
           {[
             { phase: 1, label: '01 / AERIAL' },
             { phase: 2, label: '02 / CITY' },
@@ -505,9 +514,11 @@ export default function Hero({ onOpenContact, onNavigate }: HeroProps) {
             <div className="lg:col-span-5 relative group">
               <div className="relative aspect-[4/5] overflow-hidden border border-[#c9a24a]/30 shadow-2xl">
                 <img
-                  src={localStorage.getItem('mp_custom_headshot') || "https://6a9240c9923dbf1a1a861ed6.imgix.net/sandbox/MP%20NEW%20HEADHSOT.png"}
+                  src={localStorage.getItem('mp_custom_headshot') || "/headshot-placeholder.svg"}
                   alt="Miguel Perez - South Florida Real Estate Advisor"
                   referrerPolicy="no-referrer"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover object-top transition-all duration-700 group-hover:scale-105"
                 />
                 {/* Upload / Replace Headshot Overlay button for seamless local file loading */}

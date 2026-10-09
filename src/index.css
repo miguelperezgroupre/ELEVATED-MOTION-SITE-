@@ -23,6 +23,7 @@
   --gold: #C9A24A;
   --gold-light: #e0ae6d;
   --gold-bright: #ffd9a0;
+  --gold-ink: #6f5320; /* AA-compliant gold for text on light/parchment backgrounds */
   --dark: #0B0B0B;
   --dark-2: #141a1d;
   --dark-3: #1A1815;
@@ -217,7 +218,7 @@ body {
 }
 
 .sec--light .eyebrow {
-  color: #9a7629;
+  color: var(--gold-ink);
 }
 
 .sec--light .mono-label {
@@ -251,7 +252,7 @@ body {
 }
 
 .sec--parchment .eyebrow {
-  color: #9a7629;
+  color: var(--gold-ink);
 }
 
 .sec--parchment .mono-label {

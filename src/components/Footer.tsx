@@ -128,7 +128,7 @@ export default function Footer({ onNavigate, onOpenContact }: FooterProps) {
         <div className="pt-8 border-t border-[rgba(244,239,226,0.08)] flex flex-col md:flex-row items-start md:items-center justify-between gap-6 font-mono text-[11px] text-[#f4efe2]/50">
           <div className="space-y-1">
             <p>© {currentYear} South Florida Elevated · Miguel Perez · FL Real Estate License #SL3515849 · Luxe Properties</p>
-            <p className="text-[10px] text-[#f4efe2]/35 max-w-2xl font-sans">
+            <p className="text-[10px] text-[#f4efe2]/55 max-w-2xl font-sans">
               Equal Housing Opportunity. Designations: ABR®, SRS, PSA, SFR®. Content and valuations are strategic estimates for informational purposes.
             </p>
           </div>

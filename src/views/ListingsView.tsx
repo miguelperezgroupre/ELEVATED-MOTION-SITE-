@@ -79,7 +79,7 @@ export default function ListingsView({ onSelectProperty, onOpenContact }: Listin
             />
           </div>
 
-          <p className="text-[10px] text-[#f4efe2]/30 mt-3 text-center leading-relaxed">
+          <p className="text-[10px] text-[#f4efe2]/55 mt-3 text-center leading-relaxed">
             The multiple listing information is provided by the Miami Association of REALTORS&reg; from a copyrighted compilation of listings. 
             The compilation of listings and each individual are &copy;2026 Miami Association of REALTORS&reg;. All Rights Reserved.
             Information is deemed reliable but not guaranteed.
@@ -87,7 +87,7 @@ export default function ListingsView({ onSelectProperty, onOpenContact }: Listin
         </div>
       ) : (
         <div>
-          <p className="text-[12px] uppercase tracking-[0.12em] text-[#f4efe2]/40 mb-4">
+          <p className="text-[12px] uppercase tracking-[0.12em] text-[#f4efe2]/55 mb-4">
             {PROPERTIES.length} featured properties
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">

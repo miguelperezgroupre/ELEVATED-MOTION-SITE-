@@ -88,7 +88,7 @@ export default function SouthFloridaMap({ onOpenContact }: SouthFloridaMapProps)
                       onClick={() => setSelectedIndex(idx)}
                       onMouseEnter={() => setSelectedIndex(idx)}
                       aria-label={c.name}
-                      className={`w-5 h-5 rounded-full flex items-center justify-center transition-all cursor-pointer ${
+                      className={`relative w-6 h-6 rounded-full flex items-center justify-center transition-all cursor-pointer after:absolute after:-inset-2.5 after:content-[''] ${
                         isSelected
                           ? 'bg-[#c9a24a] ring-4 ring-[#c9a24a]/30 scale-125'
                           : 'bg-[#141a1d] border-2 border-[#c9a24a] hover:scale-125 hover:bg-[#c9a24a]'
@@ -176,7 +176,7 @@ export default function SouthFloridaMap({ onOpenContact }: SouthFloridaMapProps)
           </div>
         </div>
 
-        <p className="font-mono text-xs text-[#f4efe2]/40 text-center mt-8">
+        <p className="font-mono text-xs text-[#f4efe2]/60 text-center mt-8">
           Community figures are sample values — connect a market data provider to publish live statistics
         </p>
       </div>

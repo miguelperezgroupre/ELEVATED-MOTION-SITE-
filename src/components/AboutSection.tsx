@@ -9,9 +9,11 @@ export default function AboutSection() {
           <div className="lg:col-span-5 relative">
             <div className="relative aspect-[3/4] w-full bg-[#1b2024] border border-[rgba(201,162,74,0.3)] overflow-hidden shadow-2xl">
               <img
-                src={localStorage.getItem('mp_custom_headshot') || "https://6a9240c9923dbf1a1a861ed6.imgix.net/sandbox/MP%20NEW%20HEADHSOT.png"}
+                src={localStorage.getItem('mp_custom_headshot') || "/headshot-placeholder.svg"}
                 alt="Miguel Perez - South Florida Real Estate Advisor"
                 referrerPolicy="no-referrer"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover object-top"
               />
               {/* Subtle background glow */}

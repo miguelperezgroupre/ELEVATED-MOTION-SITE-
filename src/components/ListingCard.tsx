@@ -16,6 +16,8 @@ export default function ListingCard({ property, onClick }: ListingCardProps) {
         <img
           src={property.img}
           alt={property.name}
+          loading="lazy"
+          decoding="async"
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
           onError={(e) => {
             // Fallback if image doesn't load

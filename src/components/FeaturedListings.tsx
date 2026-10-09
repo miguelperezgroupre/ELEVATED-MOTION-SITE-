@@ -109,7 +109,7 @@ export default function FeaturedListings({ onSelectProperty, onOpenContact }: Fe
 
             <div className="p-6 sm:p-8 flex-1 flex flex-col justify-between">
               <div>
-                <div className="font-mono text-xs text-[#9a7629] uppercase tracking-wider mb-2">
+                <div className="font-mono text-xs text-[#6f5320] uppercase tracking-wider mb-2">
                   {hero.city}, {hero.state}
                 </div>
                 <h3 className="font-serif text-2xl sm:text-3xl font-normal text-[#1a1e24] group-hover:text-[#9a7629] transition-colors leading-tight">
@@ -183,7 +183,7 @@ export default function FeaturedListings({ onSelectProperty, onOpenContact }: Fe
 
             <div className="p-6 flex-1 flex flex-col justify-between">
               <div>
-                <div className="font-mono text-xs text-[#9a7629] uppercase tracking-wider mb-2">
+                <div className="font-mono text-xs text-[#6f5320] uppercase tracking-wider mb-2">
                   {tall.city}, {tall.state}
                 </div>
                 <h3 className="font-serif text-xl sm:text-2xl font-normal text-[#1a1e24] group-hover:text-[#9a7629] transition-colors leading-tight">
@@ -246,7 +246,7 @@ export default function FeaturedListings({ onSelectProperty, onOpenContact }: Fe
 
               <div className="p-6 flex-1 flex flex-col justify-between">
                 <div>
-                  <div className="font-mono text-xs text-[#9a7629] uppercase tracking-wider mb-2">
+                  <div className="font-mono text-xs text-[#6f5320] uppercase tracking-wider mb-2">
                     {l.city}, {l.state}
                   </div>
                   <h4 className="font-serif text-xl font-normal text-[#1a1e24] group-hover:text-[#9a7629] transition-colors leading-snug">

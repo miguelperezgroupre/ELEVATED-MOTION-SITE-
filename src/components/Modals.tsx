@@ -110,6 +110,8 @@ export default function Modals({
                 <img
                   src={selectedProperty.img}
                   alt={selectedProperty.name}
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#141a1d] via-transparent to-transparent md:hidden" />
@@ -179,7 +181,7 @@ export default function Modals({
                     <span>Call Miguel (786) 460-1023</span>
                   </a>
 
-                  <p className="mono-label text-[9px] text-[#f4efe2]/40 text-center pt-2">
+                  <p className="mono-label text-[9px] text-[#f4efe2]/60 text-center pt-2">
                     Sample listing for demonstration — not live MLS data
                   </p>
                 </div>
