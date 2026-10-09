@@ -111,7 +111,7 @@ export default function MarketIntelligence({ onOpenContact }: MarketIntelligence
             <div className="flex items-center justify-between pb-6 border-b border-[#e5e7eb]">
               <div>
                 <span className="mono-label text-[#6b7280]">Median price trend · 6 months</span>
-                <h4 className="font-serif text-2xl font-normal text-[#1a1e24] mt-1">{data.label}</h4>
+                <h3 className="font-serif text-2xl font-normal text-[#1a1e24] mt-1">{data.label}</h3>
               </div>
               <button
                 type="button"
@@ -190,7 +190,7 @@ export default function MarketIntelligence({ onOpenContact }: MarketIntelligence
               </svg>
             </div>
 
-            <p className="font-mono text-[11px] text-[#9ca3af] text-right">
+            <p className="font-mono text-[11px] text-[#6b7280] text-right">
               Historical sample dataset for {data.label}
             </p>
           </div>

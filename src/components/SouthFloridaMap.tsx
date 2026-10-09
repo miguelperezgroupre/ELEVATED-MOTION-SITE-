@@ -117,9 +117,9 @@ export default function SouthFloridaMap({ onOpenContact }: SouthFloridaMapProps)
               <div className="space-y-6">
                 <div>
                   <span className="eyebrow text-[#c9a24a] mb-2">{selected.county}</span>
-                  <h4 className="font-serif text-3xl sm:text-4xl text-[#f4efe2] font-normal">
+                  <h3 className="font-serif text-3xl sm:text-4xl text-[#f4efe2] font-normal">
                     {selected.name}
-                  </h4>
+                  </h3>
                   <p className="text-sm text-[#f4efe2]/80 mt-3 leading-relaxed font-light">
                     {selected.profile}
                   </p>
@@ -167,7 +167,7 @@ export default function SouthFloridaMap({ onOpenContact }: SouthFloridaMapProps)
             ) : (
               <div className="h-full flex flex-col items-center justify-center text-center p-8">
                 <MapPin className="w-12 h-12 text-[#c9a24a] mb-4 opacity-50" />
-                <h4 className="font-serif text-2xl text-[#f4efe2] mb-2">Select a community</h4>
+                <h3 className="font-serif text-2xl text-[#f4efe2] mb-2">Select a community</h3>
                 <p className="text-sm text-[#f4efe2]/60 max-w-xs">
                   Tap a marker on the map to reveal pricing, pace, and inventory for that pocket of the coast.
                 </p>

@@ -16,7 +16,7 @@ export default function ChooseYourPath({ onNavigate, onOpenContact }: ChooseYour
       desc: 'Not just a property. The right property. Access off-market inventory, dockage audits, and strategic fiduciary negotiation.',
       cta: 'Explore Buying Strategy',
       intent: 'buyer',
-      bgImg: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80',
+      bgImg: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=60',
     },
     {
       id: 'sell' as const,
@@ -26,7 +26,7 @@ export default function ChooseYourPath({ onNavigate, onOpenContact }: ChooseYour
       desc: 'Don\'t simply list your home. Position it with cinematic production, targeted New York / CA syndication, and contract defense.',
       cta: 'Get Property Strategy',
       intent: 'seller',
-      bgImg: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
+      bgImg: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=60',
     },
     {
       id: 'relocate' as const,
@@ -36,7 +36,7 @@ export default function ChooseYourPath({ onNavigate, onOpenContact }: ChooseYour
       desc: 'Start with the neighborhood, not the house. Interactive lifestyle matching, school districts, and Florida tax domicile guidance.',
       cta: 'Plan My Move',
       intent: 'relocation',
-      bgImg: 'https://images.unsplash.com/photo-1535498730771-e735b998cd64?auto=format&fit=crop&w=800&q=80',
+      bgImg: 'https://images.unsplash.com/photo-1535498730771-e735b998cd64?auto=format&fit=crop&w=800&q=60',
     },
     {
       id: 'invest' as const,
@@ -46,7 +46,7 @@ export default function ChooseYourPath({ onNavigate, onOpenContact }: ChooseYour
       desc: 'Institutional underwriting, rental yield analysis, 1031 exchange guidance, and pre-construction deposit arbitrage.',
       cta: 'Explore Investment Framework',
       intent: 'investor',
-      bgImg: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80',
+      bgImg: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=60',
     },
     {
       id: 'developments' as const,
@@ -56,7 +56,7 @@ export default function ChooseYourPath({ onNavigate, onOpenContact }: ChooseYour
       desc: 'Explore the iconic towers reshaping the skyline. Tier-one early pricing, floor plans, and deposit schedule audits.',
       cta: 'View New Developments',
       intent: 'development',
-      bgImg: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80',
+      bgImg: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=60',
     },
   ];
 

@@ -221,10 +221,10 @@ export default function Hero({ onOpenContact, onNavigate }: HeroProps) {
             />
           </div>
 
-          {/* Visual Layer B: High-Definition Panoramic Aerial Imagery */}
+          {/* Visual Layer B: High-Definition Panoramic Aerial Imagery (primary LCP image) */}
           <img
-            src="https://images.unsplash.com/photo-1506953823976-52e1fdc0149a?auto=format&fit=crop&w=1600&q=70"
-            srcSet="https://images.unsplash.com/photo-1506953823976-52e1fdc0149a?auto=format&fit=crop&w=960&q=70 960w, https://images.unsplash.com/photo-1506953823976-52e1fdc0149a?auto=format&fit=crop&w=1440&q=70 1440w, https://images.unsplash.com/photo-1506953823976-52e1fdc0149a?auto=format&fit=crop&w=1920&q=70 1920w"
+            src="https://images.unsplash.com/photo-1506953823976-52e1fdc0149a?auto=format&fit=crop&w=1600&q=52"
+            srcSet="https://images.unsplash.com/photo-1506953823976-52e1fdc0149a?auto=format&fit=crop&w=720&q=52 720w, https://images.unsplash.com/photo-1506953823976-52e1fdc0149a?auto=format&fit=crop&w=960&q=52 960w, https://images.unsplash.com/photo-1506953823976-52e1fdc0149a?auto=format&fit=crop&w=1440&q=52 1440w, https://images.unsplash.com/photo-1506953823976-52e1fdc0149a?auto=format&fit=crop&w=1920&q=52 1920w"
             sizes="100vw"
             alt="South Florida Coastal Aerial Perspective"
             loading="eager"
@@ -236,13 +236,14 @@ export default function Hero({ onOpenContact, onNavigate }: HeroProps) {
             }}
           />
 
-          {/* Visual Layer C: Modern Architecture & Luxury Waterfront Residence */}
+          {/* Visual Layer C: Modern Architecture & Luxury Waterfront Residence (scroll-revealed, starts at opacity 0 — deprioritized) */}
           <img
-            src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=70"
-            srcSet="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=960&q=70 960w, https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1440&q=70 1440w, https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=70 1920w"
+            src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1600&q=52"
+            srcSet="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=720&q=52 720w, https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=960&q=52 960w, https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1440&q=52 1440w, https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=52 1920w"
             sizes="100vw"
             alt="Modern South Florida Luxury Architecture"
             loading="eager"
+            fetchPriority="low"
             decoding="async"
             className="absolute inset-0 w-full h-full object-cover object-center  mix-blend-luminosity"
             style={{

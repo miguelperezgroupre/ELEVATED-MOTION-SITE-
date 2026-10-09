@@ -36,9 +36,9 @@ export default function Footer({ onNavigate, onOpenContact }: FooterProps) {
 
           {/* Column 1: Client Solutions */}
           <div className="space-y-4">
-            <h5 className="font-mono text-xs text-[#c9a24a] uppercase tracking-widest font-semibold">
+            <h4 className="font-mono text-xs text-[#c9a24a] uppercase tracking-widest font-semibold">
               Advisory
-            </h5>
+            </h4>
             <ul className="space-y-2.5 font-sans text-xs sm:text-sm text-[#f4efe2]/75 list-none p-0">
               <li>
                 <button onClick={() => handleNav('buy')} className="hover:text-[#c9a24a] transition-colors cursor-pointer bg-transparent border-none p-0">
@@ -65,9 +65,9 @@ export default function Footer({ onNavigate, onOpenContact }: FooterProps) {
 
           {/* Column 2: Markets & Research */}
           <div className="space-y-4">
-            <h5 className="font-mono text-xs text-[#c9a24a] uppercase tracking-widest font-semibold">
+            <h4 className="font-mono text-xs text-[#c9a24a] uppercase tracking-widest font-semibold">
               Platform
-            </h5>
+            </h4>
             <ul className="space-y-2.5 font-sans text-xs sm:text-sm text-[#f4efe2]/75 list-none p-0">
               <li>
                 <button onClick={() => handleNav('developments')} className="hover:text-[#c9a24a] transition-colors cursor-pointer bg-transparent border-none p-0">
@@ -100,9 +100,9 @@ export default function Footer({ onNavigate, onOpenContact }: FooterProps) {
 
           {/* Column 3: Direct Advisory */}
           <div className="space-y-4">
-            <h5 className="font-mono text-xs text-[#c9a24a] uppercase tracking-widest font-semibold">
+            <h4 className="font-mono text-xs text-[#c9a24a] uppercase tracking-widest font-semibold">
               Connect
-            </h5>
+            </h4>
             <ul className="space-y-2.5 font-sans text-xs sm:text-sm text-[#f4efe2]/75 list-none p-0">
               <li>
                 <button

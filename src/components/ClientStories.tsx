@@ -81,8 +81,8 @@ export default function ClientStories() {
             {/* Carousel Navigation */}
             <div className="flex items-center justify-between pt-8 border-t border-[#e5e7eb] mt-8">
               <div className="font-mono text-sm font-semibold text-[#1a1e24]">
-                <span className="text-[#9a7629]">{String(currentIndex + 1).padStart(2, '0')}</span>
-                <span className="text-[#9ca3af] mx-1.5">/</span>
+                <span className="text-[#6f5320]">{String(currentIndex + 1).padStart(2, '0')}</span>
+                <span className="text-[#6b7280] mx-1.5">/</span>
                 <span className="text-[#6b7280]">{String(STORIES.length).padStart(2, '0')}</span>
               </div>
 

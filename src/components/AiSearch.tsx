@@ -236,9 +236,9 @@ export default function AiSearch({ onSelectProperty }: AiSearchProps) {
                           <MapPin className="w-3 h-3" />
                           {p.city}, FL
                         </div>
-                        <h4 className="font-serif text-xl font-normal text-[#f4efe2] group-hover:text-[#c9a24a] transition-colors leading-snug">
+                        <h3 className="font-serif text-xl font-normal text-[#f4efe2] group-hover:text-[#c9a24a] transition-colors leading-snug">
                           {p.name}
-                        </h4>
+                        </h3>
                       </div>
 
                       <div className="mt-6 pt-4 border-t border-[rgba(244,239,226,0.08)] flex items-end justify-between">
