@@ -4,6 +4,28 @@
   "trailingSlash": false,
   "redirects": [
     {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "miguelperezflorida.com"
+        }
+      ],
+      "destination": "https://www.southfloridaelevated.com/",
+      "statusCode": 301
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.miguelperezflorida.com"
+        }
+      ],
+      "destination": "https://www.southfloridaelevated.com/",
+      "statusCode": 301
+    },
+    {
       "source": "/home",
       "has": [
         {
