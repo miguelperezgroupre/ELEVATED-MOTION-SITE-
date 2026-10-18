@@ -36,8 +36,19 @@ import JournalIndex from './components/journal/JournalIndex';
 import JournalArticle from './components/journal/JournalArticle';
 import {routeFromPath, pathFor, legacyHashView} from './routes';
 import {headFor, applyHead} from './seo';
+import {FAQS} from './faq';
 
 const RagAssistant = RagAssistantModule.default ?? RagAssistantModule.RagAssistant ?? Object.values(RagAssistantModule).find((x) => typeof x === 'function');
+
+function FaqSection({items}) {
+  return jsxs('section', {className: 'wrap py-20 border-t border-[rgba(244,239,226,0.12)]', 'aria-labelledby': 'faq-heading', children: [
+    jsx('h2', {id: 'faq-heading', className: 'font-serif font-normal text-[34px] sm:text-[44px] leading-tight mb-8', children: 'Frequently Asked Questions'}),
+    jsx('div', {className: 'max-w-3xl space-y-6', children: items.map((f) => jsxs('div', {children: [
+      jsx('h3', {className: 'font-serif text-[22px] text-[#ffd9a0] mb-2', children: f.q}),
+      jsx('p', {className: 'text-[#f4efe2]/80 leading-relaxed m-0', children: f.a}),
+    ]}, f.q))}),
+  ]});
+}
 
 function NotFound({onNavigate}) {
   return jsxs('section', {
@@ -164,6 +175,7 @@ function App({initialPath}) {
           currentView === 'journal' && jsx(JournalIndex, {}),
           currentView === 'article' && jsx(JournalArticle, {slug: route.slug, onOpenContact: handleOpenContact}, route.slug),
           currentView === 'notfound' && jsx(NotFound, {onNavigate: handleNavigate}),
+          FAQS[currentView] && jsx(FaqSection, {items: FAQS[currentView]}),
         ],
       }),
       jsx(Footer, {onNavigate: handleNavigate, onOpenContact: handleOpenContact}),

@@ -3,6 +3,7 @@
 // build-time prerender (renderHeadHtml) and client-side navigation (applyHead).
 import {SITE_URL, PAGE_ROUTES, absUrl, pathFor} from './routes';
 import {ARTICLES, getArticle} from './journal';
+import {FAQS} from './faq';
 
 export const SITE_NAME = 'South Florida Elevated';
 export const DEFAULT_OG = `${SITE_URL}/assets/brand/og-image-v5-2026-10-18.png`;
@@ -40,40 +41,53 @@ const WEBSITE = {
   publisher: {'@id': `${SITE_URL}/#agent`},
 };
 
+const LUXE = {'@type': 'RealEstateOrganization', '@id': `${SITE_URL}/#brokerage`, name: 'Luxe Properties'};
+const KNOWS = ['Luxury real estate', 'Residential real estate', 'Condominiums', 'Waterfront homes', 'New developments', 'Pre-construction condos', 'Relocation to South Florida', 'Real estate investment', 'Buyer representation', 'Seller representation', 'Home valuation'];
+const AREAS = [
+  ...['Miami-Dade County', 'Broward County', 'Palm Beach County'].map((name) => ({'@type': 'AdministrativeArea', name: `${name}, FL`})),
+  ...['Miami', 'Fort Lauderdale'].map((name) => ({'@type': 'City', name: `${name}, FL`})),
+];
+const CREDS = [
+  {'@type': 'EducationalOccupationalCredential', credentialCategory: 'license', name: 'Florida real estate sales associate license SL3515849', recognizedBy: {'@type': 'GovernmentOrganization', name: 'Florida Department of Business and Professional Regulation'}},
+  ...[["ABR®", "Accredited Buyer's Representative"], ['SRS', 'Seller Representative Specialist'], ['PSA', 'Pricing Strategy Advisor'], ['SFR®', 'Short Sales and Foreclosure Resource']].map(([abbr, name]) => ({'@type': 'EducationalOccupationalCredential', credentialCategory: 'professional designation', name: `${name} (${abbr})`})),
+];
+const SAME_AS = ['https://www.instagram.com/miguelperezflorida', 'https://www.zillow.com/profile/miguelperezflorida'];
+
 const PERSON = {
   '@type': 'Person',
   '@id': `${SITE_URL}/#miguel`,
   name: 'Miguel Perez',
   jobTitle: 'REALTOR®',
-  description: 'South Florida REALTOR® with Luxe Properties, in real estate since 2021.',
+  description: 'South Florida REALTOR® with Luxe Properties, in real estate since 2021, serving Miami-Dade, Broward and Palm Beach counties with a focus on Miami and Fort Lauderdale.',
   url: `${SITE_URL}/about`,
   image: HEADSHOT,
   telephone: '+1-786-460-1023',
-  worksFor: {'@type': 'Organization', name: 'Luxe Properties'},
-  hasCredential: {
-    '@type': 'EducationalOccupationalCredential',
-    credentialCategory: 'license',
-    name: 'Florida real estate license SL3515849',
-    recognizedBy: {'@type': 'GovernmentOrganization', name: 'Florida Department of Business and Professional Regulation'},
-  },
-  sameAs: ['https://www.instagram.com/miguelperezflorida', 'https://www.zillow.com/profile/miguelperezflorida'],
+  email: 'miguel@southfloridaelevated.com',
+  worksFor: LUXE,
+  knowsAbout: KNOWS,
+  hasCredential: CREDS,
+  sameAs: SAME_AS,
 };
 
 const AGENT = {
   '@type': 'RealEstateAgent',
   '@id': `${SITE_URL}/#agent`,
   name: 'Miguel Perez, REALTOR® | South Florida Elevated',
-  alternateName: SITE_NAME,
+  alternateName: [SITE_NAME, 'Miguel Perez, Luxe Properties'],
+  slogan: 'Beyond the Address.',
   url: `${SITE_URL}/`,
   image: HEADSHOT,
   logo: LOGO,
   telephone: '+1-786-460-1023',
-  description: 'Miguel Perez, REALTOR® with Luxe Properties, advises buyers, sellers, investors and relocating clients across Miami-Dade, Broward and Palm Beach counties.',
+  email: 'miguel@southfloridaelevated.com',
+  description: 'Miguel Perez, REALTOR® with Luxe Properties (FL license SL3515849), advises buyers, sellers, investors and relocating clients across Miami-Dade, Broward and Palm Beach counties, focused on Miami and Fort Lauderdale: luxury, condos, waterfront, new developments and pre-construction.',
   identifier: {'@type': 'PropertyValue', propertyID: 'Florida real estate license', value: 'SL3515849'},
-  areaServed: ['Miami-Dade County, FL', 'Broward County, FL', 'Palm Beach County, FL'].map((name) => ({'@type': 'AdministrativeArea', name})),
-  parentOrganization: {'@type': 'Organization', name: 'Luxe Properties'},
+  areaServed: AREAS,
+  knowsAbout: KNOWS,
+  hasCredential: CREDS,
+  parentOrganization: LUXE,
   employee: {'@id': `${SITE_URL}/#miguel`},
-  sameAs: PERSON.sameAs,
+  sameAs: SAME_AS,
 };
 
 function breadcrumb(items) {
@@ -132,7 +146,8 @@ export function headFor(route) {
   const path = view === 'notfound' ? null : pathFor(view);
   const url = path ? absUrl(path) : null;
   const graph = [WEBSITE];
-  if (view === 'home' || view === 'about') graph.push(AGENT, PERSON);
+  if (view !== 'notfound') graph.push(AGENT, PERSON);
+  if (FAQS[view]) graph.push({'@type': 'FAQPage', '@id': `${url}#faq`, mainEntity: FAQS[view].map((f) => ({'@type': 'Question', name: f.q, acceptedAnswer: {'@type': 'Answer', text: f.a}}))});
   if (url) {
     const pageType = view === 'about' ? 'AboutPage' : view === 'journal' || view === 'listings' || view === 'neighborhoods' ? 'CollectionPage' : 'WebPage';
     const page = {'@type': pageType, '@id': `${url}#webpage`, url, name: meta.title, description: meta.description, isPartOf: {'@id': `${SITE_URL}/#website`}, inLanguage: 'en-US'};

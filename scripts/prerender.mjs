@@ -48,7 +48,51 @@ fs.writeFileSync(
 );
 
 // ---- robots.txt ----
-fs.writeFileSync(path.join(DIST, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n`);
+const BOTS = ["Googlebot", "Bingbot", "GPTBot", "OAI-SearchBot", "ChatGPT-User", "PerplexityBot", "ClaudeBot", "Claude-SearchBot", "Google-Extended", "Applebot"];
+fs.writeFileSync(path.join(DIST, 'robots.txt'), `# South Florida Elevated: search engines and AI assistants are welcome. Only the /api endpoints are off-limits.\nUser-agent: *\nAllow: /\nDisallow: /api/\n\n${BOTS.map((b) => `User-agent: ${b}\nAllow: /\nDisallow: /api/\n`).join('\n')}\nSitemap: ${SITE_URL}/sitemap.xml\n`);
+
+// ---- llms.txt (plain-language summary for AI assistants) ----
+const L = (p, label, d) => `- [${label}](${absUrl(p)}): ${d}`;
+fs.writeFileSync(path.join(DIST, 'llms.txt'), `# South Florida Elevated: Miguel Perez, REALTOR® with Luxe Properties
+
+> Miguel Perez is a REALTOR® with Luxe Properties (brokerage), Florida real estate license SL3515849, in real estate since 2021. He serves Miami-Dade, Broward and Palm Beach counties in South Florida, with a focus on Miami and Fort Lauderdale. Brand: South Florida Elevated. Slogan: "Beyond the Address."
+
+## Services and specialties
+Luxury homes, residential, condos, waterfront properties, new developments and pre-construction, relocation to South Florida, real estate investment, buyer representation, seller representation and free home evaluations.
+
+## Designations
+ABR® (Accredited Buyer's Representative), SRS (Seller Representative Specialist), PSA (Pricing Strategy Advisor), SFR® (Short Sales and Foreclosure Resource).
+
+## Service area
+Miami-Dade County, Broward County and Palm Beach County, Florida. Focus cities: Miami and Fort Lauderdale.
+
+## Contact
+- Agent: Miguel Perez, REALTOR®
+- Brokerage: Luxe Properties
+- Phone: 786-460-1023
+- Email: miguel@southfloridaelevated.com
+- Website: ${SITE_URL}/
+- Instagram: https://www.instagram.com/miguelperezflorida
+
+## Key pages
+${[
+  L('/', 'Home', 'overview of South Florida Elevated and Miguel Perez'),
+  L('/about', 'About Miguel Perez', 'background, brokerage, license and designations'),
+  L('/buy', 'Buy', 'buyer representation in Miami, Fort Lauderdale and Palm Beach'),
+  L('/sell', 'Sell', 'listing, pricing and marketing for South Florida sellers'),
+  L('/home-value', "What's My Home Worth?", 'request a free, personalized home evaluation'),
+  L('/relocation', 'Relocation', 'moving to South Florida'),
+  L('/pre-construction', 'Pre-Construction', 'new developments and pre-construction condos'),
+  L('/invest', 'Invest', 'South Florida real estate investment'),
+  L('/neighborhoods', 'Neighborhoods', 'guide to South Florida neighborhoods'),
+  L('/south-florida', 'South Florida Lifestyle', 'living in Miami-Dade, Broward and Palm Beach'),
+  L('/listings', 'Listings', 'active South Florida listings'),
+  L('/journal', 'The Journal', 'guides and market articles'),
+].join('\n')}
+${ARTICLES.length ? `\n## Journal articles\n${ARTICLES.map((a) => `- [${a.title}](${absUrl(`/journal/${a.slug}`)}): ${a.description}`).join('\n')}\n` : ''}
+## Sitemap
+${SITE_URL}/sitemap.xml
+`);
 
 // ---- RSS ----
 const rfc822 = (d) => new Date(`${d}T09:00:00-04:00`).toUTCString();
@@ -62,5 +106,5 @@ fs.writeFileSync(
   `<?xml version="1.0" encoding="UTF-8"?>\n<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">\n  <channel>\n    <title>The Journal by South Florida Elevated</title>\n    <link>${SITE_URL}/journal</link>\n    <description>Neighborhood guides, market analysis and relocation checklists for South Florida, by Miguel Perez, REALTOR® with Luxe Properties.</description>\n    <language>en-us</language>\n    <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>\n    <atom:link href="${SITE_URL}/journal/rss.xml" rel="self" type="application/rss+xml" />\n${items.join('\n')}\n  </channel>\n</rss>\n`,
 );
 
-console.log(`[prerender] wrote ${pages.length} pages, sitemap.xml (+pages ${PAGE_ROUTES.length}, journal ${ARTICLES.length}), robots.txt, journal/rss.xml`);
+console.log(`[prerender] wrote ${pages.length} pages, sitemap.xml (+pages ${PAGE_ROUTES.length}, journal ${ARTICLES.length}), robots.txt, llms.txt, journal/rss.xml`);
 for (const p of pages) console.log(`  ${p.urlPath.padEnd(48)} -> ${p.file} (${Math.round(p.bytes / 1024)} KB, h1=${p.h1})`);
