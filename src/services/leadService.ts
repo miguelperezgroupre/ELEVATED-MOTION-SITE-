@@ -1,4 +1,6 @@
-const GHL_LOCATION_ID = import.meta.env.VITE_GHL_LOCATION_ID || 'cRlvOrPOIs9VzJUR4Ju6';
+// Website leads are sent to the server-side intake at /api/lead (api/lead.js), which forwards
+// them to GoHighLevel and Follow Up Boss using keys stored only in Vercel env vars.
+// No CRM credentials are present in client code.
 
 export interface LeadData {
   type: 'contact' | 'newsletter' | 'valuation';
@@ -17,49 +19,20 @@ export interface LeadData {
 
 class LeadService {
   async submit(data: LeadData): Promise<{ success: boolean; method: string }> {
-    const parts = data.name.trim().split(/\s+/);
-    const firstName = parts[0];
-    const lastName = parts.length > 1 ? parts.slice(1).join(' ') : '';
-
-    const tags = ['Website Lead', 'southfloridaelevated.com'];
-    if (data.intent) tags.push(data.intent);
-    if (data.type === 'newsletter') tags.push('Newsletter Subscriber');
-    if (data.type === 'valuation') tags.push('Home Valuation Request');
-
     try {
-      const body: Record<string, any> = {
-        locationId: GHL_LOCATION_ID,
-        firstName,
-        lastName,
-        email: data.email,
-        phone: data.phone || undefined,
-        tags,
-        customField: {
-          message: data.message || '',
-          intent: data.intent || 'General',
-          source: data.source || 'southfloridaelevated.com',
-        },
-      };
-
-      if (data.sqft) body.customField.sqft = data.sqft;
-      if (data.propertyType) body.customField.propertyType = data.propertyType;
-
-      const response = await fetch(`/api/leads`, {
+      const response = await fetch('/api/lead', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(body),
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(data),
       });
-
-      if (response.ok) return { success: true, method: 'ghl' };
-      console.warn('[LeadService] Backend proxy failed, falling back to local');
+      const out = await response.json().catch(() => ({}));
+      if (response.ok && out?.success) return { success: true, method: out.method || 'server' };
+      console.warn('[LeadService] lead intake returned', response.status);
     } catch (err) {
-      console.warn('[LeadService] Network error, falling back to local', err);
+      console.warn('[LeadService] lead intake error');
     }
-
-    // Fallback: store for now
-    console.log('[LeadService] Lead captured locally:', data.email, data.intent);
+    // Same UX as before: the visitor still sees a confirmation.
+    console.log('[LeadService] Lead captured locally:', data.intent, data.source);
     return { success: true, method: 'local' };
   }
 }

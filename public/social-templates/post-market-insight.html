@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Market Insight — SFE Social Post</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #0e1416; --paper: #f4efe2; --gold: #9a7629; --gold-light: #c9a24a; --gold-warm: #ffd9a0;
+      --teal: #1F6970; --display: 'Cairo', Georgia, serif; --body: 'Inter', system-ui, sans-serif; --mono: 'JetBrains Mono', monospace;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; display: flex; justify-content: center; align-items: center; background: #111; padding: 40px; }
+    .post {
+      width: 480px; height: 480px; aspect-ratio: 1/1;
+      border-radius: 16px; overflow: hidden; position: relative;
+      background: linear-gradient(180deg, #0e1416 0%, #1a1e24 40%, #1F6970 100%);
+      box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+      display: flex; flex-direction: column; justify-content: flex-end; padding: 28px;
+    }
+    .post .eyebrow { font: 10px/1 var(--mono); color: rgba(244,237,224,0.5); letter-spacing: 0.2em; text-transform: uppercase; }
+    .post h2 { margin: 8px 0 0; font: 800 36px/1 var(--display); letter-spacing: -0.01em; color: #fff; }
+    .post h2 .accent { color: var(--gold-warm); }
+    .post .stat-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 20px; }
+    .post .stat { text-align: center; padding: 12px; background: rgba(0,0,0,0.3); border-radius: 8px; border: 1px solid rgba(201,162,74,0.15); }
+    .post .stat .num { font: 700 24px/1 var(--display); color: var(--gold-light); }
+    .post .stat .lbl { font: 9px/1 var(--mono); color: rgba(244,237,224,0.5); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 6px; }
+    .post .footer { display: flex; justify-content: space-between; align-items: center; margin-top: 20px; padding-top: 16px; border-top: 1px solid rgba(201,162,74,0.15); }
+    .post .footer .brand { font: 700 11px/1 var(--display); color: var(--gold-light); letter-spacing: 0.08em; }
+    .post .footer .cta { font: 10px/1 var(--mono); color: var(--gold-warm); letter-spacing: 0.08em; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="post">
+    <div class="eyebrow">Market Intelligence · {{Month}} 2026</div>
+    <h2>{{Neighborhood}}<br><span class="accent">Market Snapshot</span></h2>
+    <div class="stat-grid">
+      <div class="stat"><div class="num">{{AvgPrice}}</div><div class="lbl">Avg Price</div></div>
+      <div class="stat"><div class="num">{{DaysOnMarket}}</div><div class="lbl">Days on Market</div></div>
+      <div class="stat"><div class="num">{{Inventory}}</div><div class="lbl">Months Inventory</div></div>
+    </div>
+    <div class="footer">
+      <div class="brand">SOUTH FLORIDA ELEVATED</div>
+      <div class="cta">Get the full report →</div>
+    </div>
+  </div>
+</body>
+</html>

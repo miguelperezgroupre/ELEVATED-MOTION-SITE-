@@ -1,0 +1,750 @@
+<!doctype html>
+<html lang="en"><head><script type="application/json" data-od-external-dependencies>["https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=Instrument+Serif:ital@0;1&display=swap"]</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WHO WE ARE · South Florida Elevated</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&amp;family=Instrument+Serif:ital@0;1&amp;display=swap" rel="stylesheet">
+<style>
+  /* ─── South Florida Elevated tokens ────────────────────────────────────
+     User brand: onyx · florida teal · metallic gold · ivory.
+     All colors OKLch. No raw hex outside this block. */
+  :root {
+    --onyx:         oklch(0.155 0.007 213);
+    --onyx-2:       oklch(0.20 0.012 213);
+    --charcoal:     oklch(0.29 0.014 210);
+    --ivory:        oklch(0.962 0.012 88);
+    --cream:        oklch(0.93 0.018 86);
+    --ink:          oklch(0.24 0.014 72);
+    --gold:         oklch(0.74 0.10 83);
+    --gold-bright:  oklch(0.85 0.07 85);
+    --gold-deep:    oklch(0.48 0.095 80);
+    --teal:         oklch(0.47 0.065 198);
+    --teal-bright:  oklch(0.80 0.06 198);
+    --ivory-strong: oklch(0.96 0.008 88);
+    --ivory-muted:  oklch(0.80 0.015 88);
+    --muted-light:  oklch(0.55 0.025 80);
+    --hair-dark:    oklch(0.77 0.05 84 / 0.55);
+    --hair-light:   oklch(0.50 0.09 80 / 0.5);
+    --skyline-ink:  oklch(0.10 0.012 216);
+
+    --font-display: 'Instrument Serif', 'Iowan Old Style', Georgia, serif;
+    --font-body:    'Cairo', system-ui, sans-serif;
+  }
+
+  /* ─── base ─────────────────────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--onyx);
+    color: var(--ivory-strong);
+    font-family: var(--font-body);
+    line-height: 1.55;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, p { margin: 0; }
+  img, svg { display: block; max-width: 100%; }
+  em { font-style: italic; }
+  h1, h2 { text-wrap: balance; }
+  p { text-wrap: pretty; }
+
+  /* ─── page chrome ──────────────────────────────────────────────────── */
+  .ch-wrap { max-width: 1120px; margin: 0 auto; padding: 64px 32px 128px; }
+  .ch-kicker {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.42em;
+    text-transform: uppercase; color: var(--gold-bright);
+  }
+  .ch-kicker i { color: var(--teal-bright); font-style: normal; }
+  .ch-title {
+    font-family: var(--font-display);
+    font-size: clamp(44px, 6vw, 72px);
+    line-height: 1.02; letter-spacing: -0.01em;
+    margin-top: 18px;
+  }
+  .ch-title em { color: var(--gold-bright); }
+  .ch-sub {
+    margin-top: 20px; max-width: 56ch;
+    font-size: 16px; color: var(--ivory-muted);
+  }
+  .ch-sub strong { color: var(--ivory-strong); font-weight: 700; }
+  .ch-index { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
+  .ch-chip {
+    font-size: 12px; font-weight: 600; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--ivory-muted);
+    padding: 8px 14px; border: 1px solid var(--hair-dark);
+  }
+  .ch-chip.on { color: var(--gold-bright); border-color: var(--gold); }
+  .ch-note {
+    margin-top: 56px; font-size: 13px; color: var(--ivory-muted);
+    max-width: 62ch; border-top: 1px solid var(--hair-dark);
+    padding-top: 22px;
+  }
+  .ch-note b { color: var(--ivory-strong); font-weight: 600; }
+
+  /* ─── slide shell ──────────────────────────────────────────────────── */
+  .shot { margin: 0 auto 84px; max-width: 1080px; }
+  .shot:last-of-type { margin-bottom: 0; }
+  .shot-meta {
+    display: flex; justify-content: space-between; align-items: baseline;
+    gap: 16px; margin: 0 4px 14px;
+    font-size: 12px; font-weight: 600; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--ivory-muted);
+  }
+  .shot-meta b { color: var(--gold-bright); font-weight: 700; }
+  .shot-meta span { font-weight: 400; letter-spacing: 0.14em; color: oklch(0.66 0.02 85); }
+
+  .slide {
+    container-type: inline-size;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    position: relative;
+    overflow: hidden;
+    background: var(--ivory);
+    isolation: isolate;
+  }
+  .slide.theme-dark { background: var(--onyx); }
+  .slide.theme-close { background: var(--onyx); }
+
+  /* theme pairs */
+  .theme-dark, .theme-close {
+    --mast: var(--ivory-strong);
+    --muted-s: var(--ivory-muted);
+    --gold-s: var(--gold-bright);
+    --idx: var(--teal-bright);
+    --key: var(--hair-dark);
+  }
+  .theme-light {
+    --mast: var(--ink);
+    --muted-s: var(--muted-light);
+    --gold-s: var(--gold-deep);
+    --idx: var(--teal);
+    --key: var(--hair-light);
+  }
+
+  /* editorial keyline frame on non-cover frames */
+  .ligned::before {
+    content: ""; position: absolute; inset: 2.6cqw;
+    border: 0.09cqw solid var(--key);
+    z-index: 4; pointer-events: none;
+  }
+
+  /* paper grain on ivory frames */
+  .grainy::after {
+    content: ""; position: absolute; inset: 0; z-index: 5;
+    pointer-events: none; opacity: 0.05; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.5 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+
+  /* ─── inner layout ─────────────────────────────────────────────────── */
+  .inner {
+    position: relative; z-index: 2;
+    height: 100%;
+    padding: 8cqw;
+    display: flex; flex-direction: column;
+  }
+  .masthead {
+    display: flex; align-items: flex-start; justify-content: space-between;
+    gap: 3cqw;
+  }
+  .wordmark { display: flex; align-items: center; gap: 2.4cqw; }
+  .mark {
+    width: 4.6cqw; height: 4.6cqw; flex: none;
+    color: var(--gold-s);
+  }
+  .wordmark-text {
+    display: flex; flex-direction: column;
+    font-weight: 700; font-size: 2.1cqw; line-height: 1.25;
+    letter-spacing: 0.36em; color: var(--mast);
+  }
+  .wordmark-text .wm-gold { color: var(--gold-s); letter-spacing: 0.44em; }
+  .index {
+    font-weight: 700; font-size: 2cqw; letter-spacing: 0.2em;
+    color: var(--idx); white-space: nowrap; padding-top: 0.6cqw;
+  }
+  .index i { font-style: normal; color: var(--gold-s); margin: 0 0.6cqw; }
+  .mast-rule {
+    margin: 2.4cqw 0 0; height: 0.1cqw; width: 100%;
+    background: var(--key);
+  }
+
+  /* ─── cover ───────────────────────────────────────────────────────── */
+  .plate, .veil {
+    position: absolute; inset: 0; overflow: hidden;
+  }
+  .veil {
+    z-index: 1; background: transparent;
+  }
+  .plate { z-index: 0; }
+  .inner.cover-inner { z-index: 2; }
+  .cover-lower { margin-top: auto; padding-top: 10cqw; }
+  .kicker {
+    font-weight: 700; font-size: 1.6cqw; letter-spacing: 0.42em;
+    text-transform: uppercase; color: var(--gold-s);
+  }
+  .cover-h1 {
+    font-family: var(--font-display);
+    font-size: 13cqw; line-height: 1.02; letter-spacing: -0.005em;
+    color: var(--mast); margin-top: 2.4cqw;
+  }
+  .cover-h1 em { color: var(--gold-s); }
+  .cover-dek {
+    margin-top: 3cqw; max-width: 34cqw;
+    font-size: 2.35cqw; line-height: 1.58; color: var(--muted-s);
+    font-weight: 300;
+  }
+  .pillars {
+    display: flex; align-items: center; gap: 2.6cqw;
+    margin-top: 7cqw; padding-top: 3.6cqw;
+    border-top: 0.1cqw solid var(--key);
+  }
+  .pillar {
+    display: flex; align-items: center; gap: 1.5cqw;
+    font-weight: 600; font-size: 1.8cqw; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--mast);
+    white-space: nowrap;
+  }
+  .pillar-dot {
+    width: 1cqw; height: 1cqw; flex: none; background: var(--idx);
+  }
+  .pv { width: 0.08cqw; height: 2.6cqw; flex: none; background: var(--key); }
+  .pillars .pv:first-of-type { margin-left: 0.6cqw; }
+
+  /* cover photo plate */
+  .plate-cover {
+    background:
+      radial-gradient(120cqw 66cqw at 76% 14%, oklch(0.32 0.04 218 / 0.6), transparent 62%),
+      radial-gradient(86cqw 64cqw at 14% 58%, oklch(0.5 0.09 78 / 0.24), transparent 60%),
+      linear-gradient(180deg,
+        oklch(0.115 0.012 220) 0%,
+        oklch(0.15 0.015 218) 46%,
+        oklch(0.10 0.015 221) 62%,
+        oklch(0.095 0.014 222) 100%);
+  }
+  .plate-cover .skyline {
+    position: absolute; left: 0; right: 0;
+    bottom: 47.6cqw; height: 42cqw; width: 100%;
+    color: var(--skyline-ink);
+    opacity: 0.78;
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, oklch(0 0 0) 55%, oklch(0 0 0) 100%);
+            mask-image: linear-gradient(180deg, transparent 0%, oklch(0 0 0) 55%, oklch(0 0 0) 100%);
+  }
+  .plate-cover .skyline svg, .skyline-bottom svg { width: 100%; height: 100%; }
+  .horizon {
+    position: absolute; left: 0; right: 0;
+    height: 0.1cqw; background: var(--gold);
+    opacity: 0.6;
+  }
+  .plate-cover .horizon { bottom: 47.5cqw; opacity: 0.65; }
+  .reflection {
+    position: absolute; left: 0; right: 0; height: 0.14cqw;
+    background: var(--gold); opacity: 0.18; filter: blur(0.08cqw);
+  }
+  .plate-cover .veil {
+    background: linear-gradient(180deg,
+      oklch(0.12 0.01 220 / 0.78) 0%,
+      oklch(0.12 0.01 220 / 0.18) 26%,
+      transparent 42%,
+      oklch(0.115 0.012 221 / 0.32) 58%,
+      oklch(0.11 0.012 221 / 0.82) 100%);
+  }
+
+  /* ─── inner slides ─────────────────────────────────────────────────── */
+  .split {
+    flex: 1; min-height: 0;
+    display: grid;
+    grid-template-columns: 36cqw 1fr;
+    align-items: stretch;
+    gap: 4cqw;
+    padding-top: 5cqw;
+  }
+  .s-text {
+    display: flex; flex-direction: column; justify-content: space-between;
+    min-height: 0;
+  }
+  .s-h1 {
+    font-family: var(--font-display);
+    font-size: 8cqw; line-height: 1.08; letter-spacing: -0.005em;
+    color: var(--mast); margin-top: 2cqw;
+  }
+  .s-h1 em { color: var(--gold-s); }
+  .s-dek {
+    margin-top: 2.6cqw; max-width: 34ch;
+    font-size: 2.2cqw; line-height: 1.62; font-weight: 300;
+    color: var(--muted-s);
+  }
+  .slugs {
+    display: flex; align-items: center; flex-wrap: wrap; gap: 2cqw;
+    padding-top: 4cqw; margin-top: 5cqw;
+    font-weight: 700; font-size: 1.85cqw; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--mast);
+  }
+  .slugs .dot {
+    width: 0.9cqw; height: 0.9cqw; flex: none; background: var(--idx);
+    transform: rotate(45deg);
+  }
+  .rails {
+    display: flex; align-items: center; gap: 3cqw; flex-wrap: wrap;
+    padding-top: 4.5cqw; margin-top: 5cqw;
+    border-top: 0.1cqw solid var(--key);
+  }
+  .rail {
+    display: flex; align-items: center; gap: 1.6cqw;
+    font-weight: 700; font-size: 1.85cqw; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--mast);
+    white-space: nowrap;
+  }
+  .rail-squ { width: 1cqw; height: 1cqw; flex: none; background: var(--idx); }
+
+  .s-media { min-height: 0; position: relative; }
+  .s-media .plate {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+  }
+  .plate-tag {
+    position: absolute; left: 3cqw; right: 3cqw; bottom: 3cqw;
+    font-size: 1.4cqw; font-weight: 600; letter-spacing: 0.3em;
+    text-transform: uppercase; color: var(--ivory-muted);
+    border-top: 0.08cqw solid oklch(0.77 0.05 84 / 0.4);
+    padding-top: 1.2cqw;
+  }
+
+  /* dusk plates */
+  .plate-arch {
+    background:
+      radial-gradient(70cqw 46cqw at 72% 26%, oklch(0.42 0.05 200 / 0.5), transparent 62%),
+      radial-gradient(50cqw 40cqw at 30% 92%, oklch(0.5 0.09 78 / 0.34), transparent 62%),
+      linear-gradient(180deg, oklch(0.13 0.013 219) 0%, oklch(0.15 0.014 216) 58%, oklch(0.095 0.016 220) 100%);
+  }
+  .plate-water {
+    background:
+      radial-gradient(64cqw 44cqw at 68% 30%, oklch(0.34 0.045 212 / 0.55), transparent 60%),
+      radial-gradient(44cqw 30cqw at 24% 20%, oklch(0.5 0.08 78 / 0.26), transparent 55%),
+      linear-gradient(180deg, oklch(0.15 0.016 216) 0%, oklch(0.12 0.018 214) 62%, oklch(0.16 0.02 208) 100%);
+  }
+  .plate-arch .horizon { top: 62%; opacity: 0.5; }
+  .plate-arch .reflection { top: 64%; opacity: 0.14; }
+  .plate-water .horizon { top: 62%; opacity: 0.45; }
+  .plate-water .reflection { top: 64%; opacity: 0.12; }
+  .plate-arch .skyline-bottom, .plate-water .skyline-bottom {
+    position: absolute; left: 0; right: 0;
+    bottom: 38.4%; height: 27%; width: 100%;
+    opacity: 0.8;
+    color: var(--skyline-ink);
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, oklch(0 0 0) 46%, oklch(0 0 0) 100%);
+            mask-image: linear-gradient(180deg, transparent 0%, oklch(0 0 0) 46%, oklch(0 0 0) 100%);
+  }
+  .plate-arch .skyline-bottom svg, .plate-water .skyline-bottom svg {
+    width: 100%; height: 100%;
+  }
+  .plate-interior {
+    background:
+      radial-gradient(46cqw 34cqw at 50% 96%, oklch(0.62 0.10 78 / 0.4), transparent 62%),
+      radial-gradient(80cqw 90cqw at 18% 20%, oklch(0.3 0.03 240 / 0.4), transparent 68%),
+      linear-gradient(180deg, oklch(0.19 0.014 70) 0%, oklch(0.22 0.016 74) 58%, oklch(0.26 0.018 72) 100%);
+  }
+  .plate-interior .glow-line {
+    position: absolute; left: 12%; right: 12%; bottom: 22%;
+    height: 0.1cqw; background: var(--gold); opacity: 0.28;
+  }
+  .plate-interior .glow-line + .glow-line { bottom: 18%; opacity: 0.14; }
+
+  .plate-cover .plate-tag { opacity: 0.9; }
+  .plate .plate-tag br { display: none; }
+
+  .split.rev { grid-template-columns: 1fr 36cqw; }
+  .split.rev .s-media { grid-column: 1; grid-row: 1; }
+  .split.rev .s-text { grid-column: 2; grid-row: 1; }
+
+  /* ─── close frame ─────────────────────────────────────────────────── */
+  .inner.close-inner { align-items: center; text-align: center; }
+  .inner.close-inner .masthead { width: 100%; }
+  .close-centre {
+    margin: auto 0;
+    display: flex; flex-direction: column; align-items: center;
+    width: 100%;
+  }
+  .mini-scene { position: relative; width: 30cqw; height: 17cqw; }
+  .mini-scene .sun {
+    position: absolute; left: 50%; top: 0; width: 7cqw; height: 7cqw;
+    transform: translateX(-50%);
+    background: radial-gradient(circle at 50% 50%, oklch(0.9 0.06 86), oklch(0.55 0.12 80));
+    opacity: 0.9;
+  }
+  .mini-scene .skyline-bottom {
+    position: absolute; left: 0; right: 0; bottom: 0; height: 9cqw;
+    color: var(--skyline-ink); opacity: 0.9;
+  }
+  .mini-scene .skyline-bottom svg { width: 100%; height: 100%; }
+  .close-kicker {
+    font-weight: 700; font-size: 1.6cqw; letter-spacing: 0.46em;
+    text-transform: uppercase; color: var(--gold-s); margin-top: 5cqw;
+  }
+  .close-h1 {
+    font-family: var(--font-display);
+    font-size: 9.5cqw; line-height: 1.02; letter-spacing: -0.005em;
+    color: var(--mast); margin-top: 2.6cqw;
+  }
+  .close-h1 em { color: var(--gold-s); }
+  .close-dek {
+    margin-top: 2.6cqw; max-width: 40cqw;
+    font-size: 2.2cqw; line-height: 1.6; font-weight: 300; color: var(--muted-s);
+  }
+  .close-rule { margin-top: 5cqw; width: 12cqw; height: 0.1cqw; background: var(--key); }
+  .close-handle {
+    margin-top: 4.4cqw;
+    font-weight: 700; font-size: 3cqw; letter-spacing: 0.34em;
+    color: var(--gold-s);
+  }
+  .close-link {
+    margin-top: 2cqw;
+    font-weight: 600; font-size: 1.7cqw; letter-spacing: 0.3em;
+    text-transform: uppercase; color: var(--muted-s);
+  }
+  .close-foot {
+    display: flex; justify-content: space-between; align-items: baseline;
+    width: 100%;
+    font-weight: 600; font-size: 1.7cqw; letter-spacing: 0.26em;
+    text-transform: uppercase; color: var(--muted-s);
+  }
+
+  @media (max-width: 720px) {
+    .ch-wrap { padding: 44px 20px 96px; }
+    .shot { margin-bottom: 56px; }
+    .shot-meta { flex-direction: column; gap: 4px; }
+  }
+</style>
+</head>
+<body>
+
+<section class="ch-wrap" data-od-id="carousel-system">
+  <p class="ch-kicker">South Florida Elevated <i>·</i> Instagram Carousel</p>
+  <h1 class="ch-title" style="width: 837px; height: 52.2422px;">Who <em>We Are</em></h1>
+  <p class="ch-sub">A five-frame brand introduction for <strong>@southfloridaelevated</strong> by Miguel Perez — 1080 × 1350 px (4:5), arranged as a full-bleed cover, three editorial pillar frames, and a closing frame.</p>
+  <div class="ch-index">
+    <span class="ch-chip on">01 · Cover</span>
+    <span class="ch-chip">02 · Expertise</span>
+    <span class="ch-chip">03 · Service</span>
+    <span class="ch-chip">04 · Lifestyle</span>
+    <span class="ch-chip">05 · Close</span>
+  </div>
+</section>
+
+<!-- ═══════════ 01 · COVER — WHO WE ARE ═══════════ -->
+<section class="shot" data-od-id="slide-cover">
+  <div class="shot-meta"><b>01 · Who We Are</b><span>Cover · full-bleed</span></div>
+  <div class="slide theme-dark slide-cover">
+    <div class="plate plate-cover" aria-hidden="true">
+      <svg class="skyline skyline-top" viewBox="0 0 1080 490" preserveAspectRatio="none">
+        <g shape-rendering="crispEdges">
+          <rect x="0" y="430" width="26" height="60"></rect>
+          <rect x="34" y="404" width="18" height="86"></rect>
+          <rect x="62" y="452" width="30" height="38"></rect>
+          <rect x="120" y="330" width="22" height="160"></rect>
+          <rect x="170" y="372" width="16" height="118"></rect>
+          <rect x="206" y="298" width="28" height="192"></rect>
+          <rect x="252" y="420" width="20" height="70"></rect>
+          <rect x="320" y="360" width="24" height="130"></rect>
+          <rect x="368" y="240" width="18" height="250"></rect>
+          <rect x="404" y="300" width="30" height="190"></rect>
+          <rect x="452" y="352" width="16" height="138"></rect>
+          <rect x="520" y="262" width="22" height="228"></rect>
+          <rect x="566" y="322" width="18" height="168"></rect>
+          <rect x="614" y="440" width="26" height="50"></rect>
+          <rect x="690" y="318" width="24" height="172"></rect>
+          <rect x="738" y="244" width="18" height="246"></rect>
+          <rect x="776" y="372" width="26" height="118"></rect>
+          <rect x="840" y="288" width="20" height="202"></rect>
+          <rect x="888" y="344" width="18" height="146"></rect>
+          <rect x="934" y="410" width="24" height="80"></rect>
+          <rect x="990" y="262" width="20" height="228"></rect>
+          <rect x="1040" y="340" width="40" height="150"></rect>
+        </g>
+      </svg>
+      <span class="horizon"></span>
+    </div>
+    <div class="veil" aria-hidden="true"></div>
+    <div class="inner cover-inner">
+      <header class="masthead">
+        <div class="wordmark">
+          <svg class="mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+            <rect x="1.5" y="1.5" width="29" height="29" stroke="currentColor" stroke-width="1.3"></rect>
+            <rect x="7" y="17" width="3" height="9" fill="currentColor"></rect>
+            <rect x="13.5" y="11" width="3" height="15" fill="currentColor"></rect>
+            <rect x="20" y="4" width="3" height="22" fill="currentColor"></rect>
+          </svg>
+          <span class="wordmark-text">
+            <span>SOUTH FLORIDA</span>
+            <span class="wm-gold">ELEVATED</span>
+          </span>
+        </div>
+        <span class="index">01<i>·</i>05</span>
+      </header>
+      <span class="mast-rule"></span>
+
+      <div class="cover-lower">
+        <p class="kicker">Miguel Perez · Luxury Real Estate</p>
+        <h1 class="cover-h1" style="font-weight: 600;">WHO <em style="font-weight: 500; letter-spacing: -1.59735px; transform: translate(53px, 5px); display: inline-block;">WE ARE</em></h1>
+        <p class="cover-dek">A boutique practice for the modern South Florida life — local expertise, elevated service, and an eye for the extraordinary.</p>
+      </div>
+
+      <div class="pillars">
+        <span class="pillar"><span class="pillar-dot"></span>Local Expertise</span>
+        <span class="pv"></span>
+        <span class="pillar"><span class="pillar-dot"></span>Elevated Service</span>
+        <span class="pv"></span>
+        <span class="pillar"><span class="pillar-dot"></span>South Florida Lifestyle</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 02 · LOCAL EXPERTISE ═══════════ -->
+<section class="shot" data-od-id="slide-expertise">
+  <div class="shot-meta"><b>02 · Local Expertise</b><span>Ivory editorial frame</span></div>
+  <div class="slide theme-light ligned grainy">
+    <div class="inner">
+      <header class="masthead">
+        <div class="wordmark">
+          <svg class="mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+            <rect x="1.5" y="1.5" width="29" height="29" stroke="currentColor" stroke-width="1.3"></rect>
+            <rect x="7" y="17" width="3" height="9" fill="currentColor"></rect>
+            <rect x="13.5" y="11" width="3" height="15" fill="currentColor"></rect>
+            <rect x="20" y="4" width="3" height="22" fill="currentColor"></rect>
+          </svg>
+          <span class="wordmark-text">
+            <span>SOUTH FLORIDA</span>
+            <span class="wm-gold">ELEVATED</span>
+          </span>
+        </div>
+        <span class="index">02<i>·</i>05</span>
+      </header>
+      <span class="mast-rule"></span>
+
+      <div class="split">
+        <div class="s-text">
+          <div>
+            <p class="kicker">Pillar 01 · Local Expertise</p>
+            <h1 class="s-h1" style="font-weight: 900;">We know this coast <em>down to the waterline.</em></h1>
+            <p class="s-dek">From Miami to Fort Lauderdale, we read neighborhoods the way locals do — architecture, values, builders, zoning, and the quiet pockets others overlook.</p>
+          </div>
+          <div class="slugs">
+            <span>Miami</span>
+            <span class="dot"></span>
+            <span>Fort Lauderdale</span>
+            <span class="dot"></span>
+            <span>The Gold Coast</span>
+          </div>
+        </div>
+        <div class="s-media">
+          <div class="plate plate-arch" role="img" aria-label="Photo slot — modern waterfront residence at dusk">
+            <div class="skyline-bottom">
+              <svg viewBox="0 0 1080 400" preserveAspectRatio="none">
+                <g shape-rendering="crispEdges">
+                  <rect x="60" y="210" width="30" height="190"></rect>
+                  <rect x="110" y="150" width="22" height="250"></rect>
+                  <rect x="170" y="250" width="26" height="150"></rect>
+                  <rect x="240" y="120" width="20" height="280"></rect>
+                  <rect x="300" y="200" width="26" height="200"></rect>
+                  <rect x="380" y="90" width="24" height="310"></rect>
+                  <rect x="450" y="180" width="20" height="220"></rect>
+                  <rect x="520" y="250" width="30" height="150"></rect>
+                  <rect x="610" y="130" width="22" height="270"></rect>
+                  <rect x="680" y="220" width="26" height="180"></rect>
+                  <rect x="760" y="90" width="20" height="310"></rect>
+                  <rect x="830" y="200" width="30" height="200"></rect>
+                  <rect x="900" y="150" width="22" height="250"></rect>
+                  <rect x="970" y="240" width="24" height="160"></rect>
+                </g>
+              </svg>
+            </div>
+            <span class="horizon"></span>
+            <span class="reflection"></span>
+            <span class="plate-tag">02 · Photo slot — replace with Miguel's photography</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 03 · ELEVATED SERVICE ═══════════ -->
+<section class="shot" data-od-id="slide-service">
+  <div class="shot-meta"><b>03 · Elevated Service</b><span>Onyx editorial frame</span></div>
+  <div class="slide theme-dark ligned">
+    <div class="inner">
+      <header class="masthead">
+        <div class="wordmark">
+          <svg class="mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+            <rect x="1.5" y="1.5" width="29" height="29" stroke="currentColor" stroke-width="1.3"></rect>
+            <rect x="7" y="17" width="3" height="9" fill="currentColor"></rect>
+            <rect x="13.5" y="11" width="3" height="15" fill="currentColor"></rect>
+            <rect x="20" y="4" width="3" height="22" fill="currentColor"></rect>
+          </svg>
+          <span class="wordmark-text">
+            <span>SOUTH FLORIDA</span>
+            <span class="wm-gold">ELEVATED</span>
+          </span>
+        </div>
+        <span class="index">03<i>·</i>05</span>
+      </header>
+      <span class="mast-rule"></span>
+
+      <div class="split rev">
+        <div class="s-text">
+          <div>
+            <p class="kicker">Pillar 02 · Elevated Service</p>
+            <h1 class="s-h1">White-glove is our <em>default.</em></h1>
+            <p class="s-dek">From the first call through closing and well beyond, every detail is handled with discretion — curated showings, vetted professionals, and follow-through that never goes quiet.</p>
+          </div>
+          <div class="rails">
+            <span class="rail"><span class="rail-squ"></span>Discreet</span>
+            <span class="rail"><span class="rail-squ"></span>Responsive</span>
+            <span class="rail"><span class="rail-squ"></span>Follow-through</span>
+          </div>
+        </div>
+        <div class="s-media">
+          <div class="plate plate-interior" role="img" aria-label="Photo slot — luxurious modern interior in golden light">
+            <span class="glow-line"></span>
+            <span class="glow-line"></span>
+            <span class="plate-tag">03 · Photo slot — replace with Miguel's photography</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 04 · SOUTH FLORIDA LIFESTYLE ═══════════ -->
+<section class="shot" data-od-id="slide-lifestyle">
+  <div class="shot-meta"><b>04 · South Florida Lifestyle</b><span>Ivory editorial frame</span></div>
+  <div class="slide theme-light ligned grainy">
+    <div class="inner">
+      <header class="masthead">
+        <div class="wordmark">
+          <svg class="mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+            <rect x="1.5" y="1.5" width="29" height="29" stroke="currentColor" stroke-width="1.3"></rect>
+            <rect x="7" y="17" width="3" height="9" fill="currentColor"></rect>
+            <rect x="13.5" y="11" width="3" height="15" fill="currentColor"></rect>
+            <rect x="20" y="4" width="3" height="22" fill="currentColor"></rect>
+          </svg>
+          <span class="wordmark-text">
+            <span>SOUTH FLORIDA</span>
+            <span class="wm-gold">ELEVATED</span>
+          </span>
+        </div>
+        <span class="index">04<i>·</i>05</span>
+      </header>
+      <span class="mast-rule"></span>
+
+      <div class="split">
+        <div class="s-text">
+          <div>
+            <p class="kicker">Pillar 03 · South Florida Lifestyle</p>
+            <h1 class="s-h1">Where the water meets <em>the good life.</em></h1>
+            <p class="s-dek">Deep-water access, modern architecture, sun-seasoned days, and a city that never slows. We help you live in the middle of it all.</p>
+          </div>
+          <div class="rails">
+            <span class="rail"><span class="rail-squ"></span>Waterfront design</span>
+            <span class="rail"><span class="rail-squ"></span>Deep-water access</span>
+            <span class="rail"><span class="rail-squ"></span>Golden-hour light</span>
+          </div>
+        </div>
+        <div class="s-media">
+          <div class="plate plate-water" role="img" aria-label="Photo slot — the water at golden hour">
+            <div class="skyline-bottom">
+              <svg viewBox="0 0 1080 400" preserveAspectRatio="none">
+                <g shape-rendering="crispEdges">
+                  <rect x="180" y="220" width="26" height="180"></rect>
+                  <rect x="240" y="160" width="20" height="240"></rect>
+                  <rect x="300" y="280" width="30" height="120"></rect>
+                  <rect x="400" y="120" width="22" height="280"></rect>
+                  <rect x="470" y="200" width="26" height="200"></rect>
+                  <rect x="560" y="250" width="18" height="150"></rect>
+                  <rect x="620" y="140" width="24" height="260"></rect>
+                  <rect x="720" y="240" width="22" height="160"></rect>
+                  <rect x="800" y="150" width="30" height="250"></rect>
+                  <rect x="870" y="260" width="20" height="140"></rect>
+                </g>
+              </svg>
+            </div>
+            <span class="horizon"></span>
+            <span class="reflection"></span>
+            <span class="plate-tag">04 · Photo slot — replace with Miguel's photography</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ 05 · CLOSE — ELEVATION ═══════════ -->
+<section class="shot" data-od-id="slide-close">
+  <div class="shot-meta"><b>05 · Close</b><span>Elevation · sign-off</span></div>
+  <div class="slide theme-close ligned">
+    <div class="inner close-inner">
+      <header class="masthead">
+        <div class="wordmark">
+          <svg class="mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+            <rect x="1.5" y="1.5" width="29" height="29" stroke="currentColor" stroke-width="1.3"></rect>
+            <rect x="7" y="17" width="3" height="9" fill="currentColor"></rect>
+            <rect x="13.5" y="11" width="3" height="15" fill="currentColor"></rect>
+            <rect x="20" y="4" width="3" height="22" fill="currentColor"></rect>
+          </svg>
+          <span class="wordmark-text">
+            <span>SOUTH FLORIDA</span>
+            <span class="wm-gold">ELEVATED</span>
+          </span>
+        </div>
+        <span class="index">05<i>·</i>05</span>
+      </header>
+      <span class="mast-rule"></span>
+
+      <div class="close-centre">
+        <div class="mini-scene" aria-hidden="true">
+          <span class="sun"></span>
+          <span class="skyline-bottom">
+            <svg viewBox="0 0 600 260" preserveAspectRatio="none">
+              <g shape-rendering="crispEdges">
+                <rect x="0" y="150" width="22" height="110"></rect>
+                <rect x="40" y="100" width="18" height="160"></rect>
+                <rect x="90" y="180" width="26" height="80"></rect>
+                <rect x="150" y="70" width="20" height="190"></rect>
+                <rect x="210" y="130" width="24" height="130"></rect>
+                <rect x="280" y="60" width="18" height="200"></rect>
+                <rect x="340" y="120" width="26" height="140"></rect>
+                <rect x="410" y="180" width="20" height="80"></rect>
+                <rect x="470" y="90" width="22" height="170"></rect>
+                <rect x="540" y="150" width="26" height="110"></rect>
+              </g>
+            </svg>
+          </span>
+        </div>
+        <p class="close-kicker">Miguel Perez</p>
+        <h1 class="close-h1">Let's find your <em>elevation.</em></h1>
+        <p class="close-dek">Bring the vision. We'll bring the coast.</p>
+        <span class="close-rule"></span>
+        <p class="close-handle">@southfloridaelevated</p>
+        <p class="close-link">Enquiries · Link in bio</p>
+      </div>
+
+      <div class="close-foot">
+        <span>Miguel Perez · Luxury Real Estate</span>
+        <span>South Florida Elevated</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<p class="ch-wrap ch-note" data-od-id="export-note">
+  <b>Export:</b> each frame renders at 1080 × 1350 px (4:5). Frames 01–04 carry art-directed dusk plates as placeholders — drop in Miguel Perez's own photography at the labeled slots for final use. Typography: Instrument Serif (headlines) + Cairo (body). No purple, orange, or gradients-without-purpose.
+</p>
+
+
+
+<script type="application/json" id="speaker-notes">
+[]
+</script>
+</body></html>

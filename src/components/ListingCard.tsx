@@ -9,16 +9,16 @@ interface ListingCardProps {
 export default function ListingCard({ property, onClick }: ListingCardProps) {
   return (
     <div
-      className={`relative group overflow-hidden cursor-pointer transition-all duration-500 hover:scale-[1.02] ${property.grad}`}
+      className={`relative group overflow-hidden cursor-pointer w-full transition-all duration-500 hover:scale-[1.02] ${property.grad}`}
       onClick={() => onClick?.(property)}
     >
-      <div className="aspect-[4/3] relative overflow-hidden">
+      <div className="aspect-[4/3] w-full relative overflow-hidden">
         <img
-          src={property.img}
-          alt={property.name}
           loading="lazy"
           decoding="async"
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+          src={property.img}
+          alt={property.name}
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
           onError={(e) => {
             // Fallback if image doesn't load
             (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80';

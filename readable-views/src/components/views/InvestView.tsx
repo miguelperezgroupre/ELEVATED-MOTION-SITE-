@@ -1,0 +1,380 @@
+// @ts-nocheck
+/**
+ * InvestView — preview build with the shared <PageHero /> (same system as the homepage hero).
+ *
+ * The original source file for this view could not be retrieved through the Vercel connector
+ * (deployment file contents are truncated), so this module was reconstructed from the deployed
+ * production bundle (dpl_A8yVtGpcRMzQVh91pmJ4fq1uMakZ, Oct 7 2026). Everything below the hero is
+ * behaviourally identical to production; only the page hero section was replaced.
+ * When the real source is available, apply the same change there: delete the old hero <section>
+ * and render <PageHero page="invest" onOpenContact={onOpenContact} /> in its place.
+ */
+import * as R from "react";
+import * as n from "react/jsx-runtime";
+import {
+  Building2 as Sn,
+  Anchor as jp,
+  ChartPie as Rp,
+  TrendingUp as Ms,
+  ArrowRight as ue,
+  Calculator as $h
+} from "lucide-react";
+import {
+  money as ct
+} from "../../data";
+import PageHero from "../PageHero";
+
+function InvestView({
+  onOpenContact: m,
+  onNavigateToDevelopments: u
+}) {
+  const [d, c] = R.useState(25e5), [x, g] = R.useState(35), [C, A] = R.useState(14e3), [_, E] = R.useState(6.5), v = d *
+    x / 100, f = C * 12, w = (f / d * 100).toFixed(2), B = Math.round(d * (Math.pow(1 + _ / 100, 5) - 1)), U = d + B;
+  return n.jsxs("div", {
+    className: "pb-20 animate-fadeIn",
+    children: [n.jsx(PageHero, {
+      page: "invest",
+      onOpenContact: m
+    }), n.jsx("section", {
+      className: "py-20 border-b border-[rgba(244,239,226,0.08)] bg-[#101618]",
+      children: n.jsxs("div", {
+        className: "wrap",
+        children: [n.jsxs("div", {
+          className: "text-center max-w-2xl mx-auto mb-16",
+          children: [n.jsx("span", {
+            className: "mono-label text-[#c9a24a]",
+            children: "Institutional Rigor"
+          }), n.jsxs("h2", {
+            className: "font-serif text-3xl sm:text-5xl text-[#f4efe2] font-normal mt-2",
+            children: ["The 6-Step Investment ", n.jsx("em", {
+              className: "it text-[#ffd9a0]",
+              children: "Framework"
+            })]
+          }), n.jsx("p", {
+            className: "text-sm sm:text-base text-[#f4efe2]/70 font-light mt-3",
+            children: "We eliminate emotional speculation by applying a rigorous quantitative funnel to every acquisition."
+          })]
+        }), n.jsx("div", {
+          className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-3",
+          children: [{
+            step: "01",
+            name: "MARKET",
+            desc: "Analyzing macro capital inflows, state tax migrations, and regional absorption velocity."
+          }, {
+            step: "02",
+            name: "LOCATION",
+            desc: "Selecting zoning corridors, school districts, and micro-locations with protected view corridors."
+          }, {
+            step: "03",
+            name: "PROPERTY",
+            desc: "Auditing architectural pedigree, HOA reserve funds (SB 4-D), and deferred capital expenditures."
+          }, {
+            step: "04",
+            name: "NUMBERS",
+            desc: "Underwriting pro-forma cap rates, debt service coverage, and sensitivity analysis across cycles."
+          }, {
+            step: "05",
+            name: "STRATEGY",
+            desc: "Structuring 1031 exchanges, pre-construction assignment rights, or luxury rental syndication."
+          }, {
+            step: "06",
+            name: "EXECUTION",
+            desc: "Securing favorable contract milestones, off-market pricing, and institutional closing oversight."
+          }].map((G, V) => n.jsxs("div", {
+            className: "p-5 bg-[#141a1d] border border-[rgba(244,239,226,0.1)] hover:border-[#c9a24a] transition-all flex flex-col justify-between",
+            children: [n.jsxs("div", {
+              children: [n.jsx("span", {
+                className: "font-mono text-xs text-[#c9a24a] font-bold block mb-2",
+                children: G.step
+              }), n.jsx("h3", {
+                className: "font-serif text-lg text-[#f4efe2]",
+                children: G.name
+              })]
+            }), n.jsx("p", {
+              className: "text-xs text-[#f4efe2]/70 font-light mt-3 leading-relaxed",
+              children: G.desc
+            })]
+          }, V))
+        })]
+      })
+    }), n.jsx("section", {
+      className: "py-20 border-b border-[rgba(244,239,226,0.08)] bg-[#0B0B0B]",
+      children: n.jsxs("div", {
+        className: "wrap",
+        children: [n.jsxs("div", {
+          className: "flex flex-col md:flex-row md:items-end justify-between mb-12",
+          children: [n.jsxs("div", {
+            children: [n.jsx("span", {
+              className: "mono-label",
+              children: "Asset Allocation"
+            }), n.jsxs("h2", {
+              className: "font-serif text-3xl sm:text-5xl text-[#f4efe2] font-normal mt-2",
+              children: ["Four Pillars of South Florida ", n.jsx("em", {
+                className: "it text-[#ffd9a0]",
+                children: "Value"
+              })]
+            })]
+          }), n.jsx("p", {
+            className: "text-xs sm:text-sm text-[#f4efe2]/60 font-mono mt-4 md:mt-0",
+            children: "Targeted strategies tailored to your liquidity and holding horizon."
+          })]
+        }), n.jsx("div", {
+          className: "grid grid-cols-1 md:grid-cols-2 gap-8",
+          children: [{
+            icon: Sn,
+            title: "Pre-Construction Deposit Arbitrage",
+            desc: "Securing tier-one pricing in branded towers (Bentley, St. Regis, Villa Miami) with staggered 10-20% deposit schedules, capturing substantial capital appreciation prior to completion.",
+            metric: "25% - 40% Projected ROI by Delivery",
+            action: "Explore Developments"
+          }, {
+            icon: jp,
+            title: "Waterfront & Dockage Scarcity",
+            desc: "Land in South Florida is finite; navigable deep water with no fixed bridges is even scarcer. Waterfront homes consistently outperform inland residential assets across every market cycle.",
+            metric: "Historical +8.4% Annual Alpha",
+            action: "View Waterfront Assets"
+          }, {
+            icon: Rp,
+            title: "High-Yield Executive Condominium Portfolios",
+            desc: "Targeting modern Brickell and Edgewater towers with flexible leasing guidelines to serve relocated Wall Street executives and tech professionals.",
+            metric: "6.5% - 8.5% Gross Rental Yield",
+            action: "Explore Condos"
+          }, {
+            icon: Ms,
+            title: "Downtown Fort Lauderdale Growth Corridors",
+            desc: "Capitalizing on the rapid transformation of the New River and Las Olas corridors, priced at a significant discount per square foot compared to equivalent Miami waterfront.",
+            metric: "High Value-Add Upside",
+            action: "Explore Broward Growth"
+          }].map((G, V) => {
+            const F = G.icon;
+            return n.jsxs("div", {
+              className: "p-8 bg-[#141a1d] border border-[rgba(244,239,226,0.1)] hover:border-[#c9a24a] transition-all flex flex-col justify-between space-y-6",
+              children: [n.jsxs("div", {
+                className: "space-y-3",
+                children: [n.jsx(F, {
+                  className: "w-8 h-8 text-[#c9a24a]"
+                }), n.jsx("h3", {
+                  className: "font-serif text-2xl sm:text-3xl text-[#f4efe2]",
+                  children: G.title
+                }), n.jsx("p", {
+                  className: "text-xs sm:text-sm text-[#f4efe2]/75 font-light leading-relaxed",
+                  children: G.desc
+                })]
+              }), n.jsxs("div", {
+                className: "pt-4 border-t border-[rgba(244,239,226,0.08)] flex items-center justify-between",
+                children: [n.jsx("span", {
+                  className: "font-mono text-xs text-[#ffd9a0] font-bold",
+                  children: G.metric
+                }), n.jsxs("button", {
+                  onClick: () => m("investor", `Inquiry regarding ${G.title}`),
+                  className: "text-xs font-mono text-[#c9a24a] hover:underline flex items-center gap-1",
+                  children: [n.jsx("span", {
+                    children: "Inquire"
+                  }), n.jsx(ue, {
+                    className: "w-3 h-3"
+                  })]
+                })]
+              })]
+            }, V);
+          })
+        })]
+      })
+    }), n.jsx("section", {
+      id: "investment-calculator",
+      className: "py-20 border-b border-[rgba(244,239,226,0.08)] bg-[#101618]",
+      children: n.jsx("div", {
+        className: "wrap",
+        children: n.jsxs("div", {
+          className: "max-w-4xl mx-auto bg-[#141a1d] border border-[rgba(201,162,74,0.4)] p-8 sm:p-12 shadow-2xl",
+          children: [n.jsxs("div", {
+            className: "flex items-center gap-2 mb-2",
+            children: [n.jsx($h, {
+              className: "w-5 h-5 text-[#c9a24a]"
+            }), n.jsx("span", {
+              className: "mono-label text-[#c9a24a]",
+              children: "Yield & Appreciation Modeling"
+            })]
+          }), n.jsxs("h3", {
+            className: "font-serif text-3xl sm:text-4xl text-[#f4efe2] font-normal mb-8",
+            children: ["South Florida Investment Return ", n.jsx("em", {
+              className: "it text-[#ffd9a0]",
+              children: "Estimator"
+            })]
+          }), n.jsxs("div", {
+            className: "grid grid-cols-1 md:grid-cols-2 gap-8",
+            children: [n.jsxs("div", {
+              className: "space-y-6",
+              children: [n.jsxs("div", {
+                children: [n.jsxs("div", {
+                  className: "flex justify-between items-center mb-2",
+                  children: [n.jsx("label", {
+                    className: "mono-label",
+                    children: "Acquisition Price"
+                  }), n.jsx("span", {
+                    className: "font-mono text-sm text-[#ffd9a0] font-bold",
+                    children: ct(d)
+                  })]
+                }), n.jsx("input", {
+                  type: "range",
+                  min: 5e5,
+                  max: 15e6,
+                  step: 1e5,
+                  value: d,
+                  onChange: (G) => c(Number(G.target.value)),
+                  className: "w-full accent-[#c9a24a] cursor-pointer"
+                })]
+              }), n.jsxs("div", {
+                children: [n.jsxs("div", {
+                  className: "flex justify-between items-center mb-2",
+                  children: [n.jsx("label", {
+                    className: "mono-label",
+                    children: "Equity Down Payment (%)"
+                  }), n.jsxs("span", {
+                    className: "font-mono text-sm text-[#ffd9a0] font-bold",
+                    children: [x, "% (", ct(v), ")"]
+                  })]
+                }), n.jsx("input", {
+                  type: "range",
+                  min: 20,
+                  max: 100,
+                  step: 5,
+                  value: x,
+                  onChange: (G) => g(Number(G.target.value)),
+                  className: "w-full accent-[#c9a24a] cursor-pointer"
+                })]
+              }), n.jsxs("div", {
+                children: [n.jsxs("div", {
+                  className: "flex justify-between items-center mb-2",
+                  children: [n.jsx("label", {
+                    className: "mono-label",
+                    children: "Estimated Monthly Gross Rent"
+                  }), n.jsxs("span", {
+                    className: "font-mono text-sm text-[#ffd9a0] font-bold",
+                    children: [ct(C), " / mo"]
+                  })]
+                }), n.jsx("input", {
+                  type: "range",
+                  min: 3e3,
+                  max: 6e4,
+                  step: 500,
+                  value: C,
+                  onChange: (G) => A(Number(G.target.value)),
+                  className: "w-full accent-[#c9a24a] cursor-pointer"
+                })]
+              }), n.jsxs("div", {
+                children: [n.jsxs("div", {
+                  className: "flex justify-between items-center mb-2",
+                  children: [n.jsx("label", {
+                    className: "mono-label",
+                    children: "Forecasted Annual Appreciation"
+                  }), n.jsxs("span", {
+                    className: "font-mono text-sm text-[#ffd9a0] font-bold",
+                    children: [_, "% / yr"]
+                  })]
+                }), n.jsx("input", {
+                  type: "range",
+                  min: 3,
+                  max: 12,
+                  step: 0.5,
+                  value: _,
+                  onChange: (G) => E(Number(G.target.value)),
+                  className: "w-full accent-[#c9a24a] cursor-pointer"
+                })]
+              })]
+            }), n.jsxs("div", {
+              className: "bg-[#0B0B0B] p-6 border border-[rgba(244,239,226,0.1)] flex flex-col justify-between space-y-6",
+              children: [n.jsxs("div", {
+                children: [n.jsx("span", {
+                  className: "mono-label text-[#c9a24a]",
+                  children: "Projected 5-Year Return Profile"
+                }), n.jsxs("div", {
+                  className: "mt-4 space-y-4",
+                  children: [n.jsxs("div", {
+                    className: "flex justify-between items-center py-2 border-b border-[rgba(244,239,226,0.08)]",
+                    children: [n.jsx("span", {
+                      className: "text-xs text-[#f4efe2]/70",
+                      children: "Gross Annual Rental Yield:"
+                    }), n.jsxs("span", {
+                      className: "font-mono text-lg text-[#ffd9a0] font-bold",
+                      children: [w, "%"]
+                    })]
+                  }), n.jsxs("div", {
+                    className: "flex justify-between items-center py-2 border-b border-[rgba(244,239,226,0.08)]",
+                    children: [n.jsx("span", {
+                      className: "text-xs text-[#f4efe2]/70",
+                      children: "Annual Gross Income:"
+                    }), n.jsx("span", {
+                      className: "font-mono text-base text-[#f4efe2]",
+                      children: ct(f)
+                    })]
+                  }), n.jsxs("div", {
+                    className: "flex justify-between items-center py-2 border-b border-[rgba(244,239,226,0.08)]",
+                    children: [n.jsx("span", {
+                      className: "text-xs text-[#f4efe2]/70",
+                      children: "5-Year Equity Growth:"
+                    }), n.jsxs("span", {
+                      className: "font-mono text-base text-[#c9a24a] font-bold",
+                      children: ["+", ct(B)]
+                    })]
+                  }), n.jsxs("div", {
+                    className: "flex justify-between items-center py-2",
+                    children: [n.jsx("span", {
+                      className: "text-xs text-[#f4efe2]/70",
+                      children: "Est. 5-Yr Asset Value:"
+                    }), n.jsx("span", {
+                      className: "font-mono text-xl text-[#ffd9a0] font-bold",
+                      children: ct(U)
+                    })]
+                  })]
+                })]
+              }), n.jsxs("button", {
+                onClick: () => m("investor",
+                  `I ran the investment model for a ${ct(d)} property and would like an underwriting review.`
+                  ),
+                className: "btn btn--gold w-full justify-center text-xs",
+                children: [n.jsx("span", {
+                  children: "Build My Investment Strategy"
+                }), n.jsx(ue, {
+                  className: "w-3.5 h-3.5"
+                })]
+              })]
+            })]
+          })]
+        })
+      })
+    }), n.jsx("section", {
+      className: "py-20 bg-[#0B0B0B]",
+      children: n.jsxs("div", {
+        className: "wrap text-center max-w-3xl mx-auto space-y-6",
+        children: [n.jsx("span", {
+          className: "mono-label text-[#c9a24a]",
+          children: "Direct Advisory"
+        }), n.jsxs("h2", {
+          className: "font-serif text-4xl sm:text-5xl text-[#f4efe2] font-normal",
+          children: ["Ready to deploy ", n.jsx("em", {
+            className: "it text-[#ffd9a0]",
+            children: "Capital"
+          }), " into South Florida?"]
+        }), n.jsx("p", {
+          className: "text-sm sm:text-base text-[#f4efe2]/80 font-light leading-relaxed",
+          children: "Whether allocating into pre-construction towers, 1031 exchanges, or long-term waterfront generational assets, connect directly with Miguel for confidential underwriting."
+        }), n.jsx("div", {
+          className: "pt-4 flex justify-center gap-4",
+          children: n.jsxs("button", {
+            onClick: () => m("investor",
+              "I am ready to consult on deploying capital into South Florida real estate."),
+            className: "btn btn--gold px-10 py-4 text-sm",
+            children: [n.jsx("span", {
+              children: "Explore Investment Opportunities"
+            }), n.jsx(ue, {
+              className: "w-4 h-4"
+            })]
+          })
+        })]
+      })
+    })]
+  });
+}
+export {
+  InvestView as
+  default
+};

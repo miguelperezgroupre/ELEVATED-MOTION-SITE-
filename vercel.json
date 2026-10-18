@@ -1,39 +1,22 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "cleanUrls": true,
+  "trailingSlash": false,
   "redirects": [
-    {
-      "source": "/(.*)",
-      "has": [{ "type": "host", "value": "southfloridaelevated.com" }],
-      "destination": "https://www.southfloridaelevated.com/$1",
-      "permanent": true
-    }
+    { "source": "/relocate", "destination": "/relocation", "permanent": true },
+    { "source": "/home-valuation", "destination": "/home-value", "permanent": true },
+    { "source": "/developments", "destination": "/pre-construction", "permanent": true },
+    { "source": "/lifestyle", "destination": "/south-florida", "permanent": true },
+    { "source": "/blog", "destination": "/journal", "permanent": true },
+    { "source": "/blog/:slug", "destination": "/journal/:slug", "permanent": true },
+    { "source": "/news", "destination": "/journal", "permanent": true }
+  ],
+  "rewrites": [
+    { "source": "/journal/:slug([a-z0-9-]+)", "destination": "/journal/:slug.html" }
   ],
   "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        { "key": "Strict-Transport-Security", "value": "max-age=63072000; includeSubDomains; preload" },
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-        { "key": "Cross-Origin-Opener-Policy", "value": "same-origin" },
-        { "key": "Origin-Trial", "value": "A+Fo8DMQVs7NDZeh7Fpucio9aVA4Z+7cru1YT0N+s5t2DXzPD6fiLgdpH/lhwwskgEVQ2+Pl/n/2kQxBhilD/AEAAACIeyJvcmlnaW4iOiJodHRwczovL29wZW5jbGF3LnNvdXRoZmxvcmlkYWVsZXZhdGVkLmNvbTo0NDMiLCJmZWF0dXJlIjoiV2ViTUNQIiwiZXhwaXJ5IjoxODA2MzY0ODAwLCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==" },
-        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=(), interest-cohort=(), tools=(self)" }
-      ]
-    },
-    {
-      "source": "/sitemap.xml",
-      "headers": [
-        { "key": "Content-Type", "value": "application/xml; charset=utf-8" },
-        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
-      ]
-    },
-    {
-      "source": "/robots.txt",
-      "headers": [
-        { "key": "Content-Type", "value": "text/plain; charset=utf-8" },
-        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
-      ]
-    }
+    { "source": "/(sitemap|sitemap-pages|sitemap-journal).xml", "headers": [{ "key": "Content-Type", "value": "application/xml; charset=utf-8" }] },
+    { "source": "/journal/rss.xml", "headers": [{ "key": "Content-Type", "value": "application/rss+xml; charset=utf-8" }] },
+    { "source": "/assets/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }] }
   ]
 }

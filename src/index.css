@@ -4,11 +4,6 @@
   --font-serif: 'Instrument Serif', Georgia, serif;
   --font-sans: 'Cairo', sans-serif;
   --font-mono: 'Space Mono', monospace;
-  --animate-fadeIn: fadeIn 0.28s ease-out both;
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(6px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
 }
 
 :root {
@@ -23,7 +18,6 @@
   --gold: #C9A24A;
   --gold-light: #e0ae6d;
   --gold-bright: #ffd9a0;
-  --gold-ink: #6f5320; /* AA-compliant gold for text on light/parchment backgrounds */
   --dark: #0B0B0B;
   --dark-2: #141a1d;
   --dark-3: #1A1815;
@@ -90,22 +84,22 @@ body {
 
 /* Gradients */
 .g-dusk {
-  background: linear-gradient(135deg, #1b2230 0%, #6b4a35 40%, #c08a4e 100%);
+  background: #0e1416;
 }
 .g-sunset {
-  background: linear-gradient(135deg, #301b22 0%, #8a3542 50%, #e5935c 100%);
+  background: #0e1416;
 }
 .g-ocean {
-  background: linear-gradient(135deg, #0e2028 0%, #1e454f 50%, #4f828a 100%);
+  background: #0e1416;
 }
 .g-night {
-  background: linear-gradient(135deg, #0c1015 0%, #1c2633 50%, #34485e 100%);
+  background: #0e1416;
 }
 .g-interior {
-  background: linear-gradient(135deg, #24201c 0%, #4a3e35 50%, #877464 100%);
+  background: #0e1416;
 }
 .g-tower {
-  background: linear-gradient(135deg, #182229 0%, #2e434f 50%, #728c99 100%);
+  background: #0e1416;
 }
 
 /* Film grain effect */
@@ -218,7 +212,7 @@ body {
 }
 
 .sec--light .eyebrow {
-  color: var(--gold-ink);
+  color: #9a7629;
 }
 
 .sec--light .mono-label {
@@ -252,7 +246,7 @@ body {
 }
 
 .sec--parchment .eyebrow {
-  color: var(--gold-ink);
+  color: #9a7629;
 }
 
 .sec--parchment .mono-label {
@@ -428,138 +422,3 @@ img.failed {
   font-size: 10px;
   fill: #6b7280;
 }
-
-/* Cinematic Hero Motions (5-8 second extremely slow loops, 3-8% parallax) */
-@keyframes cinematicPushIn {
-  0% { transform: scale(1.0); }
-  100% { transform: scale(1.06); }
-}
-
-@keyframes cinematicPanLeft {
-  0% { transform: translateX(0%) scale(1.05); }
-  100% { transform: translateX(-3%) scale(1.05); }
-}
-
-@keyframes cinematicPanRight {
-  0% { transform: translateX(0%) scale(1.05); }
-  100% { transform: translateX(3%) scale(1.05); }
-}
-
-@keyframes cinematicFloat {
-  0% { transform: translateY(0%) scale(1.03); }
-  50% { transform: translateY(-2%) scale(1.03); }
-  100% { transform: translateY(0%) scale(1.03); }
-}
-
-.hero-motion-push {
-  animation: cinematicPushIn 20s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-}
-
-.hero-motion-pan {
-  animation: cinematicPanRight 25s ease-in-out alternate infinite;
-}
-
-.hero-motion-float {
-  animation: cinematicFloat 15s ease-in-out infinite;
-}
-
-.hero-image-wrap {
-  overflow: hidden;
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-}
-
-/* ============================================================
-   ACCESSIBILITY PREFERENCES (driven by <html data-a11y-*>)
-   Managed by components/AccessibilityWidget.tsx
-   ============================================================ */
-
-/* Text size — zooms the whole page so px + rem both scale */
-html[data-a11y-font="1"] { zoom: 1.1; }
-html[data-a11y-font="2"] { zoom: 1.2; }
-html[data-a11y-font="3"] { zoom: 1.3; }
-
-/* Light mode — invert colors (filter is a no-op for fixed descendants
-   on the document root element, so the sticky nav keeps working) */
-html[data-a11y-invert="on"] {
-  filter: invert(1) hue-rotate(180deg);
-  background: #ffffff;
-}
-html[data-a11y-invert="on"] img,
-html[data-a11y-invert="on"] video,
-html[data-a11y-invert="on"] iframe {
-  filter: invert(1) hue-rotate(180deg);
-}
-
-/* High contrast */
-html[data-a11y-contrast="on"] body { background-color: #000000 !important; }
-html[data-a11y-contrast="on"] body :where(section, header, footer, main, nav, aside, article, div, ul, li) {
-  background-image: none !important;
-}
-html[data-a11y-contrast="on"] body :where(p, span, li, label, a, button, h1, h2, h3, h4, h5, h6, strong, em, blockquote, div) {
-  color: #ffffff !important;
-}
-html[data-a11y-contrast="on"] a,
-html[data-a11y-contrast="on"] button {
-  text-decoration: underline !important;
-  text-underline-offset: 3px;
-}
-html[data-a11y-contrast="on"] .btn--gold,
-html[data-a11y-contrast="on"] .btn--gold * {
-  color: #000000 !important;
-}
-
-/* Dyslexia-friendly / readable font */
-html[data-a11y-dyslexia="on"] :where(p, span, li, a, button, h1, h2, h3, h4, h5, h6, label, input, select, textarea, blockquote) {
-  font-family: 'Comic Sans MS', 'Trebuchet MS', Verdana, sans-serif !important;
-  letter-spacing: 0.02em !important;
-  word-spacing: 0.12em !important;
-  line-height: 1.65 !important;
-}
-
-/* Reduce motion */
-html[data-a11y-motion="reduce"] *,
-html[data-a11y-motion="reduce"] *::before,
-html[data-a11y-motion="reduce"] *::after {
-  animation-duration: 0.001ms !important;
-  animation-iteration-count: 1 !important;
-  transition-duration: 0.001ms !important;
-  scroll-behavior: auto !important;
-}
-html[data-a11y-motion="reduce"] .grain { display: none !important; }
-
-/* Large cursor */
-html[data-a11y-cursor="big"],
-html[data-a11y-cursor="big"] * {
-  cursor: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='32'%20height='32'%3E%3Cpath%20d='M5%203V25L11%2019L15%2028L19%2026L15%2017H23Z'%20fill='white'%20stroke='black'%20stroke-width='1.5'/%3E%3C/svg%3E") 3 2, auto !important;
-}
-html[data-a11y-cursor="big"] .sfe-cursor { display: none !important; }
-
-/* Highlight links */
-html[data-a11y-links="on"] a,
-html[data-a11y-links="on"] button {
-  text-decoration: underline !important;
-  text-underline-offset: 3px;
-}
-html[data-a11y-links="on"] a { background-color: rgba(201, 162, 74, 0.18) !important; }
-
-/* ============================================================
-   GOOGLE TRANSLATE — hide the default UI, keep our custom one
-   ============================================================ */
-.gt-hidden {
-  position: absolute !important;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
-}
-body { top: 0 !important; }
-.goog-te-banner-frame,
-.skiptranslate > iframe.goog-te-banner-frame { display: none !important; }
-.goog-tooltip,
-.goog-tooltip:hover { display: none !important; }
-.goog-text-highlight { background: transparent !important; box-shadow: none !important; }
-#goog-gt-tt { display: none !important; }

@@ -1,0 +1,65 @@
+/* WCAG 2.1 AA contrast fixes (Oct 2026). Utility overrides stay in the utilities layer so hover/group-hover variants
+   still win; the .eyebrow/.link-gold/.lede rules are unlayered because those base classes are unlayered. */
+@layer utilities {
+  .text-\[\#f4efe2\]\/30, .text-\[\#f4efe2\]\/35, .text-\[\#f4efe2\]\/40, .text-\[\#f4efe2\]\/45 { color: rgb(244 239 226 / 0.62); }
+  .text-\[\#e06c6c\]\/70 { color: #e06c6c; }
+  .font-mono.text-\[\#9a7629\], .font-mono .text-\[\#9a7629\] { color: #7a5c1e; }
+  .text-\[\#6b7280\] { color: #5b6270; }
+  .text-\[\#9ca3af\] { color: #6b7280; }
+  .text-emerald-600 { color: #047857; }
+}
+.sec--light .eyebrow, .sec--parchment .eyebrow, .sec--light .link-gold, .sec--parchment .link-gold { color: #7a5c1e; }
+.lede.text-\[\#4b5563\] { opacity: 1; }
+/* New Developments stage caption: keep a constant height while hovering the list (CLS). */
+section[aria-label="New developments"] .border-t.border-white\/20 { row-gap: 0.5rem; }
+section[aria-label="New developments"] .border-t.border-white\/20 > span:first-child { flex-basis: 100%; }
+/* Hero legibility (Oct 2026): soft onyx scrims behind hero text plus subtle text shadows. Each scrim is a ::before on
+   its hero stage, so it fades and moves with that stage's text; it is absolutely positioned (no layout shift). */
+[data-sfe-hero] > div > div:nth-child(n+3)::before, #hero-experience > div > div:nth-child(3)::before {
+  content: ""; position: absolute; z-index: -1; pointer-events: none; top: 0; bottom: 0; left: 50%; width: 100vw; transform: translateX(-50%);
+  background: radial-gradient(ellipse 62% 48% at 50% 50%, rgb(11 11 11 / 0.55) 0%, rgb(11 11 11 / 0.385) 50%, rgb(11 11 11 / 0) 100%);
+}
+[data-sfe-hero] > div > div:nth-child(3)::before, #hero-experience > div > div:nth-child(3)::before {
+  background: linear-gradient(180deg, rgb(11 11 11 / 0) 10%, rgb(11 11 11 / 0.5) 34%, rgb(11 11 11 / 0.5) 68%, rgb(11 11 11 / 0.2) 100%);
+}
+@media (min-width: 768px) {
+  [data-sfe-hero] > div > div:nth-child(3)::before, #hero-experience > div > div:nth-child(3)::before {
+    background: radial-gradient(ellipse 70% 62% at 28% 54%, rgb(11 11 11 / 0.55) 0%, rgb(11 11 11 / 0.41) 45%, rgb(11 11 11 / 0) 100%),
+      linear-gradient(90deg, rgb(11 11 11 / 0.33) 0%, rgb(11 11 11 / 0.165) 45%, rgb(11 11 11 / 0) 75%);
+  }
+}
+[data-sfe-hero] h1, [data-sfe-hero] h2, #hero-experience > div > div:nth-child(3) h1 { text-shadow: 0 2px 18px rgb(11 11 11 / 0.55), 0 1px 3px rgb(11 11 11 / 0.45); }
+[data-sfe-hero] [data-hero-line="subline"], [data-sfe-hero] > div > div:nth-child(3) > div:first-child, [data-sfe-hero] > div > div:nth-child(3) > div:last-child,
+[data-sfe-hero] > div > div:nth-child(5) .mb-4, #hero-experience > div > div:nth-child(3) h1 em, #hero-experience > div > div:nth-child(3) > div:first-child,
+#hero-experience > div > div:nth-child(3) > div:last-child { text-shadow: 0 1px 10px rgb(11 11 11 / 0.65), 0 1px 2px rgb(11 11 11 / 0.5); }
+[data-sfe-hero] > div > div:nth-child(5) .mb-4 { color: #ffd9a0; }
+/* Header logo: shrink on scroll via a data attribute (CSS only), so no class churn on the img. */
+#nav[data-scrolled="true"] img { scale: 0.88; }
+/* Hero legibility v2 (Oct 9, 2026). Photos are dimmed slightly and the onyx scrims behind each hero stage are deeper, so
+   every headline, subline and eyebrow holds 4.5:1 against the brightest 5% of the photo behind it. No solid boxes. */
+[data-sfe-hero] > div > div:first-child > img, #hero-experience > div > div:first-child > img { filter: brightness(0.88); }
+[data-sfe-hero] > div > div:nth-child(n+3)::before, #hero-experience > div > div:nth-child(n+3)::before {
+  background: radial-gradient(ellipse 66% 52% at 50% 50%, rgb(11 11 11 / 0.64) 0%, rgb(11 11 11 / 0.48) 50%, rgb(11 11 11 / 0) 100%);
+}
+[data-sfe-hero] > div > div:nth-child(3)::before, #hero-experience > div > div:nth-child(3)::before {
+  background: linear-gradient(180deg, rgb(11 11 11 / 0.1) 6%, rgb(11 11 11 / 0.6) 30%, rgb(11 11 11 / 0.6) 70%, rgb(11 11 11 / 0.3) 100%);
+}
+@media (min-width: 768px) {
+  [data-sfe-hero] > div > div:nth-child(3)::before, #hero-experience > div > div:nth-child(3)::before {
+    background: radial-gradient(ellipse 74% 64% at 30% 54%, rgb(11 11 11 / 0.62) 0%, rgb(11 11 11 / 0.47) 48%, rgb(11 11 11 / 0) 100%),
+      linear-gradient(90deg, rgb(11 11 11 / 0.4) 0%, rgb(11 11 11 / 0.2) 50%, rgb(11 11 11 / 0) 80%);
+  }
+}
+/* Relocation: the skyline photo is the brightest of the set, so it gets the strongest treatment. */
+[data-sfe-hero="relocate"] > div > div:first-child > img { filter: brightness(0.72) saturate(0.92); }
+[data-sfe-hero="relocate"] > div > div:nth-child(3)::before {
+  background: linear-gradient(180deg, rgb(11 11 11 / 0.2) 4%, rgb(11 11 11 / 0.7) 30%, rgb(11 11 11 / 0.7) 72%, rgb(11 11 11 / 0.4) 100%);
+}
+@media (min-width: 768px) {
+  [data-sfe-hero="relocate"] > div > div:nth-child(3)::before {
+    background: radial-gradient(ellipse 78% 68% at 30% 54%, rgb(11 11 11 / 0.7) 0%, rgb(11 11 11 / 0.55) 50%, rgb(11 11 11 / 0) 100%),
+      linear-gradient(90deg, rgb(11 11 11 / 0.5) 0%, rgb(11 11 11 / 0.28) 55%, rgb(11 11 11 / 0.1) 85%);
+  }
+}
+[data-sfe-hero="relocate"] h1 { text-shadow: 0 2px 24px rgb(11 11 11 / 0.8), 0 1px 4px rgb(11 11 11 / 0.7); }
+[data-sfe-hero="relocate"] [data-hero-line="subline"] { text-shadow: 0 1px 14px rgb(11 11 11 / 0.85), 0 1px 3px rgb(11 11 11 / 0.7); }

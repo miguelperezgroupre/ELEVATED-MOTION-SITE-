@@ -1,111 +1,79 @@
-import { useEffect, useState } from 'react';
+// @ts-nocheck
+// Custom cursor (CLS-safe). Positioned only with transform: translate3d (no top/left), sized with scale() instead of
+// width/height changes, isolated with will-change + contain, and fixed/out of flow. It is not rendered at all on touch or
+// coarse pointers, or when the visitor prefers reduced motion. The native cursor is never hidden, so nothing depends on it.
+import { useEffect, useRef, useState } from 'react';
+
+const SEL = 'a, button, input, select, textarea, [data-cursor], [data-open], .card, .life-item, .dev-item, .pin button';
+const LAYER = { position: 'fixed', left: 0, top: 0, pointerEvents: 'none', zIndex: 100, willChange: 'transform', contain: 'layout style', transform: 'translate3d(-200px,-200px,0)' };
 
 export default function CustomCursor() {
-  const [pos, setPos] = useState({ x: -100, y: -100 });
-  const [ringPos, setRingPos] = useState({ x: -100, y: -100 });
-  const [cursorType, setCursorType] = useState<'default' | 'sm' | 'view' | 'explore'>('default');
-  const [isPointer, setIsPointer] = useState(true);
+  const [enabled, setEnabled] = useState(false);
+  const [type, setType] = useState('default');
+  const [shown, setShown] = useState(false);
+  const dot = useRef(null), ring = useRef(null);
 
   useEffect(() => {
-    if (window.matchMedia('(pointer: coarse)').matches) {
-      setIsPointer(false);
-      return;
-    }
-
-    let mouseX = window.innerWidth / 2;
-    let mouseY = window.innerHeight / 2;
-    let currentX = mouseX;
-    let currentY = mouseY;
-
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      setPos({ x: e.clientX, y: e.clientY });
-    };
-
-    let animationFrameId: number;
-    const updateRing = () => {
-      currentX += (mouseX - currentX) * 0.16;
-      currentY += (mouseY - currentY) * 0.16;
-      setRingPos({ x: currentX, y: currentY });
-      animationFrameId = requestAnimationFrame(updateRing);
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    animationFrameId = requestAnimationFrame(updateRing);
-
-    const handleMouseOver = (e: MouseEvent) => {
-      const target = (e.target as HTMLElement).closest(
-        'a, button, input, select, textarea, [data-cursor], [data-open], .card, .life-item, .dev-item, .pin button'
-      );
-      if (!target) return;
-
-      const cursorAttr = target.getAttribute('data-cursor');
-      if (cursorAttr === 'view' || target.classList.contains('card')) {
-        setCursorType('view');
-      } else if (cursorAttr === 'explore' || target.closest('.life-stage, .dev-stage')) {
-        setCursorType('explore');
-      } else if (cursorAttr === 'sm') {
-        setCursorType('sm');
-      } else {
-        setCursorType('sm');
-      }
-    };
-
-    const handleMouseOut = (e: MouseEvent) => {
-      const related = e.relatedTarget as HTMLElement;
-      if (
-        !related ||
-        !related.closest(
-          'a, button, input, select, textarea, [data-cursor], [data-open], .card, .life-item, .dev-item, .pin button'
-        )
-      ) {
-        setCursorType('default');
-      }
-    };
-
-    document.addEventListener('mouseover', handleMouseOver);
-    document.addEventListener('mouseout', handleMouseOut);
-
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      cancelAnimationFrame(animationFrameId);
-      document.removeEventListener('mouseover', handleMouseOver);
-      document.removeEventListener('mouseout', handleMouseOut);
-    };
+    if (!window.matchMedia) return;
+    const fine = window.matchMedia('(pointer: fine)'), calm = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const sync = () => setEnabled(fine.matches && !calm.matches);
+    sync();
+    fine.addEventListener && fine.addEventListener('change', sync);
+    calm.addEventListener && calm.addEventListener('change', sync);
+    return () => { fine.removeEventListener && fine.removeEventListener('change', sync); calm.removeEventListener && calm.removeEventListener('change', sync); };
   }, []);
 
-  if (!isPointer) return null;
+  useEffect(() => {
+    if (!enabled) return;
+    let mx = -200, my = -200, rx = -200, ry = -200, raf = 0;
+    const tick = () => {
+      rx += (mx - rx) * 0.16; ry += (my - ry) * 0.16;
+      if (ring.current) ring.current.style.transform = `translate3d(${rx}px,${ry}px,0)`;
+      raf = Math.abs(mx - rx) + Math.abs(my - ry) > 0.2 ? requestAnimationFrame(tick) : 0;
+    };
+    const move = (e) => {
+      mx = e.clientX; my = e.clientY;
+      if (dot.current) dot.current.style.transform = `translate3d(${mx}px,${my}px,0)`;
+      if (rx === -200) { rx = mx; ry = my; }
+      setShown(true);
+      if (!raf) raf = requestAnimationFrame(tick);
+    };
+    const over = (e) => {
+      const t = e.target && e.target.closest ? e.target.closest(SEL) : null;
+      if (!t) return;
+      const a = t.getAttribute('data-cursor');
+      setType(a === 'view' || t.classList.contains('card') ? 'view' : a === 'explore' || t.closest('.life-stage, .dev-stage') ? 'explore' : 'sm');
+    };
+    const out = (e) => { const r = e.relatedTarget; if (!r || !r.closest || !r.closest(SEL)) setType('default'); };
+    const leave = () => setShown(false);
+    window.addEventListener('mousemove', move, { passive: true });
+    document.addEventListener('mouseover', over);
+    document.addEventListener('mouseout', out);
+    document.documentElement.addEventListener('mouseleave', leave);
+    return () => {
+      window.removeEventListener('mousemove', move);
+      document.removeEventListener('mouseover', over);
+      document.removeEventListener('mouseout', out);
+      document.documentElement.removeEventListener('mouseleave', leave);
+      cancelAnimationFrame(raf);
+    };
+  }, [enabled]);
 
+  if (!enabled) return null;
+  const big = type === 'view' || type === 'explore';
+  // Ring is drawn at its largest size (80px) and scaled down: 0.4 = 32px, 0.55 = 44px, 1 = 80px.
+  const ringScale = big ? 1 : type === 'sm' ? 0.55 : 0.4;
+  const dotScale = big ? 0 : type === 'sm' ? 0.67 : 1;
   return (
     <>
-      {/* Center dot */}
-      <div
-        className={`sfe-cursor fixed pointer-events-none z-[100] -translate-x-1/2 -translate-y-1/2 rounded-full transition-opacity duration-300 ${
-          cursorType === 'default'
-            ? 'w-1.5 h-1.5 bg-[#c9a24a] opacity-90'
-            : cursorType === 'sm'
-            ? 'w-1 h-1 bg-[#c9a24a] opacity-50'
-            : 'w-0 h-0 opacity-0'
-        }`}
-        style={{ left: `${pos.x}px`, top: `${pos.y}px` }}
-        aria-hidden="true"
-      />
-
-      {/* Ring / interactive bubble */}
-      <div
-        className={`sfe-cursor fixed pointer-events-none z-[100] -translate-x-1/2 -translate-y-1/2 rounded-full flex items-center justify-center transition-all duration-300 ease-out border ${
-          cursorType === 'default'
-            ? 'w-8 h-8 border-[rgba(201,162,74,0.4)] bg-transparent'
-            : cursorType === 'sm'
-            ? 'w-11 h-11 border-[rgba(201,162,74,0.7)] bg-[rgba(201,162,74,0.06)]'
-            : 'w-20 h-20 border-[#c9a24a] bg-[#c9a24a] text-[#0e1416] font-mono text-[10px] uppercase font-bold tracking-widest shadow-xl scale-100'
-        }`}
-        style={{ left: `${ringPos.x}px`, top: `${ringPos.y}px` }}
-        aria-hidden="true"
-      >
-        {cursorType === 'view' && <span>View</span>}
-        {cursorType === 'explore' && <span>Explore</span>}
+      <div ref={dot} aria-hidden="true" style={{ ...LAYER, opacity: shown ? 1 : 0 }}>
+        <div className="w-1.5 h-1.5 rounded-full bg-[#c9a24a] transition-[transform,opacity] duration-300" style={{ transform: `translate(-50%,-50%) scale(${dotScale})`, opacity: type === 'sm' ? 0.5 : 0.9 }} />
+      </div>
+      <div ref={ring} aria-hidden="true" style={{ ...LAYER, opacity: shown ? 1 : 0 }}>
+        <div className={`w-20 h-20 rounded-full flex items-center justify-center border-[2.5px] transition-[transform,background-color,border-color] duration-300 ease-out ${big ? 'border-[#c9a24a] bg-[#c9a24a] text-[#0e1416] font-mono text-[10px] uppercase font-bold tracking-widest shadow-xl' : type === 'sm' ? 'border-[rgba(201,162,74,0.7)] bg-[rgba(201,162,74,0.06)]' : 'border-[rgba(201,162,74,0.4)] bg-transparent'}`} style={{ transform: `translate(-50%,-50%) scale(${ringScale})` }}>
+          {type === 'view' && <span>View</span>}
+          {type === 'explore' && <span>Explore</span>}
+        </div>
       </div>
     </>
   );

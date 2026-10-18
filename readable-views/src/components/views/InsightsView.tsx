@@ -1,0 +1,468 @@
+// @ts-nocheck
+/**
+ * InsightsView — preview build with the shared <PageHero /> (same system as the homepage hero).
+ *
+ * The original source file for this view could not be retrieved through the Vercel connector
+ * (deployment file contents are truncated), so this module was reconstructed from the deployed
+ * production bundle (dpl_A8yVtGpcRMzQVh91pmJ4fq1uMakZ, Oct 7 2026). Everything below the hero is
+ * behaviourally identical to production; only the page hero section was replaced.
+ * When the real source is available, apply the same change there: delete the old hero <section>
+ * and render <PageHero page="insights" onOpenContact={onOpenContact} /> in its place.
+ */
+import * as R from "react";
+import * as n from "react/jsx-runtime";
+import * as ws__mod from "../../services/leadService";
+import * as fv__mod from "../MarketDashboard";
+import {
+  Search as ob,
+  Clock as Gp,
+  ArrowRight as ue,
+  Phone as Cl,
+  MapPin as Ss,
+  X as Ta,
+  CircleCheck as Ns
+} from "lucide-react";
+import {
+  INSIGHT_ARTICLES as Wh
+} from "../../data";
+import PageHero from "../PageHero";
+const mv = ["Miami", "Brickell", "Edgewater", "Miami Beach", "Sunny Isles Beach", "Aventura", "Fort Lauderdale",
+  "Las Olas", "Victoria Park", "Tarpon River", "Wilton Manors"
+];
+const ws = ws__mod.leadService ?? Object.values(ws__mod).find((x) => x && typeof x === "object" && typeof x.submit ===
+  "function");
+const fv = fv__mod.default ?? fv__mod.MarketDashboard ?? Object.values(fv__mod).find((x) => typeof x === "function");
+
+function InsightsView({
+  onOpenContact: m
+}) {
+  const [u, d] = R.useState("all"), [c, x] = R.useState(null), [g, C] = R.useState(""), [A, _] = R.useState(false), [E,
+      v
+    ] = R.useState(""), [f, w] = R.useState(""), [B, U] = R.useState(""), [G, V] = R.useState(false), [F, q] = R
+    .useState(""), [Q, P] = R.useState(false);
+  R.useEffect(() => {
+    if (typeof window < "u" && sessionStorage.getItem("sfe_newsletter_shown")) return;
+    const H = setTimeout(() => {
+      _(true), typeof window < "u" && sessionStorage.setItem("sfe_newsletter_shown", "1");
+    }, 1400);
+    return () => clearTimeout(H);
+  }, []);
+  const Te = ["all", "Market Update", "Real Estate Strategy", "Developments", "Neighborhoods",
+      "South Florida Lifestyle"],
+    Ce = R.useMemo(() => {
+      let H = Wh;
+      if (u !== "all" && (H = H.filter((pe) => pe.category === u)), g.trim()) {
+        const pe = g.toLowerCase();
+        H = H.filter((He) => He.title.toLowerCase().includes(pe) || He.summary.toLowerCase().includes(pe) || He
+          .category.toLowerCase().includes(pe));
+      }
+      return H;
+    }, [u, g]),
+    le = (H) => {
+      if (H.preventDefault(), !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.trim())) {
+        q("Enter a valid email address.");
+        return;
+      }
+      if (!G) {
+        q("Please accept the consent to continue.");
+        return;
+      }
+      q("");
+      try {
+        ws.submit({
+          type: "newsletter",
+          name: E || "Market Insights Subscriber",
+          email: f,
+          phone: B,
+          intent: "Market Insights",
+          source: "southfloridaelevated.com"
+        });
+      } catch {}
+      P(true);
+    };
+  return n.jsxs("div", {
+    className: "relative min-h-screen bg-[#0e1416] pb-20 animate-fadeIn",
+    children: [n.jsx(PageHero, {
+      page: "insights",
+      onOpenContact: m
+    }), n.jsx(fv, {
+      onOpenContact: m
+    }), n.jsx("section", {
+      id: "insights-search",
+      className: "bg-[#0e1416] border-b border-[rgba(244,239,226,0.1)]",
+      children: n.jsxs("div", {
+        className: "wrap pt-12 sm:pt-14 pb-10",
+        children: [n.jsxs("nav", {
+          className: "font-mono text-[11px] text-[#f4efe2]/50 tracking-wider mb-6",
+          children: [n.jsx("span", {
+            className: "hover:text-[#c9a24a] cursor-pointer",
+            children: "Home"
+          }), n.jsx("span", {
+            className: "mx-2",
+            children: "/"
+          }), n.jsx("span", {
+            className: "hover:text-[#c9a24a] cursor-pointer",
+            children: "Insights"
+          }), n.jsx("span", {
+            className: "mx-2",
+            children: "/"
+          }), n.jsx("span", {
+            className: "text-[#c9a24a]",
+            children: "South Florida Real Estate News"
+          })]
+        }), n.jsx("div", {
+          className: "mt-6 max-w-xl",
+          children: n.jsxs("div", {
+            className: "flex items-center gap-3 border border-[rgba(201,162,74,0.35)] bg-[rgba(20,26,29,0.7)] backdrop-blur-md p-3 focus-within:border-[#c9a24a] transition-colors",
+            children: [n.jsx(ob, {
+              className: "w-4 h-4 text-[#c9a24a] shrink-0"
+            }), n.jsx("input", {
+              type: "text",
+              value: g,
+              onChange: (H) => C(H.target.value),
+              placeholder: "Search articles, markets, neighborhoods\u2026",
+              className: "w-full bg-transparent text-[#f4efe2] placeholder:text-[#f4efe2]/35 text-sm outline-none py-1",
+              "aria-label": "Search articles"
+            })]
+          })
+        })]
+      })
+    }), n.jsx("section", {
+      className: "py-14",
+      children: n.jsx("div", {
+        className: "wrap",
+        children: n.jsxs("div", {
+          className: "grid grid-cols-1 lg:grid-cols-12 gap-12",
+          children: [n.jsxs("div", {
+            className: "lg:col-span-8",
+            children: [n.jsx("div", {
+              className: "flex items-center gap-2 overflow-x-auto pb-5 mb-8 border-b border-[rgba(244,239,226,0.1)] scrollbar-none",
+              children: Te.map((H) => n.jsx("button", {
+                onClick: () => d(H),
+                className: `px-4 py-2 text-[11px] font-mono uppercase tracking-wider whitespace-nowrap border transition-all cursor-pointer ${u === H ? "border-[#c9a24a] bg-[#c9a24a] text-[#0B0B0B] font-bold" : "border-[rgba(244,239,226,0.12)] text-[#f4efe2]/70 hover:text-[#c9a24a] hover:border-[#c9a24a]/40"}`,
+                children: H === "all" ? "All News" : H
+              }, H))
+            }), n.jsxs("p", {
+              className: "font-mono text-[11px] text-[#f4efe2]/40 uppercase tracking-wider mb-6",
+              children: [Ce.length, " ", Ce.length === 1 ? "article" : "articles"]
+            }), n.jsx("div", {
+              className: "grid grid-cols-1 md:grid-cols-2 gap-8",
+              children: Ce.map((H, pe) => n.jsxs("article", {
+                onClick: () => x(H),
+                className: `group bg-[#141a1d] border border-[rgba(244,239,226,0.1)] hover:border-[#c9a24a] transition-all cursor-pointer overflow-hidden flex flex-col ${pe === 0 ? "md:col-span-2" : ""}`,
+                children: [n.jsxs("div", {
+                  className: `relative overflow-hidden ${pe === 0 ? "aspect-[21/9]" : "aspect-[16/10]"}`,
+                  children: [n.jsx("img", {
+                    src: H.img,
+                    alt: H.title,
+                    className: "w-full h-full object-cover transition-transform duration-700 group-hover:scale-105",
+                    loading: "lazy"
+                  }), n.jsx("div", {
+                    className: "absolute inset-0 bg-gradient-to-t from-[#0B0B0B]/70 via-transparent to-transparent"
+                  }), n.jsx("span", {
+                    className: "absolute top-3 left-3 bg-[#0e1416]/90 px-3 py-1 font-mono text-[10px] text-[#ffd9a0] border border-[rgba(201,162,74,0.3)]",
+                    children: H.category
+                  })]
+                }), n.jsxs("div", {
+                  className: "p-6 flex-1 flex flex-col justify-between space-y-4",
+                  children: [n.jsxs("div", {
+                    children: [n.jsxs("div", {
+                      className: "flex items-center gap-3 font-mono text-[11px] text-[#c9a24a] mb-2",
+                      children: [n.jsx("span", {
+                        children: H.date
+                      }), n.jsx("span", {
+                        children: "\xB7"
+                      }), n.jsxs("span", {
+                        className: "flex items-center gap-1",
+                        children: [n.jsx(Gp, {
+                          className: "w-3 h-3"
+                        }), H.readTime]
+                      })]
+                    }), n.jsx("h3", {
+                      className: `font-serif text-[#f4efe2] group-hover:text-[#ffd9a0] transition-colors leading-snug ${pe === 0 ? "text-2xl sm:text-3xl" : "text-xl"}`,
+                      children: H.title
+                    }), n.jsx("p", {
+                      className: "text-xs text-[#f4efe2]/70 font-light mt-3 line-clamp-3 leading-relaxed",
+                      children: H.summary
+                    })]
+                  }), n.jsxs("div", {
+                    className: "pt-4 border-t border-[rgba(244,239,226,0.08)] flex items-center justify-between",
+                    children: [n.jsxs("span", {
+                      className: "font-mono text-[11px] text-[#f4efe2]/50",
+                      children: ["By ", H.author]
+                    }), n.jsxs("span", {
+                      className: "text-[11px] font-mono text-[#c9a24a] group-hover:underline flex items-center gap-1",
+                      children: ["Read Analysis ", n.jsx(ue, {
+                        className: "w-3 h-3"
+                      })]
+                    })]
+                  })]
+                })]
+              }, H.id))
+            }), Ce.length === 0 && n.jsxs("div", {
+              className: "text-center py-16 border border-[rgba(244,239,226,0.1)]",
+              children: [n.jsx("p", {
+                className: "text-[#f4efe2]/60 text-lg mb-2",
+                children: "No articles match that search."
+              }), n.jsx("p", {
+                className: "text-[#f4efe2]/40 text-sm",
+                children: "Try a different term or clear the filter."
+              })]
+            })]
+          }), n.jsxs("aside", {
+            className: "lg:col-span-4 space-y-8",
+            children: [n.jsxs("div", {
+              className: "bg-gradient-to-br from-[#c9a24a] via-[#b48b35] to-[#9a7629] p-7 text-[#0B0B0B] shadow-2xl",
+              children: [n.jsx("span", {
+                className: "font-mono text-[10px] uppercase tracking-[0.2em] text-[#0B0B0B]/70",
+                children: "Private Consultation"
+              }), n.jsx("h3", {
+                className: "font-serif text-2xl sm:text-3xl font-normal mt-2 leading-tight",
+                children: "Not sure what your next move is?"
+              }), n.jsx("p", {
+                className: "text-xs text-[#0B0B0B]/80 font-light mt-3 leading-relaxed",
+                children: "Talk it through with Miguel \u2014 no pressure, just clear-eyed advice on the South Florida market."
+              }), n.jsxs("button", {
+                onClick: () => m("general",
+                  "I would like to schedule a consultation about the market."),
+                className: "mt-6 w-full bg-[#0B0B0B] text-[#ffd9a0] py-3.5 font-mono text-[11px] uppercase tracking-[0.2em] hover:bg-black transition-colors cursor-pointer flex items-center justify-center gap-2",
+                children: [n.jsx("span", {
+                  children: "Schedule a call with Miguel"
+                }), n.jsx(ue, {
+                  className: "w-3.5 h-3.5"
+                })]
+              }), n.jsxs("div", {
+                className: "mt-4 flex items-center justify-center gap-2 font-mono text-[11px] text-[#0B0B0B]/80",
+                children: [n.jsx(Cl, {
+                  className: "w-3 h-3"
+                }), n.jsx("span", {
+                  children: "(786) 460-1023"
+                })]
+              })]
+            }), n.jsxs("div", {
+              className: "bg-[#141a1d] border border-[rgba(244,239,226,0.1)] p-6",
+              children: [n.jsx("h4", {
+                className: "font-serif text-xl text-[#f4efe2] mb-4",
+                children: "Neighborhoods"
+              }), n.jsx("div", {
+                className: "space-y-1",
+                children: mv.map((H) => n.jsxs("button", {
+                  onClick: () => m("buyer",
+                    `I'd like to learn more about ${H}.`),
+                  className: "w-full flex items-center justify-between group py-2.5 border-b border-[rgba(244,239,226,0.06)] text-left cursor-pointer",
+                  children: [n.jsxs("span", {
+                    className: "flex items-center gap-2.5 text-sm text-[#f4efe2]/75 group-hover:text-[#ffd9a0] transition-colors",
+                    children: [n.jsx(Ss, {
+                      className: "w-3.5 h-3.5 text-[#c9a24a]"
+                    }), H]
+                  }), n.jsx(ue, {
+                    className: "w-3.5 h-3.5 text-[#f4efe2]/30 group-hover:text-[#c9a24a] group-hover:translate-x-0.5 transition-all"
+                  })]
+                }, H))
+              })]
+            }), n.jsxs("div", {
+              className: "bg-[#141a1d] border border-[rgba(244,239,226,0.1)] p-6",
+              children: [n.jsx("h4", {
+                className: "font-serif text-xl text-[#f4efe2] mb-4",
+                children: "Most Searched Blog Categories"
+              }), n.jsx("div", {
+                className: "flex flex-wrap gap-2",
+                children: Te.filter((H) => H !== "all").map((H) => n.jsx("button", {
+                  onClick: () => {
+                    var pe;
+                    d(H), (pe = document.querySelector(
+                        "main, .lg\\:col-span-8")) == null || pe
+                      .scrollIntoView({
+                        behavior: "smooth"
+                      });
+                  },
+                  className: `px-3 py-1.5 text-[10px] font-mono uppercase tracking-wider border transition-all cursor-pointer ${u === H ? "border-[#c9a24a] bg-[#c9a24a]/20 text-[#ffd9a0]" : "border-[rgba(244,239,226,0.12)] text-[#f4efe2]/60 hover:text-[#c9a24a] hover:border-[#c9a24a]/40"}`,
+                  children: H
+                }, H))
+              })]
+            })]
+          })]
+        })
+      })
+    }), A && n.jsxs("div", {
+      className: "fixed inset-0 z-[80] flex items-center justify-center p-4 sm:p-6 bg-black/75 backdrop-blur-sm animate-fadeIn",
+      role: "dialog",
+      "aria-modal": "true",
+      "aria-label": "Newsletter signup",
+      children: [n.jsx("div", {
+        className: "fixed inset-0",
+        onClick: () => _(false)
+      }), n.jsxs("div", {
+        className: "relative w-full max-w-md bg-[#141a1d] border border-[#c9a24a] shadow-2xl p-6 sm:p-8 z-10 animate-fadeIn",
+        children: [n.jsx("button", {
+          onClick: () => _(false),
+          "aria-label": "Close",
+          className: "absolute -top-3 -right-3 w-9 h-9 rounded-full bg-black border border-[#c9a24a] text-[#f4efe2] hover:text-[#c9a24a] flex items-center justify-center transition-colors cursor-pointer",
+          children: n.jsx(Ta, {
+            className: "w-4 h-4"
+          })
+        }), Q ? n.jsxs("div", {
+          className: "text-center py-8 animate-fadeIn",
+          children: [n.jsx(Ns, {
+            className: "w-12 h-12 text-[#c9a24a] mx-auto mb-4"
+          }), n.jsx("h3", {
+            className: "font-serif text-2xl text-[#ffd9a0] mb-2",
+            children: "You're in."
+          }), n.jsx("p", {
+            className: "text-xs text-[#f4efe2]/70 font-light leading-relaxed",
+            children: "Latest market news and reports are on the way to your inbox."
+          })]
+        }) : n.jsxs(n.Fragment, {
+          children: [n.jsx("span", {
+            className: "eyebrow eyebrow--dot mb-3 text-[13px]",
+            children: "Market Intelligence"
+          }), n.jsxs("h3", {
+            className: "font-serif text-2xl sm:text-3xl text-[#f4efe2] leading-snug",
+            children: ["Get Market Insights ", n.jsx("em", {
+              className: "it text-[#ffd9a0]",
+              children: "Straight to Your Inbox!"
+            })]
+          }), n.jsx("p", {
+            className: "text-xs text-[#f4efe2]/60 mt-2 mb-6 font-light leading-relaxed",
+            children: "Sign up now to get the latest news and market reports from South Florida Elevated, delivered directly to you."
+          }), n.jsxs("form", {
+            onSubmit: le,
+            className: "space-y-4",
+            children: [n.jsxs("div", {
+              className: "field",
+              children: [n.jsx("label", {
+                className: "block text-[10px] uppercase tracking-[0.15em] text-[#f4efe2]/50 mb-1.5",
+                children: "Name"
+              }), n.jsx("input", {
+                type: "text",
+                value: E,
+                onChange: (H) => v(H.target.value),
+                placeholder: "Your full name",
+                className: "w-full px-4 py-3 bg-black/40 border border-[rgba(244,239,226,0.15)] focus:border-[#c9a24a] text-[#f4efe2] placeholder:text-[#f4efe2]/30 text-sm outline-none transition-colors"
+              })]
+            }), n.jsxs("div", {
+              className: "field",
+              children: [n.jsx("label", {
+                className: "block text-[10px] uppercase tracking-[0.15em] text-[#f4efe2]/50 mb-1.5",
+                children: "Email *"
+              }), n.jsx("input", {
+                type: "email",
+                required: true,
+                value: f,
+                onChange: (H) => w(H.target.value),
+                placeholder: "you@email.com",
+                className: "w-full px-4 py-3 bg-black/40 border border-[rgba(244,239,226,0.15)] focus:border-[#c9a24a] text-[#f4efe2] placeholder:text-[#f4efe2]/30 text-sm outline-none transition-colors"
+              })]
+            }), n.jsxs("div", {
+              className: "field",
+              children: [n.jsx("label", {
+                className: "block text-[10px] uppercase tracking-[0.15em] text-[#f4efe2]/50 mb-1.5",
+                children: "Phone"
+              }), n.jsx("input", {
+                type: "tel",
+                value: B,
+                onChange: (H) => U(H.target.value),
+                placeholder: "(786) 000-0000",
+                className: "w-full px-4 py-3 bg-black/40 border border-[rgba(244,239,226,0.15)] focus:border-[#c9a24a] text-[#f4efe2] placeholder:text-[#f4efe2]/30 text-sm outline-none transition-colors"
+              })]
+            }), n.jsxs("label", {
+              className: "flex items-start gap-3 cursor-pointer",
+              children: [n.jsx("input", {
+                type: "checkbox",
+                checked: G,
+                onChange: (H) => V(H.target.checked),
+                className: "mt-0.5 w-4 h-4 accent-[#c9a24a] cursor-pointer"
+              }), n.jsx("span", {
+                className: "text-[10px] text-[#f4efe2]/50 font-light leading-relaxed",
+                children: "I agree to receive marketing and customer-service communications from Miguel Perez \u2014 South Florida Elevated. Privacy respected; unsubscribe anytime."
+              })]
+            }), F && n.jsx("p", {
+              className: "text-[11px] text-[#e0a36a]",
+              children: F
+            }), n.jsx("button", {
+              type: "submit",
+              className: "w-full bg-[#c9a24a] hover:bg-[#b48b35] text-[#0B0B0B] py-3.5 font-mono text-[12px] uppercase tracking-[0.25em] font-bold transition-colors cursor-pointer",
+              children: "Submit"
+            })]
+          })]
+        })]
+      })]
+    }), c && n.jsxs("div", {
+      className: "fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-black/85 backdrop-blur-md animate-fadeIn",
+      children: [n.jsx("div", {
+        className: "fixed inset-0",
+        onClick: () => x(null)
+      }), n.jsxs("div", {
+        className: "relative w-full max-w-3xl bg-[#141a1d] border border-[#c9a24a] shadow-2xl p-6 sm:p-10 z-10 my-auto",
+        children: [n.jsx("button", {
+          onClick: () => x(null),
+          className: "absolute top-4 right-4 text-[#f4efe2]/60 hover:text-[#c9a24a] p-1 cursor-pointer",
+          children: n.jsx(Ta, {
+            className: "w-6 h-6"
+          })
+        }), n.jsxs("div", {
+          className: "space-y-6",
+          children: [n.jsxs("div", {
+            children: [n.jsxs("span", {
+              className: "mono-label text-[#c9a24a]",
+              children: [c.category, " \xB7 ", c.date]
+            }), n.jsx("h3", {
+              className: "font-serif text-3xl sm:text-4xl text-[#f4efe2] font-normal mt-2 leading-snug",
+              children: c.title
+            }), n.jsxs("div", {
+              className: "font-mono text-xs text-[#ffd9a0] mt-2",
+              children: ["By ", c.author, " \xB7 ", c.readTime]
+            })]
+          }), n.jsx("div", {
+            className: "aspect-[16/9] overflow-hidden",
+            children: n.jsx("img", {
+              src: c.img,
+              alt: c.title,
+              className: "w-full h-full object-cover"
+            })
+          }), n.jsx("p", {
+            className: "text-sm text-[#f4efe2]/85 font-light leading-relaxed",
+            children: c.summary
+          }), n.jsxs("div", {
+            className: "p-6 bg-[#0B0B0B] border border-[rgba(244,239,226,0.1)] space-y-3",
+            children: [n.jsx("span", {
+              className: "mono-label text-[#c9a24a]",
+              children: "Key Strategic Takeaways"
+            }), n.jsx("div", {
+              className: "space-y-2",
+              children: c.keyTakeaways.map((H, pe) => n.jsxs("div", {
+                className: "flex items-start gap-2.5 text-xs text-[#f4efe2]/80 font-light",
+                children: [n.jsx("div", {
+                  className: "w-1.5 h-1.5 rounded-full bg-[#c9a24a] mt-1.5 shrink-0"
+                }), n.jsx("span", {
+                  children: H
+                })]
+              }, pe))
+            })]
+          }), n.jsxs("div", {
+            className: "pt-4 border-t border-[rgba(244,239,226,0.1)] flex justify-between items-center",
+            children: [n.jsxs("button", {
+              onClick: () => {
+                x(null), m("general", `Inquiry regarding analysis: ${c.title}`);
+              },
+              className: "btn btn--gold text-xs",
+              children: [n.jsx("span", {
+                children: "Discuss This Strategy with Miguel"
+              }), n.jsx(ue, {
+                className: "w-3.5 h-3.5"
+              })]
+            }), n.jsx("button", {
+              onClick: () => x(null),
+              className: "text-xs font-mono text-[#f4efe2]/60 hover:text-[#f4efe2]",
+              children: "Close"
+            })]
+          })]
+        })]
+      })]
+    })]
+  });
+}
+export {
+  InsightsView as
+  default
+};

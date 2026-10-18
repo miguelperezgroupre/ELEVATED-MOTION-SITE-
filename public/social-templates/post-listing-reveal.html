@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Listing Reveal — SFE Social Post</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #0e1416; --paper: #f4efe2; --gold: #9a7629; --gold-light: #c9a24a; --gold-warm: #ffd9a0;
+      --display: 'Cairo', Georgia, serif; --body: 'Inter', system-ui, sans-serif; --mono: 'JetBrains Mono', monospace;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; display: flex; justify-content: center; align-items: center; background: #111; padding: 40px; }
+    .post {
+      width: 480px; height: 480px; aspect-ratio: 1/1;
+      border-radius: 16px; overflow: hidden; position: relative;
+      background: linear-gradient(180deg, #0e1416 0%, #1a1e24 30%, #2a1a0a 60%, #4a2a0a 100%);
+      box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+    }
+    .post .scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.6) 100%); pointer-events: none; }
+    .post .top { position: absolute; top: 20px; left: 20px; right: 20px; display: flex; justify-content: space-between; align-items: flex-start; }
+    .post .brand { display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: rgba(0,0,0,0.5); backdrop-filter: blur(6px); border-radius: 999px; border: 1px solid rgba(201,162,74,0.3); }
+    .post .brand .name { font: 700 13px/1 var(--display); color: var(--gold-light); letter-spacing: 0.06em; }
+    .post .brand .dot { width: 5px; height: 5px; background: var(--gold-light); border-radius: 50%; }
+    .post .badge { font: 10px/1 var(--mono); padding: 6px 10px; background: rgba(0,0,0,0.4); backdrop-filter: blur(4px); border-radius: 4px; color: var(--gold-warm); letter-spacing: 0.1em; border: 1px solid rgba(201,162,74,0.2); }
+    .post .content { position: absolute; left: 28px; right: 28px; bottom: 28px; }
+    .post .content .label { font: 10px/1 var(--mono); color: rgba(244,237,224,0.5); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 8px; }
+    .post .content h2 { margin: 0; font: 800 42px/1 var(--display); letter-spacing: -0.01em; color: #fff; }
+    .post .content h2 .accent { color: var(--gold-warm); }
+    .post .content .meta { font: 400 14px/1.4 var(--body); color: rgba(244,237,224,0.7); margin-top: 8px; }
+    .post .content .price { font: 700 28px/1 var(--display); color: var(--gold-light); margin-top: 12px; }
+    .post .content .cta { display: inline-block; margin-top: 16px; padding: 10px 20px; border: 1px solid var(--gold); border-radius: 6px; font: 11px/1 var(--mono); color: var(--gold-light); letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="post">
+    <div class="scrim"></div>
+    <div class="top">
+      <div class="brand"><span class="dot"></span><span class="name">SOUTH FLORIDA ELEVATED</span></div>
+      <div class="badge">NEW LISTING</div>
+    </div>
+    <div class="content">
+      <div class="label">Exclusive · {{Neighborhood}}</div>
+      <h2>{{Address}}<br><span class="accent">July 2026</span></h2>
+      <div class="meta">{{Beds}} beds · {{Baths}} baths · {{SqFt}} sqft</div>
+      <div class="price">${{Price}}</div>
+      <div class="cta">Schedule a private tour</div>
+    </div>
+  </div>
+</body>
+</html>

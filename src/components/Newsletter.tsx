@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
+import { leadService } from '../services/leadService';
 
 export default function Newsletter() {
   const [email, setEmail] = useState('');
@@ -13,6 +14,16 @@ export default function Newsletter() {
       return;
     }
     setErrorMsg('');
+
+    // Send subscriber to GoHighLevel CRM
+    leadService.submit({
+      type: 'newsletter',
+      name: 'Newsletter',
+      email,
+      intent: 'Newsletter',
+      source: 'southfloridaelevated.com'
+    });
+
     setIsSubscribed(true);
     setTimeout(() => {
       setEmail('');
@@ -28,7 +39,7 @@ export default function Newsletter() {
           The Monthly <em className="it text-[#ffd9a0]">Brief</em>.
         </h2>
         <p className="lede text-[#f4efe2]/80 text-sm sm:text-base mb-10 mx-auto">
-          Subscribe to receive exclusive monthly updates on the South Florida luxury real estate market, curated property collections, and off-market opportunities.
+          Subscribe to receive exclusive monthly updates on the South Florida luxury real estate market, curated property collections, and new opportunities.
         </p>
 
         {isSubscribed ? (
@@ -70,7 +81,7 @@ export default function Newsletter() {
           </form>
         )}
 
-        <p className="font-mono text-[9px] uppercase tracking-widest text-[#f4efe2]/55 mt-8">
+        <p className="font-mono text-[9px] uppercase tracking-widest text-[#f4efe2]/30 mt-8">
           Unsubscribe at any time. We respect your privacy.
         </p>
       </div>

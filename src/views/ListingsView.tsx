@@ -1,110 +1,17 @@
-import { useState } from 'react';
-import { Property } from '../types';
-import ListingCard from '../components/ListingCard';
-import { PROPERTIES } from '../data';
-
-interface ListingsViewProps {
-  onSelectProperty: (property: Property) => void;
-  onOpenContact: (intent?: string, message?: string) => void;
-}
-
-const IDX_URL = "https://sef.mlsmatrix.com/Matrix/public/IDX.aspx?idx=4a851ff3";
-
-export default function ListingsView({ onSelectProperty, onOpenContact }: ListingsViewProps) {
-  const [viewMode, setViewMode] = useState<'idx' | 'featured'>('idx');
-  const [iframeLoaded, setIframeLoaded] = useState(false);
-
-  return (
-    <div className="relative min-h-screen pt-32 pb-20 px-4 md:px-8 max-w-7xl mx-auto">
-      <div className="mb-10">
-        <h1 className="text-4xl md:text-5xl font-light tracking-tight">
-          MLS <span className="text-[#c8a96e]">Listings</span>
-        </h1>
-        <p className="text-[#f4efe2]/50 text-sm mt-2 max-w-2xl">
-          Real-time South Florida property data from the Miami Association of REALTORS&reg; via SEF MLS Matrix.
-        </p>
-      </div>
-
-      {/* View toggle */}
-      <div className="flex gap-4 mb-8 border-b border-[#f4efe2]/10 pb-4">
-        <button
-          className={`px-6 py-2 text-[11px] uppercase tracking-[0.15em] rounded transition-colors ${
-            viewMode === 'idx'
-              ? 'bg-[#c8a96e] text-black'
-              : 'border border-[#c8a96e]/30 text-[#c8a96e] hover:bg-[#c8a96e]/10'
-          }`}
-          onClick={() => setViewMode('idx')}
-        >
-          Full MLS Search
-        </button>
-        <button
-          className={`px-6 py-2 text-[11px] uppercase tracking-[0.15em] rounded transition-colors ${
-            viewMode === 'featured'
-              ? 'bg-[#c8a96e] text-black'
-              : 'border border-[#c8a96e]/30 text-[#c8a96e] hover:bg-[#c8a96e]/10'
-          }`}
-          onClick={() => setViewMode('featured')}
-        >
-          Featured Properties
-        </button>
-      </div>
-
-      {viewMode === 'idx' ? (
-        <div className="w-full">
-          {/* Loading overlay */}
-          {!iframeLoaded && (
-            <div className="flex items-center justify-center bg-white/5 rounded-lg mb-4" style={{ height: '80vh', minHeight: '600px' }}>
-              <div className="text-center">
-                <div className="w-8 h-8 border-2 border-[#c8a96e] border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-                <p className="text-[#f4efe2]/50 text-sm">Loading MLS listings...</p>
-              </div>
-            </div>
-          )}
-
-          {/* IDX iframe with dark theme overlay styling */}
-          <div
-            className="rounded-lg overflow-hidden border border-[#f4efe2]/10"
-            style={{ height: 'calc(100vh - 300px)', minHeight: '600px', display: iframeLoaded ? 'block' : 'none' }}
-          >
-            <iframe
-              src={IDX_URL}
-              className="w-full h-full"
-              style={{
-                border: 'none',
-                background: '#0e1416',
-              }}
-              title="MLS Property Search"
-              allow="geolocation"
-              onLoad={() => setIframeLoaded(true)}
-            />
-          </div>
-
-          <p className="text-[10px] text-[#f4efe2]/55 mt-3 text-center leading-relaxed">
-            The multiple listing information is provided by the Miami Association of REALTORS&reg; from a copyrighted compilation of listings. 
-            The compilation of listings and each individual are &copy;2026 Miami Association of REALTORS&reg;. All Rights Reserved.
-            Information is deemed reliable but not guaranteed.
-          </p>
-        </div>
-      ) : (
-        <div>
-          <p className="text-[12px] uppercase tracking-[0.12em] text-[#f4efe2]/55 mb-4">
-            {PROPERTIES.length} featured properties
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {PROPERTIES.map((p) => (
-              <ListingCard key={p.id} property={p} onClick={onSelectProperty} />
-            ))}
-          </div>
-          <div className="mt-8 text-center">
-            <button
-              onClick={() => onOpenContact('buyer', "I'm interested in featured properties")}
-              className="px-8 py-3 text-[11px] uppercase tracking-[0.15em] text-[#c8a96e] border border-[#c8a96e]/30 hover:bg-[#c8a96e]/10 transition-colors rounded"
-            >
-              Inquire About a Property
-            </button>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
+// @ts-nocheck
+/**
+ * ListingsView — preview build with the shared <PageHero /> (same system as the homepage hero).
+ *
+ * The original source file for this view could not be retrieved through the Vercel connector
+ * (deployment file contents are truncated), so this module was reconstructed from the deployed
+ * production bundle (dpl_A8yVtGpcRMzQVh91pmJ4fq1uMakZ, Oct 7 2026). Everything below the hero is
+ * behaviourally identical to production; only the page hero section was replaced.
+ * Readable (formatted) copy kept in the source kit. Swap in the real source when it is located.
+ */
+import*as R from'react';import*as n from'react/jsx-runtime';import*as wn__mod from'../services/idxService';import*as nx__mod from'../components/ListingCard';import{PROPERTIES as zt}from'../data';
+import PageHero from'../components/PageHero';
+const lr=24;
+const wn=wn__mod.idxService??Object.values(wn__mod).find(x=>x&&typeof x==='object'&&typeof x.getProperties==='function');
+const nx=nx__mod.default??nx__mod.ListingCard??Object.values(nx__mod).find(x=>typeof x==='function');
+function ListingsView({onSelectProperty:m,onOpenContact:u}){const[d,c]=R.useState(zt),[x,g]=R.useState(true),[C,A]=R.useState(false),[_,E]=R.useState(null),[v,f]=R.useState(0);R.useEffect(()=>{let B=false;return g(true),wn.getProperties({limit:lr,sort:'ListPrice desc',status:'Active',farmAreas:true}).then(U=>{B||U&&U.length>0&&(c(U),A(true));}).catch(()=>{}).finally(()=>{B||g(false);}),()=>{B=true;};},[]);
+const w=async()=>{const B=v+1;g(true);try{const U=await wn.getProperties({limit:lr,offset:B*lr,sort:'ListPrice desc',status:'Active',farmAreas:true});U&&U.length>0&&(c(G=>{const V=new Set(G.map(q=>q.id)),F=U.filter(q=>!V.has(q.id));return[...G,...F];}),f(B),E(U.length));}catch{}finally{g(false);}};return n.jsxs(n.Fragment,{children:[n.jsx(PageHero,{page:'listings',onOpenContact:u}),n.jsxs('div',{className:'relative min-h-screen pt-14 md:pt-16 pb-20 px-4 md:px-8 max-w-7xl mx-auto',children:[n.jsxs('div',{className:'flex items-center justify-between mb-6',children:[n.jsx('p',{className:'text-[12px] uppercase tracking-[0.12em] text-[#f4efe2]/40',children:x?'Loading listings...':`${d.length} ${d.length===1?'property':'properties'}${C?' · live MLS':' · featured sample'}`}),n.jsx('button',{onClick:()=>{f(0),g(true),wn.getProperties({limit:lr,sort:'ListPrice desc',status:'Active',farmAreas:true}).then(B=>{B&&B.length>0&&(c(B),A(true));}).finally(()=>g(false));},disabled:x,className:'px-4 py-2 text-[11px] uppercase tracking-[0.12em] text-[#c8a96e] border border-[#c8a96e]/30 hover:bg-[#c8a96e]/10 transition-colors rounded disabled:opacity-50',children:x?'Loading...':'↻ Refresh'})]}),n.jsx('div',{className:'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5',children:d.map(B=>n.jsx(nx,{property:B,onClick:m},B.id))}),!x&&d.length===0&&n.jsxs('div',{className:'text-center py-16 border border-[#f4efe2]/10 rounded-lg',children:[n.jsx('p',{className:'text-[#f4efe2]/60 text-lg mb-2',children:'No listings available right now'}),n.jsx('p',{className:'text-[#f4efe2]/40 text-sm mb-6',children:'The MLS feed is temporarily unavailable — check back shortly.'})]}),C&&d.length>0&&n.jsx('div',{className:'mt-10 flex justify-center',children:n.jsx('button',{onClick:w,disabled:x,className:'px-8 py-3 text-[11px] uppercase tracking-[0.15em] text-[#c8a96e] border border-[#c8a96e]/30 hover:bg-[#c8a96e]/10 transition-colors rounded disabled:opacity-50',children:x?'Loading...':'Load More'})}),n.jsx('p',{className:'text-[10px] text-[#f4efe2]/30 mt-8 text-center leading-relaxed',children:'The multiple listing information is provided by the Miami Association of REALTORS® from a copyrighted compilation of listings. The compilation of listings and each individual are ©2026 Miami Association of REALTORS®. All Rights Reserved. Information is deemed reliable but not guaranteed.'})]})]});}export{ListingsView as default};

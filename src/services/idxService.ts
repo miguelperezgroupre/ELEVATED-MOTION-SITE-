@@ -1,21 +1,40 @@
 import { Property, Development, MarketCityData } from '../types';
 
 // ── Configuration ─────────────────────────────────────────────
-// These are set via Vite environment variables (.env file)
-// VITE_BRIDGEDATA_SERVER_TOKEN = your server token from Bridgedata
-// VITE_BRIDGEDATA_BROWSER_TOKEN = your browser token from Bridgedata
-// VITE_BRIDGEDATA_DATASET = e.g. 'miamire' or 'test' (for testing)
-// VITE_BRIDGEDATA_USE_ODATA = 'true' for OData endpoint, 'false' for REST
+// All MLS requests go through the server-side proxy at /api/idx (api/idx.js),
+// which adds the Bridge access token from Vercel env vars. No token in client code.
+const IDX_PROXY = '/api/idx';
+const USE_ODATA = true; // production uses the miamire OData endpoint
 
-const SERVER_TOKEN = import.meta.env.VITE_BRIDGEDATA_SERVER_TOKEN || '';
-const BROWSER_TOKEN = import.meta.env.VITE_BRIDGEDATA_BROWSER_TOKEN || '';
-const DATASET = import.meta.env.VITE_BRIDGEDATA_DATASET || 'miamire';
-const USE_ODATA = import.meta.env.VITE_BRIDGEDATA_USE_ODATA === 'true';
+// ── Data-quality guards ───────────────────────────────────────
+// The miamire feed includes out-of-state/international and placeholder records
+// (e.g. '1 Partizanske Avijacije', $500,000,000, 0 bd / 0 ba / 0 sqft).
+// Anything above this cap is treated as a data-entry error.
+export const MAX_SANE_LIST_PRICE = 250_000_000;
 
-// Base URL depends on whether we're using OData or REST
-const BASE_URL = USE_ODATA
-  ? `/api/odata`
-  : `/api/pub`;
+/** OData clauses that keep only complete, Florida residential-looking records. */
+function qualityFilters(): string[] {
+  return [
+    `StateOrProvince eq 'FL'`,
+    `ListPrice gt 0`,
+    `ListPrice le ${MAX_SANE_LIST_PRICE}`,
+    `BedroomsTotal gt 0`,
+    `BathroomsTotalInteger gt 0`,
+    `LivingArea gt 0`,
+  ];
+}
+
+/** Client-side backstop, in case the API ignores a clause or a field is null. */
+export function isDisplayableListing(p: Property): boolean {
+  return (
+    p.price > 0 &&
+    p.price <= MAX_SANE_LIST_PRICE &&
+    p.beds > 0 &&
+    p.baths > 0 &&
+    p.sqft > 0 &&
+    !!p.city
+  );
+}
 
 // ── Types ─────────────────────────────────────────────────────
 
@@ -46,7 +65,6 @@ interface BridgedataProperty {
   UnparsedAddress?: string;
   PhotosCount?: number;
   Media?: { MediaURL?: string; MediaCategory?: string; MediaObjectID?: string; MediaKey?: string }[];
-  Photos?: { Uri?: string; Uri800?: string; Order?: number }[];
 }
 
 // ── Mock Fallback Data ────────────────────────────────────────
@@ -60,15 +78,19 @@ class IdxService {
   private isUsingMockData = false;
 
   private async fetchWithToken(endpoint: string, params: Record<string, string> = {}): Promise<any> {
-    const queryString = new URLSearchParams(params).toString();
-    const url = `${BASE_URL}/${endpoint}?${queryString}`;
+    const queryString = new URLSearchParams({
+      ...params,
+      resource: endpoint,
+      ...(USE_ODATA ? {} : { api: 'pub' }),
+    }).toString();
+
+    const url = `${IDX_PROXY}?${queryString}`;
 
     try {
-      const response = await fetch(url);
+      const response = await fetch(url, { headers: { Accept: 'application/json' } });
       if (!response.ok) {
         const errBody = await response.json().catch(() => ({}));
-        const msg = errBody?.bundle?.message || errBody?.error?.message || `HTTP ${response.status}`;
-        throw new Error(msg);
+        throw new Error(errBody?.error || `HTTP ${response.status}`);
       }
       return await response.json();
     } catch (error) {
@@ -88,12 +110,15 @@ class IdxService {
     offset?: number;
     status?: string;
     sort?: string;
+    farmAreas?: boolean;
+    /** Drop incomplete/out-of-state/placeholder records (default true). */
+    requireComplete?: boolean;
   } = {}): Promise<Property[]> {
     // Try the real API first
     try {
       const data = await this.fetchFromApi(params);
       this.isUsingMockData = false;
-      return data;
+      return params.requireComplete === false ? data : data.filter(isDisplayableListing);
     } catch (error) {
       console.warn('[IdxService] API failed, falling back to mock data:', error);
       this.isUsingMockData = true;
@@ -104,7 +129,7 @@ class IdxService {
   private async fetchFromApi(params: {
     city?: string; propertyType?: string; minPrice?: number; maxPrice?: number;
     beds?: number; baths?: number; limit?: number; offset?: number;
-    status?: string; sort?: string;
+    status?: string; sort?: string; farmAreas?: boolean; requireComplete?: boolean;
   }): Promise<Property[]> {
     if (USE_ODATA) {
       return this.fetchODataProperties(params);
@@ -116,7 +141,7 @@ class IdxService {
   private async fetchODataProperties(params: {
     city?: string; propertyType?: string; minPrice?: number; maxPrice?: number;
     beds?: number; baths?: number; limit?: number; offset?: number;
-    status?: string; sort?: string;
+    status?: string; sort?: string; farmAreas?: boolean; requireComplete?: boolean;
   }): Promise<Property[]> {
     const filters: string[] = [];
 
@@ -126,6 +151,15 @@ class IdxService {
       filters.push(`StandardStatus eq 'Active'`);
     }
     if (params.city) filters.push(`City eq '${params.city}'`);
+    if (params.farmAreas) {
+      // Miguel's farming areas — South Florida Elevated local authority wedge:
+      //   Miami East (Brickell/Downtown/Edgewater/Upper East Side) = areas 11,12,40,41,42,43
+      //   Las Olas East (Las Olas Isles/SE Fort Lauderdale)       = areas 3280,3600,3800
+      filters.push(
+        `((City eq 'Miami' and MIAMIRE_Area in ('11','12','40','41','42','43')) ` +
+        `or (City eq 'Fort Lauderdale' and MIAMIRE_Area in ('3280','3600','3800')))`
+      );
+    }
     if (params.minPrice) filters.push(`ListPrice ge ${params.minPrice}`);
     if (params.maxPrice) filters.push(`ListPrice le ${params.maxPrice}`);
     if (params.beds) filters.push(`BedroomsTotal ge ${params.beds}`);
@@ -133,6 +167,7 @@ class IdxService {
     if (params.propertyType && params.propertyType !== 'all') {
       filters.push(`PropertyType eq '${params.propertyType}'`);
     }
+    if (params.requireComplete !== false) filters.push(...qualityFilters());
 
     const queryParams: Record<string, string> = {
       $filter: filters.join(' and '),
@@ -149,7 +184,7 @@ class IdxService {
   private async fetchRestProperties(params: {
     city?: string; propertyType?: string; minPrice?: number; maxPrice?: number;
     beds?: number; baths?: number; limit?: number; offset?: number;
-    status?: string; sort?: string;
+    status?: string; sort?: string; farmAreas?: boolean; requireComplete?: boolean;
   }): Promise<Property[]> {
     const filters: string[] = [];
     if (params.status) {
@@ -158,6 +193,12 @@ class IdxService {
       filters.push(`StandardStatus eq 'Active'`);
     }
     if (params.city) filters.push(`City eq '${params.city}'`);
+    if (params.farmAreas) {
+      filters.push(
+        `((City eq 'Miami' and MIAMIRE_Area in ('11','12','40','41','42','43')) ` +
+        `or (City eq 'Fort Lauderdale' and MIAMIRE_Area in ('3280','3600','3800')))`
+      );
+    }
     if (params.minPrice) filters.push(`ListPrice ge ${params.minPrice}`);
     if (params.maxPrice) filters.push(`ListPrice le ${params.maxPrice}`);
     if (params.beds) filters.push(`BedroomsTotal ge ${params.beds}`);
@@ -165,6 +206,7 @@ class IdxService {
     if (params.propertyType && params.propertyType !== 'all') {
       filters.push(`PropertyType eq '${params.propertyType}'`);
     }
+    if (params.requireComplete !== false) filters.push(...qualityFilters());
 
     const queryParams: Record<string, string> = {
       $filter: filters.join(' and '),
@@ -251,6 +293,20 @@ class IdxService {
       img = l.Photos[0].Uri800;
     }
 
+    // Collect ALL photos (full-res originals from the MLS CDN)
+    const photos: string[] = [];
+    if (l.Media && l.Media.length > 0) {
+      l.Media.forEach((m) => {
+        if (m.MediaURL && m.MediaCategory !== 'Floor Plan' && m.MediaCategory !== 'Map') {
+          photos.push(m.MediaURL);
+        }
+      });
+    } else if (l.Photos) {
+      l.Photos.forEach((p) => {
+        if (p.Uri) photos.push(p.Uri);
+      });
+    }
+
     return {
       id: l.ListingKey || l.ListingId || `prop-${i}`,
       name: l.UnparsedAddress || `${l.StreetNumber || ''} ${l.StreetName || ''} ${l.StreetSuffix || ''}`.trim() || `Property #${i + 1}`,
@@ -264,6 +320,7 @@ class IdxService {
       type: this.getPropertyType(l),
       grad: this.gradients[i % this.gradients.length],
       img,
+      photos: photos.length > 0 ? photos : undefined,
       tags: this.extractTags(l),
       desc: l.PublicRemarks || '',
       neighborhood: l.SubdivisionName || l.City,

@@ -1,0 +1,82 @@
+/* ═══════════════════════════════════════
+   SOUTH FLORIDA ELEVATED — Brand Tokens
+   Version 1.0 · Relaunch Package
+   ═══════════════════════════════════════ */
+
+:root {
+  /* ── Brand Palette ────────────────── */
+  --sfe-gold:        #9a7629;
+  --sfe-gold-light:  #c9a24a;
+  --sfe-gold-warm:   #ffd9a0;
+  --sfe-gold-dark:   #7a5e1f;
+
+  --sfe-ink:         #0e1416;
+  --sfe-ink-soft:    #1a1e24;
+  --sfe-ink-mid:     #2a2e34;
+
+  --sfe-paper:       #f4efe2;
+  --sfe-paper-warm:  #faf5ec;
+  --sfe-white:       #ffffff;
+
+  --sfe-teal:        #1F6970;
+  --sfe-teal-light:  #2a8a94;
+
+  /* ── Typography ───────────────────── */
+  --sfe-display:   'Cairo', 'Playfair Display', Georgia, serif;
+  --sfe-body:      'Inter', -apple-system, system-ui, sans-serif;
+  --sfe-mono:      'JetBrains Mono', ui-monospace, monospace;
+
+  /* ── Spacing ──────────────────────── */
+  --sfe-space-xs:  4px;
+  --sfe-space-sm:  8px;
+  --sfe-space-md:  16px;
+  --sfe-space-lg:  24px;
+  --sfe-space-xl:  32px;
+  --sfe-space-2xl: 48px;
+  --sfe-space-3xl: 64px;
+
+  /* ── Radii ────────────────────────── */
+  --sfe-radius-sm: 4px;
+  --sfe-radius-md: 8px;
+  --sfe-radius-lg: 12px;
+  --sfe-radius-xl: 16px;
+
+  /* ── Shadows ──────────────────────── */
+  --sfe-shadow-sm:  0 1px 3px rgba(0,0,0,0.08);
+  --sfe-shadow-md:  0 4px 12px rgba(0,0,0,0.12);
+  --sfe-shadow-lg:  0 8px 24px rgba(0,0,0,0.18);
+  --sfe-shadow-gold: 0 2px 8px rgba(154,118,41,0.25);
+
+  /* ── Transitions ──────────────────── */
+  --sfe-fast:  150ms ease;
+  --sfe-base:  250ms ease;
+  --sfe-slow:  400ms ease;
+}
+
+/* ── Utility Classes ─────────────────── */
+.sfe-gold-text { color: var(--sfe-gold); }
+.sfe-gold-bg   { background: var(--sfe-gold); }
+.sfe-ink-bg    { background: var(--sfe-ink); }
+.sfe-paper-bg  { background: var(--sfe-paper); }
+.sfe-paper-clr { color: var(--sfe-paper); }
+
+.sfe-display   { font-family: var(--sfe-display); }
+.sfe-body      { font-family: var(--sfe-body); }
+.sfe-mono      { font-family: var(--sfe-mono); }
+
+.sfe-elevated  { box-shadow: var(--sfe-shadow-gold); }
+.sfe-gold-border { border: 1px solid var(--sfe-gold); }
+
+/* ── Gradient Presets ───────────────── */
+.sfe-gradient-dusk {
+  background: linear-gradient(135deg, #0e1416 0%, #1a1e24 30%, #2a1a0a 60%, #4a2a0a 100%);
+}
+.sfe-gradient-gold {
+  background: linear-gradient(135deg, #9a7629 0%, #c9a24a 50%, #ffd9a0 100%);
+}
+.sfe-gradient-warm {
+  background: linear-gradient(180deg, #0e1416 0%, #1a1e24 40%, #2a1a0a 70%, #4a2a0a 100%);
+}
+.sfe-gradient-teal {
+  background: linear-gradient(135deg, #1F6970 0%, #2a8a94 100%);
+}

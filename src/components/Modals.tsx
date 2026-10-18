@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { X, Phone, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { Property } from '../types';
 import { money } from '../data';
+import { leadService } from '../services/leadService';
 
 interface ModalsProps {
   selectedProperty: Property | null;
@@ -11,6 +12,7 @@ interface ModalsProps {
   onOpenContact: (intent?: string, customMessage?: string) => void;
   initialIntent?: string;
   initialMessage?: string;
+  initialSource?: string;
 }
 
 export default function Modals({
@@ -20,7 +22,8 @@ export default function Modals({
   onCloseContact,
   onOpenContact,
   initialIntent = 'general',
-  initialMessage = ''
+  initialMessage = '',
+  initialSource = ''
 }: ModalsProps) {
   // Contact Form State
   const [name, setName] = useState('');
@@ -30,6 +33,24 @@ export default function Modals({
   const [message, setMessage] = useState('');
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  // Property gallery state
+  const [photoIndex, setPhotoIndex] = useState(0);
+  // Sign-up popup state (appears after a listing is opened)
+  const [signupClosed, setSignupClosed] = useState(false);
+  const [signupEmail, setSignupEmail] = useState('');
+  const [signupMsg, setSignupMsg] = useState('');
+  const [signupDone, setSignupDone] = useState(false);
+  // Full-screen photo scroll view state
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+
+  // Reset gallery + show signup popup when a new property is opened
+  useEffect(() => {
+    setPhotoIndex(0);
+    setSignupClosed(false);
+    setSignupDone(false);
+    setSignupEmail('');
+    setSignupMsg('');
+  }, [selectedProperty?.id]);
 
   useEffect(() => {
     if (initialIntent) {
@@ -58,6 +79,17 @@ export default function Modals({
     }
     setErrorMessage('');
     setFormSubmitted(true);
+
+    // Send lead to GoHighLevel CRM
+    leadService.submit({
+      type: 'contact',
+      name,
+      email,
+      phone,
+      message,
+      intent,
+      source: initialSource || 'southfloridaelevated.com'
+    });
 
     const payload = {
       name,
@@ -105,16 +137,64 @@ export default function Modals({
             </button>
 
             <div className="grid grid-cols-1 md:grid-cols-2">
-              {/* Media */}
-              <div className={`relative min-h-[300px] md:min-h-[460px] ${selectedProperty.grad}`}>
-                <img
-                  src={selectedProperty.img}
-                  alt={selectedProperty.name}
-                  loading="lazy"
-                  decoding="async"
-                  className="w-full h-full object-cover"
-                />
+              {/* Media — full HD gallery (click to open full-screen viewer) */}
+              <div
+                className={`relative min-h-[300px] md:min-h-[460px] ${selectedProperty.grad} bg-black cursor-zoom-in`}
+                onClick={() => setLightboxOpen(true)}
+              >
+                {(selectedProperty.photos && selectedProperty.photos.length > 0 ? selectedProperty.photos : [selectedProperty.img]).map((photo, idx) => (
+                  <img
+                    key={idx}
+                    src={photo}
+                    alt={`${selectedProperty.name} — photo ${idx + 1}`}
+                    className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${idx === photoIndex ? 'opacity-100' : 'opacity-0'}`}
+                    loading={idx === 0 ? 'eager' : 'lazy'}
+                  />
+                ))}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#141a1d] via-transparent to-transparent md:hidden" />
+
+                {/* Photo counter */}
+                {(selectedProperty.photos && selectedProperty.photos.length > 1) && (
+                  <span className="absolute bottom-3 left-3 z-20 font-mono text-[10px] text-[#f4efe2]/80 bg-black/60 px-2 py-1">
+                    {photoIndex + 1} / {selectedProperty.photos.length}
+                  </span>
+                )}
+
+                {/* Prev / Next arrows */}
+                {(selectedProperty.photos && selectedProperty.photos.length > 1) && (
+                  <>
+                    <button
+                      onClick={(e) => { e.stopPropagation(); setPhotoIndex((photoIndex - 1 + selectedProperty.photos!.length) % selectedProperty.photos!.length); }}
+                      aria-label="Previous photo"
+                      className="absolute left-2 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-black/50 backdrop-blur-md text-white hover:text-[#c9a24a] hover:bg-black/70 transition-colors cursor-pointer"
+                    >
+                      ‹
+                    </button>
+                    <button
+                      onClick={(e) => { e.stopPropagation(); setPhotoIndex((photoIndex + 1) % selectedProperty.photos!.length); }}
+                      aria-label="Next photo"
+                      className="absolute right-2 top-1/2 -translate-y-1/2 z-20 w-9 h-9 rounded-full bg-black/50 backdrop-blur-md text-white hover:text-[#c9a24a] hover:bg-black/70 transition-colors cursor-pointer"
+                    >
+                      ›
+                    </button>
+                  </>
+                )}
+
+                {/* Thumbnail strip */}
+                {(selectedProperty.photos && selectedProperty.photos.length > 1) && (
+                  <div className="absolute bottom-3 right-3 z-20 hidden sm:flex gap-1.5">
+                    {selectedProperty.photos.slice(0, 6).map((thumb, ti) => (
+                      <button
+                        key={ti}
+                        onClick={(e) => { e.stopPropagation(); setPhotoIndex(ti); }}
+                        aria-label={`Photo ${ti + 1}`}
+                        className={`w-12 h-9 overflow-hidden rounded border-2 transition-all cursor-pointer ${ti === photoIndex ? 'border-[#c9a24a]' : 'border-transparent opacity-60 hover:opacity-100'}`}
+                      >
+                        <img src={thumb} alt="" className="w-full h-full object-cover" loading="lazy" />
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
 
               {/* Details Body */}
@@ -181,12 +261,167 @@ export default function Modals({
                     <span>Call Miguel (786) 460-1023</span>
                   </a>
 
-                  <p className="mono-label text-[9px] text-[#f4efe2]/60 text-center pt-2">
-                    Sample listing for demonstration — not live MLS data
+                  <p className="mono-label text-[9px] text-[#f4efe2]/40 text-center pt-2">
+                    Live MLS listing — Miami Association of REALTORS&reg;
                   </p>
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* 2a. Sign-up Popup — shows when a listing is opened */}
+      {selectedProperty && !signupClosed && (
+        <div
+          className="fixed inset-0 z-[60] flex items-center justify-center p-4 sm:p-6 bg-black/70 backdrop-blur-sm animate-fadeIn"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Sign up for listing alerts"
+        >
+          <div
+            className="fixed inset-0"
+            onClick={() => setSignupClosed(true)}
+          />
+
+          <div className="relative w-full max-w-md bg-[#141a1d] border border-[#c9a24a] shadow-2xl p-6 sm:p-8 z-10 animate-fadeIn">
+            <button
+              onClick={() => setSignupClosed(true)}
+              aria-label="Close"
+              className="absolute top-3 right-3 text-[#f4efe2]/50 hover:text-[#c9a24a] transition-colors p-1 cursor-pointer"
+            >
+              <X className="w-5 h-5" />
+            </button>
+
+            {signupDone ? (
+              <div className="text-center py-6">
+                <CheckCircle2 className="w-10 h-10 text-[#c9a24a] mx-auto mb-4" />
+                <h3 className="font-serif text-2xl text-[#f4efe2] mb-2">You're in.</h3>
+                <p className="text-xs text-[#f4efe2]/60 leading-relaxed">
+                  Expect curated market updates and new opportunities as they come up.
+                </p>
+              </div>
+            ) : (
+              <>
+                <span className="eyebrow eyebrow--dot mb-3 text-[13px]">Get alerts on this listing</span>
+                <h3 className="font-serif text-2xl text-[#f4efe2] mb-2 leading-snug">
+                  Don't Miss Homes Like <em className="it text-[#ffd9a0]">This</em>.
+                </h3>
+                <p className="text-xs text-[#f4efe2]/60 mb-6 leading-relaxed">
+                  Join the private list for new South Florida listings that match your interest.
+                </p>
+
+                <form
+                  className="space-y-4"
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    const valid = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(signupEmail.trim());
+                    if (!valid) {
+                      setSignupMsg('Enter a valid email address.');
+                      return;
+                    }
+                    setSignupMsg('');
+                    // Send to GoHighLevel as a listing-alert lead
+                    try {
+                      leadService.submit({
+                        type: 'newsletter',
+                        name: 'Listing Alert',
+                        email: signupEmail,
+                        intent: 'Listing Alerts',
+                        source: 'southfloridaelevated.com',
+                        message: `Interested in ${selectedProperty.name || 'a listing'} (${selectedProperty.price ? money(selectedProperty.price) : ''})`,
+                      });
+                    } catch {
+                      /* silent */
+                    }
+                    setSignupDone(true);
+                  }}
+                >
+                  <div>
+                    <input
+                      type="email"
+                      value={signupEmail}
+                      onChange={(e) => setSignupEmail(e.target.value)}
+                      placeholder="Your email address"
+                      autoComplete="email"
+                      className="w-full px-4 py-3 bg-black/40 border border-[#f4efe2]/15 focus:border-[#c9a24a] text-[#f4efe2] placeholder:text-[#f4efe2]/35 text-sm outline-none transition-colors"
+                    />
+                  </div>
+                  {signupMsg && (
+                    <p className="text-[11px] text-[#e0a36a]">{signupMsg}</p>
+                  )}
+                  <button type="submit" className="btn btn--gold w-full justify-center">
+                    <span>Get Listing Alerts</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                </form>
+
+                <button
+                  onClick={() => setSignupClosed(true)}
+                  className="w-full text-center mono-label text-[10px] text-[#f4efe2]/40 hover:text-[#f4efe2]/70 mt-4 cursor-pointer"
+                >
+                  No thanks — just browsing
+                </button>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* 2b. Full-Screen Photo Viewer (scroll through all listing photos) */}
+      {selectedProperty && lightboxOpen && (
+        <div
+          className="fixed inset-0 z-[70] bg-black/95 backdrop-blur-sm flex flex-col animate-fadeIn"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Listing photo viewer"
+          onClick={() => setLightboxOpen(false)}
+        >
+          {/* Top bar */}
+          <div className="flex items-center justify-between px-4 sm:px-6 py-4 z-10" onClick={(e) => e.stopPropagation()}>
+            <span className="font-mono text-[11px] text-[#f4efe2]/70 uppercase tracking-wider">
+              {selectedProperty.name}
+            </span>
+            <div className="flex items-center gap-3">
+              <span className="font-mono text-[11px] text-[#c9a24a]">
+                {photoIndex + 1} / {(selectedProperty.photos && selectedProperty.photos.length > 0) ? selectedProperty.photos.length : 1}
+              </span>
+              <button
+                onClick={() => setLightboxOpen(false)}
+                aria-label="Close viewer"
+                className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+
+          {/* Scrollable photo strip */}
+          <div
+            className="flex-1 overflow-x-auto overflow-y-hidden snap-x snap-mandatory"
+            onClick={(e) => e.stopPropagation()}
+            style={{ scrollSnapType: 'x mandatory' }}
+          >
+            <div className="flex h-full items-stretch">
+              {(selectedProperty.photos && selectedProperty.photos.length > 0 ? selectedProperty.photos : [selectedProperty.img]).map((photo, idx) => (
+                <div
+                  key={idx}
+                  className="min-w-full h-full flex items-center justify-center snap-center"
+                >
+                  <img
+                    src={photo}
+                    alt={`${selectedProperty.name} — photo ${idx + 1}`}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Bottom hint */}
+          <div className="text-center pb-5 font-mono text-[10px] text-[#f4efe2]/40" onClick={(e) => e.stopPropagation()}>
+            ← Swipe / scroll to browse all photos →
           </div>
         </div>
       )}
@@ -284,9 +519,9 @@ export default function Modals({
                         value={intent}
                         onChange={(e) => setIntent(e.target.value)}
                       >
-                        <option value="Buy">Buy Property / Off-Market</option>
+                        <option value="Buy">Buy Property</option>
                         <option value="Sell">Sell / Property Strategy Review</option>
-                        <option value="Invest">Capital Investment & Underwriting</option>
+                        <option value="Invest">Investment Property</option>
                         <option value="Relocate">Relocation Dossier & Neighborhood Match</option>
                         <option value="Explore new development">New Pre-Construction Developments</option>
                         <option value="Market Report & Research">Market Report & Intelligence</option>

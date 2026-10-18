@@ -1,129 +1,16 @@
-import React, { useState } from 'react';
-import { Property } from '../../types';
-import { PROPERTIES, money } from '../../data';
-import ListingCard from '../ListingCard';
-
-interface BuyViewProps {
-  onSelectProperty: (property: Property) => void;
-  onOpenContact: (intent?: string, message?: string) => void;
-  onNavigateToNeighborhoods: () => void;
-}
-
-const IDX_URL = "https://sef.mlsmatrix.com/Matrix/public/IDX.aspx?idx=4a851ff3";
-
-export default function BuyView({
-  onSelectProperty,
-  onOpenContact,
-  onNavigateToNeighborhoods
-}: BuyViewProps) {
-  const [viewMode, setViewMode] = useState<'idx' | 'featured'>('idx');
-  const [iframeLoaded, setIframeLoaded] = useState(false);
-
-  return (
-    <div className="relative min-h-screen pt-28 pb-20">
-      {/* Hero Banner */}
-      <section className="relative bg-[#0e1416] border-b border-[rgba(244,239,226,0.08)] overflow-hidden">
-        <div className="hero-image-wrap pointer-events-none">
-          <img 
-            src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1920&q=80" 
-            alt="South Florida Luxury Homes" 
-            className="w-full h-full object-cover opacity-40 hero-motion-push"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0e1416] via-[#0e1416]/50 to-transparent" />
-        </div>
-        <div className="wrap py-16 relative z-10">
-          <div className="max-w-3xl">
-            <span className="eyebrow text-[#c9a24a]">Buy</span>
-            <h1 className="h2 text-[#f4efe2] mt-3">
-              Find Your <em className="it text-[#ffd9a0]">Place</em> in South Florida
-            </h1>
-            <p className="lede text-[#f4efe2]/70 mt-4">
-              Browse the full MiamiRE MLS below or explore our curated featured properties.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* View Toggle */}
-      <section className="bg-[#0e1416]">
-        <div className="wrap pb-6">
-          <div className="flex gap-4 border-b border-[#f4efe2]/10 pb-4">
-            <button
-              className={`px-6 py-2 text-[11px] uppercase tracking-[0.15em] rounded transition-colors ${
-                viewMode === 'idx'
-                  ? 'bg-[#c8a96e] text-black'
-                  : 'border border-[#c8a96e]/30 text-[#c8a96e] hover:bg-[#c8a96e]/10'
-              }`}
-              onClick={() => setViewMode('idx')}
-            >
-              Full MLS Search
-            </button>
-            <button
-              className={`px-6 py-2 text-[11px] uppercase tracking-[0.15em] rounded transition-colors ${
-                viewMode === 'featured'
-                  ? 'bg-[#c8a96e] text-black'
-                  : 'border border-[#c8a96e]/30 text-[#c8a96e] hover:bg-[#c8a96e]/10'
-              }`}
-              onClick={() => setViewMode('featured')}
-            >
-              Featured Properties
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {viewMode === 'idx' ? (
-        <section className="bg-[#0e1416]">
-          <div className="wrap">
-            {!iframeLoaded && (
-              <div className="flex items-center justify-center bg-white/5 rounded-lg" style={{ height: '70vh', minHeight: '500px' }}>
-                <div className="text-center">
-                  <div className="w-8 h-8 border-2 border-[#c8a96e] border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-                  <p className="text-[#f4efe2]/50 text-sm">Loading MLS listings...</p>
-                </div>
-              </div>
-            )}
-            <div
-              className="rounded-lg overflow-hidden border border-[#f4efe2]/10"
-              style={{ height: 'calc(100vh - 350px)', minHeight: '600px', display: iframeLoaded ? 'block' : 'none' }}
-            >
-              <iframe
-                src={IDX_URL}
-                className="w-full h-full"
-                style={{ border: 'none', background: '#0e1416' }}
-                title="MLS Property Search"
-                allow="geolocation"
-                onLoad={() => setIframeLoaded(true)}
-              />
-            </div>
-            <p className="text-[10px] text-[#f4efe2]/55 mt-3 text-center leading-relaxed">
-              The multiple listing information is provided by the Miami Association of REALTORS&reg; from a copyrighted compilation of listings. 
-              The compilation of listings and each individual are &copy;2026 Miami Association of REALTORS&reg;. All Rights Reserved.
-            </p>
-          </div>
-        </section>
-      ) : (
-        <section className="bg-[#0e1416]">
-          <div className="wrap py-12">
-            <p className="text-[12px] uppercase tracking-[0.12em] text-[#f4efe2]/55 mb-6">
-              {PROPERTIES.length} featured properties
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-              {PROPERTIES.map((p) => (
-                <ListingCard key={p.id} property={p} onClick={onSelectProperty} />
-              ))}
-            </div>
-            <div className="mt-8 text-center">
-              <button
-                onClick={() => onOpenContact('buyer', "I'm interested in a property")}
-                className="px-8 py-3 text-[11px] uppercase tracking-[0.15em] text-[#c8a96e] border border-[#c8a96e]/30 hover:bg-[#c8a96e]/10 transition-colors rounded"
-              >
-                Inquire About a Property
-              </button>
-            </div>
-          </div>
-        </section>
-      )}
-    </div>
-  );
-}
+// @ts-nocheck
+/**
+ * BuyView — preview build with the shared <PageHero /> (same system as the homepage hero).
+ *
+ * The original source file for this view could not be retrieved through the Vercel connector
+ * (deployment file contents are truncated), so this module was reconstructed from the deployed
+ * production bundle (dpl_A8yVtGpcRMzQVh91pmJ4fq1uMakZ, Oct 7 2026). Everything below the hero is
+ * behaviourally identical to production; only the page hero section was replaced.
+ * Readable (formatted) copy kept in the source kit. Swap in the real source when it is located.
+ */
+import*as R from'react';import*as n from'react/jsx-runtime';import*as wn__mod from'../../services/idxService';import*as nx__mod from'../ListingCard';import{PROPERTIES as zt}from'../../data';
+import PageHero from'../PageHero';
+const ev=24;
+const wn=wn__mod.idxService??Object.values(wn__mod).find(x=>x&&typeof x==='object'&&typeof x.getProperties==='function');
+const nx=nx__mod.default??nx__mod.ListingCard??Object.values(nx__mod).find(x=>typeof x==='function');
+function BuyView({onSelectProperty:m,onOpenContact:u,onNavigateToNeighborhoods:d}){const[c,x]=R.useState(zt),[g,C]=R.useState(true),[A,_]=R.useState(false);return R.useEffect(()=>{let E=false;return C(true),wn.getProperties({limit:ev,sort:'ListPrice desc',status:'Active',farmAreas:true}).then(v=>{E||v&&v.length>0&&(x(v),_(true));}).catch(()=>{}).finally(()=>{E||C(false);}),()=>{E=true;};},[]),n.jsxs('div',{className:'relative min-h-screen pb-20',children:[n.jsx(PageHero,{page:'buy',onOpenContact:u}),n.jsx('section',{className:'sfe-ivory bg-[#0e1416]',children:n.jsxs('div',{className:'wrap pb-4 pt-8',children:[n.jsx('div',{className:'flex items-center justify-between mb-6',children:n.jsx('p',{className:'text-[12px] uppercase tracking-[0.12em] text-[#f4efe2]/40',children:g?'Loading listings...':`${c.length} ${c.length===1?'property':'properties'}${A?' · live MLS':' · featured sample'}`})}),n.jsx('div',{className:'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5',children:c.map(E=>n.jsx(nx,{property:E,onClick:m},E.id))}),!g&&c.length===0&&n.jsxs('div',{className:'text-center py-16 border border-[#f4efe2]/10 rounded-lg',children:[n.jsx('p',{className:'text-[#f4efe2]/60 text-lg mb-2',children:'No listings available right now'}),n.jsx('p',{className:'text-[#f4efe2]/40 text-sm mb-6',children:'The MLS feed is temporarily unavailable — check back shortly.'})]}),n.jsx('div',{className:'mt-10 text-center',children:n.jsx('button',{onClick:()=>u('buyer','I\'m interested in a property listed on the site'),className:'px-8 py-3 text-[11px] uppercase tracking-[0.15em] text-[#c8a96e] border border-[#c8a96e]/30 hover:bg-[#c8a96e]/10 transition-colors rounded',children:'Inquire About a Property'})}),n.jsx('p',{className:'text-[10px] text-[#f4efe2]/30 mt-8 text-center leading-relaxed',children:'The multiple listing information is provided by the Miami Association of REALTORS® from a copyrighted compilation of listings. The compilation of listings and each individual are ©2026 Miami Association of REALTORS®. All Rights Reserved. Information is deemed reliable but not guaranteed.'})]})})]});}export{BuyView as default};

@@ -34,7 +34,7 @@ export default function AiSearch({ onSelectProperty }: AiSearchProps) {
 
     const parsed = parseAiQuery(q);
 
-    setStatus('Querying MiamiRE MLS via Bridge Interactive...');
+    setStatus('Querying the Miami MLS live feed...');
     try {
       const liveResults = await idxService.getProperties({
         city: parsed.city || undefined,
@@ -42,14 +42,21 @@ export default function AiSearch({ onSelectProperty }: AiSearchProps) {
         maxPrice: parsed.maxPrice || undefined,
         propertyType: parsed.type === 'house' ? 'Single Family Residence' : 
                        parsed.type === 'condo' ? 'Condo' : undefined,
+        limit: 9,
+        status: 'Active',
       });
 
-      // Filter local
-      let hits = liveResults.filter(p => p.price > 0).slice(0, 6);
+      // Filter local — apply feature tags (waterfront, pool, etc.) to live list
+      let hits = liveResults.filter(p => p.price > 0);
+      if (parsed.features.length > 0) {
+        const tagged = hits.filter(p => parsed.features.every(t => p.tags.includes(t)));
+        if (tagged.length >= 2) hits = tagged;
+      }
+      hits = hits.slice(0, 9);
       let relaxed = false;
 
       if (!hits.length) {
-        setStatus('Falling back to portfolio data...');
+        setStatus('Nothing exact in live MLS — showing closest portfolio matches...');
         const ranked = PROPERTIES.map((p) => ({
           property: p,
           ...scoreProperty(p, parsed)
@@ -60,7 +67,7 @@ export default function AiSearch({ onSelectProperty }: AiSearchProps) {
           hits = ranked.slice(0, 3).map((r) => r.property);
           relaxed = true;
         }
-        hits = hits.slice(0, 6);
+        hits = hits.slice(0, 9);
       }
 
       setResults({
@@ -205,7 +212,7 @@ export default function AiSearch({ onSelectProperty }: AiSearchProps) {
 
               {results.relaxed && (
                 <p className="text-sm text-[#f4efe2]/70 italic bg-[rgba(201,162,74,0.06)] border-l-2 border-[#c9a24a] p-4">
-                  Nothing matched every single criterion. Here are the closest residences in the current portfolio — Miguel can open the off-market network for the rest.
+                  Nothing matched every single criterion. Here are the closest residences in the current portfolio — Miguel can help you look beyond what's listed here.
                 </p>
               )}
 
@@ -236,9 +243,9 @@ export default function AiSearch({ onSelectProperty }: AiSearchProps) {
                           <MapPin className="w-3 h-3" />
                           {p.city}, FL
                         </div>
-                        <h3 className="font-serif text-xl font-normal text-[#f4efe2] group-hover:text-[#c9a24a] transition-colors leading-snug">
+                        <h4 className="font-serif text-xl font-normal text-[#f4efe2] group-hover:text-[#c9a24a] transition-colors leading-snug">
                           {p.name}
-                        </h3>
+                        </h4>
                       </div>
 
                       <div className="mt-6 pt-4 border-t border-[rgba(244,239,226,0.08)] flex items-end justify-between">
@@ -258,8 +265,8 @@ export default function AiSearch({ onSelectProperty }: AiSearchProps) {
                 ))}
               </div>
 
-              <p className="font-mono text-[11px] text-[#f4efe2]/60 text-center pt-4">
-                Matched against a curated sample portfolio of {PROPERTIES.length} residences — not a live MLS feed. Connect an IDX provider to search the full market.
+              <p className="font-mono text-[11px] text-[#f4efe2]/40 text-center pt-4">
+                Matched against live inventory from the Miami Association of REALTORS&reg; MLS — refreshed in real time.
               </p>
             </div>
           )}

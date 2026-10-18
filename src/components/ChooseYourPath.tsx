@@ -13,20 +13,20 @@ export default function ChooseYourPath({ onNavigate, onOpenContact }: ChooseYour
       icon: Home,
       eyebrow: 'Buyer Advisory',
       title: 'Find Your Next Property',
-      desc: 'Not just a property. The right property. Access off-market inventory, dockage audits, and strategic fiduciary negotiation.',
+      desc: 'Not just a property. The right property. A focused home search, waterfront due diligence, and careful negotiation on your behalf.',
       cta: 'Explore Buying Strategy',
       intent: 'buyer',
-      bgImg: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=60',
+      bgImg: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80',
     },
     {
       id: 'sell' as const,
       icon: TrendingUp,
       eyebrow: 'Seller Representation',
       title: 'Maximize Your Property Value',
-      desc: 'Don\'t simply list your home. Position it with cinematic production, targeted New York / CA syndication, and contract defense.',
+      desc: 'Don\'t simply list your home. Position it with professional photography and video, targeted marketing, and careful contract negotiation.',
       cta: 'Get Property Strategy',
       intent: 'seller',
-      bgImg: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=60',
+      bgImg: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
     },
     {
       id: 'relocate' as const,
@@ -36,32 +36,32 @@ export default function ChooseYourPath({ onNavigate, onOpenContact }: ChooseYour
       desc: 'Start with the neighborhood, not the house. Interactive lifestyle matching, school districts, and Florida tax domicile guidance.',
       cta: 'Plan My Move',
       intent: 'relocation',
-      bgImg: 'https://images.unsplash.com/photo-1535498730771-e735b998cd64?auto=format&fit=crop&w=800&q=60',
+      bgImg: 'https://images.unsplash.com/photo-1535498730771-e735b998cd64?auto=format&fit=crop&w=800&q=80',
     },
     {
       id: 'invest' as const,
       icon: Key,
       eyebrow: 'Capital Advisory',
       title: 'Real Estate as an Asset',
-      desc: 'Institutional underwriting, rental yield analysis, 1031 exchange guidance, and pre-construction deposit arbitrage.',
+      desc: 'Investment property analysis, rental yield estimates, 1031 exchange coordination with your tax advisor, and pre-construction deposit review.',
       cta: 'Explore Investment Framework',
       intent: 'investor',
-      bgImg: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=60',
+      bgImg: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=800&q=80',
     },
     {
       id: 'developments' as const,
       icon: Building2,
       eyebrow: 'Pre-Construction',
       title: 'South Florida Developments',
-      desc: 'Explore the iconic towers reshaping the skyline. Tier-one early pricing, floor plans, and deposit schedule audits.',
+      desc: 'Explore the new towers coming to South Florida. Early-phase pricing when available, floor plans, and deposit schedule review.',
       cta: 'View New Developments',
       intent: 'development',
-      bgImg: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=60',
+      bgImg: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80',
     },
   ];
 
   return (
-    <section className="py-20 border-b border-[rgba(244,239,226,0.08)] bg-[#0d1213]">
+    <section className="sfe-ivory py-20 border-b border-[rgba(244,239,226,0.08)] bg-[#0d1213]">
       <div className="wrap">
         <div className="text-center max-w-2xl mx-auto mb-14">
           <span className="mono-label text-[#c9a24a] text-[16px]">Strategic Starting Points</span>

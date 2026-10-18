@@ -1,54 +1,55 @@
-import React, { useState } from 'react';
-import { Heart, Bed, Bath, Maximize2, ArrowRight, CalendarClock } from 'lucide-react';
-import { FEATURED_LISTINGS, money } from '../data';
-import { FeaturedListing, Property } from '../types';
+import React, { useState, useEffect } from 'react';
+import { Heart, Bed, Bath, Maximize2, ArrowRight } from 'lucide-react';
+import { Property } from '../types';
+import { PROPERTIES, money } from '../data';
+import { idxService } from '../services/idxService';
 
 interface FeaturedListingsProps {
-  onSelectProperty?: (property: Property) => void;
-  onOpenContact?: () => void;
-}
-
-function specLine(l: FeaturedListing): string {
-  return [
-    `${l.beds} bd`,
-    `${l.baths} ba`,
-    l.sqft ? `${l.sqft.toLocaleString()} sqft` : null,
-  ]
-    .filter(Boolean)
-    .join('  ·  ');
-}
-
-function mapFeaturedToProperty(fl: FeaturedListing): Property {
-  return {
-    id: fl.id,
-    name: fl.address,
-    city: fl.city,
-    area: fl.city.toLowerCase().includes('miami') ? 'miami' : fl.city.toLowerCase().includes('lauderdale') ? 'ftl' : 'pb',
-    badge: fl.status,
-    price: fl.price,
-    beds: fl.beds,
-    baths: fl.baths,
-    sqft: fl.sqft || 0,
-    type: fl.address.toLowerCase().includes('condo') || fl.address.toLowerCase().includes('apt') || fl.address.toLowerCase().includes('unit') ? 'condo' : 'house',
-    grad: fl.grad,
-    img: fl.img,
-    tags: [],
-    desc: `${fl.address}, ${fl.city}, ${fl.state} ${fl.zip}`,
-    neighborhood: fl.city,
-    featured: true
-  };
+  onSelectProperty: (property: Property) => void;
+  onOpenContact: () => void;
 }
 
 export default function FeaturedListings({ onSelectProperty, onOpenContact }: FeaturedListingsProps) {
   const [favorites, setFavorites] = useState<Record<string, boolean>>({});
+  const [listings, setListings] = useState<Property[]>(PROPERTIES);
+  const [loading, setLoading] = useState(true);
+
+  // Pull live luxury listings from the Miami MLS (Bridgedata), fall back to curated sample
+  useEffect(() => {
+    let cancelled = false;
+    idxService
+      .getProperties({
+        minPrice: 1500000,
+        limit: 12, // over-fetch: quality filters can drop a few records
+        requireComplete: true,
+        status: 'Active',
+        sort: 'ListPrice desc',
+      })
+      .then((live) => {
+        if (!cancelled && live && live.length > 0) {
+          setListings(live);
+        }
+      })
+      .catch(() => {
+        /* keep curated fallback */
+      })
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const toggleFavorite = (e: React.MouseEvent, id: string) => {
-    e.preventDefault();
     e.stopPropagation();
     setFavorites((prev) => ({ ...prev, [id]: !prev[id] }));
   };
 
-  const [hero, tall, ...rest] = FEATURED_LISTINGS;
+  const p0 = listings[0] || PROPERTIES[0]; // Hero card
+  const p1 = listings[1] || PROPERTIES[1]; // Secondary card
+  const moreListings = [listings[2], listings[3], listings[4]].filter(Boolean); // Row of three
+  const displayListings = moreListings.length >= 3 ? moreListings : [PROPERTIES[2], PROPERTIES[3], PROPERTIES[7]].filter(Boolean);
 
   return (
     <section id="collection" className="sec sec--light" aria-label="Featured listings">
@@ -60,8 +61,7 @@ export default function FeaturedListings({ onSelectProperty, onOpenContact }: Fe
             <h2 className="h2 text-[#1a1e24]">Featured <em className="it text-[#9a7629]">Listings</em></h2>
           </div>
           <p className="lede text-[#4b5563]">
-            A curated selection of South Florida's most extraordinary residences — each represented
-            with editorial precision and white-glove discretion.
+            Live luxury inventory from the Miami Association of REALTORS&reg; — curated from the current MLS.
           </p>
         </div>
 
@@ -69,39 +69,29 @@ export default function FeaturedListings({ onSelectProperty, onOpenContact }: Fe
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8">
           {/* Main Large Card */}
           <div
-            onClick={() => onSelectProperty?.(mapFeaturedToProperty(hero))}
+            onClick={() => onSelectProperty(p0)}
             data-cursor="view"
-            className="group lg:col-span-8 relative bg-white border border-[#e5e7eb] hover:border-[#9a7629] transition-all duration-300 overflow-hidden flex flex-col shadow-sm hover:shadow-xl cursor-pointer"
+            className="group lg:col-span-8 relative cursor-pointer bg-white border border-[#e5e7eb] hover:border-[#9a7629] transition-all duration-300 overflow-hidden flex flex-col shadow-sm hover:shadow-xl"
           >
-            <div className={`relative h-[360px] sm:h-[480px] w-full overflow-hidden ${hero.grad}`}>
+            <div className={`relative h-[360px] sm:h-[480px] w-full overflow-hidden ${p0.grad}`}>
               <img
-                src={hero.img}
-                alt={`${hero.address}, ${hero.city}`}
+                src={p0.img}
+                alt={p0.name}
                 loading="lazy"
                 className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
-                onError={(e) => {
-                  (e.currentTarget as HTMLImageElement).style.visibility = 'hidden';
-                }}
               />
-              {hero.openHouse ? (
-                <span className="card-badge absolute top-4 left-4 bg-[#9a7629] text-white border-[#9a7629] flex items-center gap-1.5">
-                  <CalendarClock className="w-3.5 h-3.5" />
-                  Open House · {hero.openHouse.label}
-                </span>
-              ) : (
-                <span className="card-badge absolute top-4 left-4 bg-black/80 text-[#deb65b] border-[#deb65b]/40">
-                  {hero.status}
-                </span>
-              )}
+              <span className="card-badge absolute top-4 left-4 bg-black/80 text-[#deb65b] border-[#deb65b]/40">
+                {p0.badge}
+              </span>
               <button
                 type="button"
-                onClick={(e) => toggleFavorite(e, hero.id)}
+                onClick={(e) => toggleFavorite(e, p0.id)}
                 aria-label="Save"
                 className="absolute top-4 right-4 w-10 h-10 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center text-white hover:text-[#e0ae6d] transition-colors"
               >
                 <Heart
                   className={`w-5 h-5 transition-colors ${
-                    favorites[hero.id] ? 'fill-[#e0ae6d] text-[#e0ae6d]' : 'text-white'
+                    favorites[p0.id] ? 'fill-[#e0ae6d] text-[#e0ae6d]' : 'text-white'
                   }`}
                 />
               </button>
@@ -109,33 +99,31 @@ export default function FeaturedListings({ onSelectProperty, onOpenContact }: Fe
 
             <div className="p-6 sm:p-8 flex-1 flex flex-col justify-between">
               <div>
-                <div className="font-mono text-xs text-[#6f5320] uppercase tracking-wider mb-2">
-                  {hero.city}, {hero.state}
+                <div className="font-mono text-xs text-[#9a7629] uppercase tracking-wider mb-2">
+                  {p0.city}, FL
                 </div>
                 <h3 className="font-serif text-2xl sm:text-3xl font-normal text-[#1a1e24] group-hover:text-[#9a7629] transition-colors leading-tight">
-                  {hero.address}
+                  {p0.name}
                 </h3>
               </div>
 
               <div className="mt-8 pt-6 border-t border-[#e5e7eb] flex flex-wrap items-end justify-between gap-4">
                 <div className="font-mono text-2xl sm:text-3xl text-[#1a1e24] font-semibold">
-                  {money(hero.price)}
+                  {money(p0.price)}
                 </div>
                 <div className="flex items-center gap-4 sm:gap-6 font-mono text-xs sm:text-sm text-[#4b5563]">
                   <span className="flex items-center gap-1.5">
                     <Bed className="w-4 h-4 text-[#9a7629]" />
-                    {hero.beds} Beds
+                    {p0.beds} Beds
                   </span>
                   <span className="flex items-center gap-1.5">
                     <Bath className="w-4 h-4 text-[#9a7629]" />
-                    {hero.baths} Baths
+                    {p0.baths} Baths
                   </span>
-                  {hero.sqft && (
-                    <span className="flex items-center gap-1.5">
-                      <Maximize2 className="w-4 h-4 text-[#9a7629]" />
-                      {hero.sqft.toLocaleString()} Sq Ft
-                    </span>
-                  )}
+                  <span className="flex items-center gap-1.5">
+                    <Maximize2 className="w-4 h-4 text-[#9a7629]" />
+                    {p0.sqft.toLocaleString()} Sq Ft
+                  </span>
                 </div>
               </div>
             </div>
@@ -143,39 +131,29 @@ export default function FeaturedListings({ onSelectProperty, onOpenContact }: Fe
 
           {/* Secondary Tall Card */}
           <div
-            onClick={() => onSelectProperty?.(mapFeaturedToProperty(tall))}
+            onClick={() => onSelectProperty(p1)}
             data-cursor="view"
-            className="group lg:col-span-4 relative bg-white border border-[#e5e7eb] hover:border-[#9a7629] transition-all duration-300 overflow-hidden flex flex-col shadow-sm hover:shadow-xl cursor-pointer"
+            className="group lg:col-span-4 relative cursor-pointer bg-white border border-[#e5e7eb] hover:border-[#9a7629] transition-all duration-300 overflow-hidden flex flex-col shadow-sm hover:shadow-xl"
           >
-            <div className={`relative h-[280px] lg:h-[480px] w-full overflow-hidden ${tall.grad}`}>
+            <div className={`relative h-[280px] lg:h-[480px] w-full overflow-hidden ${p1.grad}`}>
               <img
-                src={tall.img}
-                alt={`${tall.address}, ${tall.city}`}
+                src={p1.img}
+                alt={p1.name}
                 loading="lazy"
                 className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
-                onError={(e) => {
-                  (e.currentTarget as HTMLImageElement).style.visibility = 'hidden';
-                }}
               />
-              {tall.openHouse ? (
-                <span className="card-badge absolute top-4 left-4 bg-[#9a7629] text-white border-[#9a7629] flex items-center gap-1.5">
-                  <CalendarClock className="w-3.5 h-3.5" />
-                  Open House · {tall.openHouse.label}
-                </span>
-              ) : (
-                <span className="card-badge absolute top-4 left-4 bg-black/80 text-[#deb65b] border-[#deb65b]/40">
-                  {tall.status}
-                </span>
-              )}
+              <span className="card-badge absolute top-4 left-4 bg-black/80 text-[#deb65b] border-[#deb65b]/40">
+                {p1.badge}
+              </span>
               <button
                 type="button"
-                onClick={(e) => toggleFavorite(e, tall.id)}
+                onClick={(e) => toggleFavorite(e, p1.id)}
                 aria-label="Save"
                 className="absolute top-4 right-4 w-10 h-10 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center text-white hover:text-[#e0ae6d] transition-colors"
               >
                 <Heart
                   className={`w-5 h-5 transition-colors ${
-                    favorites[tall.id] ? 'fill-[#e0ae6d] text-[#e0ae6d]' : 'text-white'
+                    favorites[p1.id] ? 'fill-[#e0ae6d] text-[#e0ae6d]' : 'text-white'
                   }`}
                 />
               </button>
@@ -183,62 +161,58 @@ export default function FeaturedListings({ onSelectProperty, onOpenContact }: Fe
 
             <div className="p-6 flex-1 flex flex-col justify-between">
               <div>
-                <div className="font-mono text-xs text-[#6f5320] uppercase tracking-wider mb-2">
-                  {tall.city}, {tall.state}
+                <div className="font-mono text-xs text-[#9a7629] uppercase tracking-wider mb-2">
+                  {p1.city}, FL
                 </div>
                 <h3 className="font-serif text-xl sm:text-2xl font-normal text-[#1a1e24] group-hover:text-[#9a7629] transition-colors leading-tight">
-                  {tall.address}
+                  {p1.name}
                 </h3>
               </div>
 
               <div className="mt-6 pt-4 border-t border-[#e5e7eb] flex flex-wrap items-end justify-between gap-4">
                 <div className="font-mono text-xl sm:text-2xl text-[#1a1e24] font-semibold">
-                  {money(tall.price)}
+                  {money(p1.price)}
                 </div>
-                <div className="font-mono text-xs text-[#4b5563]">{specLine(tall)}</div>
+                <div className="flex items-center gap-3 font-mono text-xs text-[#4b5563]">
+                  <span>{p1.beds} bd</span>
+                  <span>·</span>
+                  <span>{p1.baths} ba</span>
+                  <span>·</span>
+                  <span>{p1.sqft.toLocaleString()} sqft</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Remaining listings */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {rest.map((l) => (
+        {/* 3-Column Secondary Row */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {displayListings.map((p) => (
             <div
-              key={l.id}
-              onClick={() => onSelectProperty?.(mapFeaturedToProperty(l))}
+              key={p.id}
+              onClick={() => onSelectProperty(p)}
               data-cursor="view"
-              className="group relative bg-white border border-[#e5e7eb] hover:border-[#9a7629] transition-all duration-300 overflow-hidden flex flex-col shadow-sm hover:shadow-xl cursor-pointer"
+              className="group relative cursor-pointer bg-white border border-[#e5e7eb] hover:border-[#9a7629] transition-all duration-300 overflow-hidden flex flex-col shadow-sm hover:shadow-xl"
             >
-              <div className={`relative h-64 w-full overflow-hidden ${l.grad}`}>
+              <div className={`relative h-64 w-full overflow-hidden ${p.grad}`}>
                 <img
-                  src={l.img}
-                  alt={`${l.address}, ${l.city}`}
+                  src={p.img}
+                  alt={p.name}
                   loading="lazy"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  onError={(e) => {
-                    (e.currentTarget as HTMLImageElement).style.visibility = 'hidden';
-                  }}
                 />
-                {l.openHouse ? (
-                  <span className="card-badge absolute top-3 left-3 bg-[#9a7629] text-white border-[#9a7629] flex items-center gap-1">
-                    <CalendarClock className="w-3 h-3" />
-                    Open House
-                  </span>
-                ) : (
-                  <span className="card-badge absolute top-3 left-3 bg-black/80 text-[#deb65b] border-[#deb65b]/40">
-                    {l.status}
-                  </span>
-                )}
+                <span className="card-badge absolute top-3 left-3 bg-black/80 text-[#deb65b] border-[#deb65b]/40">
+                  {p.badge}
+                </span>
                 <button
                   type="button"
-                  onClick={(e) => toggleFavorite(e, l.id)}
+                  onClick={(e) => toggleFavorite(e, p.id)}
                   aria-label="Save"
                   className="absolute top-3 right-3 w-9 h-9 rounded-full bg-black/50 backdrop-blur-md flex items-center justify-center text-white hover:text-[#e0ae6d] transition-colors"
                 >
                   <Heart
                     className={`w-4 h-4 transition-colors ${
-                      favorites[l.id] ? 'fill-[#e0ae6d] text-[#e0ae6d]' : 'text-white'
+                      favorites[p.id] ? 'fill-[#e0ae6d] text-[#e0ae6d]' : 'text-white'
                     }`}
                   />
                 </button>
@@ -246,17 +220,25 @@ export default function FeaturedListings({ onSelectProperty, onOpenContact }: Fe
 
               <div className="p-6 flex-1 flex flex-col justify-between">
                 <div>
-                  <div className="font-mono text-xs text-[#6f5320] uppercase tracking-wider mb-2">
-                    {l.city}, {l.state}
+                  <div className="font-mono text-xs text-[#9a7629] uppercase tracking-wider mb-2">
+                    {p.city}, FL
                   </div>
                   <h4 className="font-serif text-xl font-normal text-[#1a1e24] group-hover:text-[#9a7629] transition-colors leading-snug">
-                    {l.address}
+                    {p.name}
                   </h4>
                 </div>
 
-                <div className="mt-6 pt-4 border-t border-[#e5e7eb] flex items-end justify-between gap-3">
-                  <div className="font-mono text-lg font-semibold text-[#1a1e24]">{money(l.price)}</div>
-                  <div className="font-mono text-xs text-[#4b5563] text-right">{specLine(l)}</div>
+                <div className="mt-6 pt-4 border-t border-[#e5e7eb] flex items-end justify-between">
+                  <div className="font-mono text-lg font-semibold text-[#1a1e24]">
+                    {money(p.price)}
+                  </div>
+                  <div className="flex items-center gap-2.5 font-mono text-xs text-[#4b5563]">
+                    <span>{p.beds} bd</span>
+                    <span>·</span>
+                    <span>{p.baths} ba</span>
+                    <span>·</span>
+                    <span>{p.sqft.toLocaleString()} sqft</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -266,19 +248,14 @@ export default function FeaturedListings({ onSelectProperty, onOpenContact }: Fe
         {/* Section Foot */}
         <div className="mt-14 pt-8 border-t border-[#e5e7eb] flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
           <p className="font-mono text-xs text-[#6b7280]">
-            Inventory represented by Miguel Perez · Luxe Properties. Listing data via the MLS.
+            {loading
+              ? 'Loading live MLS inventory...'
+              : 'Live MLS data from the Miami Association of REALTORS'}
           </p>
-          <div className="flex flex-wrap items-center justify-center gap-3">
-            {onOpenContact && (
-              <button className="btn" onClick={onOpenContact}>
-                <span>Request a private showing</span>
-              </button>
-            )}
-            <a className="btn btn--gold" href="#listings">
-              <span>View all listings</span>
-              <ArrowRight className="w-4 h-4" />
-            </a>
-          </div>
+          <button className="btn btn--gold" onClick={onOpenContact}>
+            <span>View the full portfolio</span>
+            <ArrowRight className="w-4 h-4" />
+          </button>
         </div>
       </div>
     </section>

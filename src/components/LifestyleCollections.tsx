@@ -1,3 +1,4 @@
+// Lifestyle Collections (home). Oct 2026: unverified per-collection listing counts removed.
 import { useState } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { LIFESTYLE } from '../data';
@@ -52,7 +53,7 @@ export default function LifestyleCollections({ onOpenContact }: LifestyleCollect
             <div className="absolute inset-x-0 bottom-0 z-20 p-6 sm:p-10 flex items-end justify-between gap-6">
               <div>
                 <div className="mono-label text-[#c9a24a] mb-2 font-mono text-xs">
-                  {current.count} listings
+                  Curated collection
                 </div>
                 <h3 className="font-serif text-2xl sm:text-4xl text-[#f4efe2] font-normal mb-2 leading-tight">
                   {current.name}
@@ -98,9 +99,7 @@ export default function LifestyleCollections({ onOpenContact }: LifestyleCollect
                     </h4>
                   </div>
 
-                  <span className="font-mono text-xs text-[#f4efe2]/50 tracking-wider">
-                    {item.count} items
-                  </span>
+                  <ArrowUpRight className={`w-4 h-4 flex-shrink-0 transition-colors ${isSelected ? 'text-[#c9a24a]' : 'text-[#f4efe2]/60'}`} aria-hidden="true" />
                 </button>
               );
             })}

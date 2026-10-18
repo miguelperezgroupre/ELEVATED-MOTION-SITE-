@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>South Florida Elevated — Brand Identity</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="sfe-brand-tokens.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--sfe-body); background: var(--sfe-ink); color: var(--sfe-paper); line-height: 1.6; }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 48px 24px; }
+    h1, h2, h3 { font-family: var(--sfe-display); font-weight: 700; color: var(--sfe-gold-light); }
+    h1 { font-size: 56px; line-height: 1.1; letter-spacing: -0.02em; }
+    h2 { font-size: 32px; margin-top: 48px; border-bottom: 1px solid rgba(201,162,74,0.3); padding-bottom: 12px; }
+    h3 { font-size: 22px; margin-top: 32px; color: var(--sfe-gold-warm); }
+    .eyebrow { font-family: var(--sfe-mono); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(244,239,226,0.5); margin-bottom: 8px; }
+    .tagline { font-size: 18px; color: rgba(244,239,226,0.7); margin-top: 8px; }
+
+    .swatch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 16px; margin: 24px 0; }
+    .swatch { border-radius: 8px; overflow: hidden; }
+    .swatch .color { height: 80px; position: relative; }
+    .swatch .info { padding: 8px 12px; background: var(--sfe-ink-soft); }
+    .swatch .info .name { font-family: var(--sfe-mono); font-size: 12px; color: var(--sfe-paper); }
+    .swatch .info .hex { font-family: var(--sfe-mono); font-size: 10px; color: rgba(244,239,226,0.5); }
+
+    .font-card { display: flex; gap: 24px; align-items: center; padding: 20px; background: var(--sfe-ink-soft); border-radius: 8px; border: 1px solid rgba(201,162,74,0.2); margin: 16px 0; }
+    .font-card .preview { flex: 1; }
+    .font-card .preview .sample { font-size: 28px; }
+    .font-card .meta { font-family: var(--sfe-mono); font-size: 11px; color: rgba(244,239,226,0.5); }
+
+    .usage-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0; }
+    .usage-card { padding: 24px; background: var(--sfe-ink-soft); border-radius: 8px; border: 1px solid rgba(201,162,74,0.15); }
+    .usage-card h4 { font-family: var(--sfe-display); font-size: 18px; color: var(--sfe-gold-warm); margin-bottom: 12px; }
+
+    .logo-preview { display: flex; gap: 32px; justify-content: center; align-items: center; padding: 48px; background: var(--sfe-ink-soft); border-radius: 12px; margin: 24px 0; flex-wrap: wrap; }
+    .logo-box { text-align: center; }
+    .logo-box .logo { font-family: var(--sfe-display); font-size: 32px; font-weight: 800; letter-spacing: -0.02em; }
+    .logo-box .sublabel { font-family: var(--sfe-mono); font-size: 10px; color: rgba(244,239,226,0.4); margin-top: 6px; }
+
+    @media (max-width: 700px) { .usage-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="eyebrow">Brand Identity · Relaunch 2026</div>
+    <h1>South Florida<br>Elevated</h1>
+    <p class="tagline">Real Estate. Elevated.</p>
+
+    <h2>Brand Palette</h2>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="color" style="background:#9a7629"></div><div class="info"><div class="name">Gold</div><div class="hex">#9a7629</div></div></div>
+      <div class="swatch"><div class="color" style="background:#c9a24a"></div><div class="info"><div class="name">Gold Light</div><div class="hex">#c9a24a</div></div></div>
+      <div class="swatch"><div class="color" style="background:#ffd9a0"></div><div class="info"><div class="name">Gold Warm</div><div class="hex">#ffd9a0</div></div></div>
+      <div class="swatch"><div class="color" style="background:#0e1416"></div><div class="info"><div class="name">Ink</div><div class="hex">#0e1416</div></div></div>
+      <div class="swatch"><div class="color" style="background:#1a1e24"></div><div class="info"><div class="name">Ink Soft</div><div class="hex">#1a1e24</div></div></div>
+      <div class="swatch"><div class="color" style="background:#f4efe2"></div><div class="info"><div class="name">Paper</div><div class="hex">#f4efe2</div></div></div>
+      <div class="swatch"><div class="color" style="background:#1F6970"></div><div class="info"><div class="name">Teal</div><div class="hex">#1F6970</div></div></div>
+      <div class="swatch"><div class="color" style="background:#2a8a94"></div><div class="info"><div class="name">Teal Light</div><div class="hex">#2a8a94</div></div></div>
+    </div>
+
+    <h2>Typography</h2>
+    <div class="font-card">
+      <div class="preview"><div class="sample" style="font-family:'Cairo',serif;font-weight:800">Cairo — Display Headlines</div></div>
+      <div class="meta">800 · 700 · 600 · 400</div>
+    </div>
+    <div class="font-card">
+      <div class="preview"><div class="sample" style="font-family:'Inter',sans-serif;font-weight:400">Inter — Body Copy &amp; UI</div></div>
+      <div class="meta">600 · 500 · 400 · 300</div>
+    </div>
+    <div class="font-card">
+      <div class="preview"><div class="sample" style="font-family:'JetBrains Mono',monospace;font-weight:400">JetBrains Mono — Labels &amp; Data</div></div>
+      <div class="meta">500 · 400</div>
+    </div>
+
+    <h2>Logo Lockups</h2>
+    <div class="logo-preview">
+      <div class="logo-box">
+        <div class="logo" style="color:#f4efe2">SOUTH FLORIDA<br><span style="color:#c9a24a">ELEVATED</span></div>
+        <div class="sublabel">Full lockup · dark background</div>
+      </div>
+      <div class="logo-box">
+        <div class="logo" style="color:#0e1416;background:#f4efe2;padding:12px 24px">SOUTH FLORIDA<br><span style="color:#9a7629">ELEVATED</span></div>
+        <div class="sublabel">Full lockup · light background</div>
+      </div>
+      <div class="logo-box">
+        <div class="logo" style="color:#c9a24a;font-size:48px">SFE</div>
+        <div class="sublabel">Monogram · gold</div>
+      </div>
+    </div>
+
+    <h2>Brand Voice</h2>
+    <div class="usage-grid">
+      <div class="usage-card">
+        <h4>Positioning</h4>
+        <p>South Florida real estate advisory — not another generic Realtor. Compete on perspective, expertise, access, and judgment.</p>
+      </div>
+      <div class="usage-card">
+        <h4>The Line</h4>
+        <p style="font-family:'Cairo',serif;font-size:20px;color:var(--sfe-gold-warm);font-weight:600">"I don't sell the property. I help you decide whether the property makes sense."</p>
+      </div>
+      <div class="usage-card">
+        <h4>Tone</h4>
+        <p>Confident, warm, direct. Never salesy. Write like a person texting a friend who happens to know the market inside out.</p>
+      </div>
+      <div class="usage-card">
+        <h4>Archetype</h4>
+        <p>The Advisor + The Local Authority. Never The Salesman.</p>
+      </div>
+    </div>
+
+    <h2>Gradient Presets</h2>
+    <div class="swatch-grid">
+      <div class="swatch"><div class="color sfe-gradient-dusk"></div><div class="info"><div class="name">Dusk</div><div class="hex">Dark → warm amber</div></div></div>
+      <div class="swatch"><div class="color sfe-gradient-gold"></div><div class="info"><div class="name">Gold</div><div class="hex">Gold spectrum</div></div></div>
+      <div class="swatch"><div class="color sfe-gradient-warm"></div><div class="info"><div class="name">Warm</div><div class="hex">Dark amber glow</div></div></div>
+      <div class="swatch"><div class="color sfe-gradient-teal"></div><div class="info"><div class="name">Teal</div><div class="hex">Teal accent</div></div></div>
+    </div>
+  </div>
+</body>
+</html>

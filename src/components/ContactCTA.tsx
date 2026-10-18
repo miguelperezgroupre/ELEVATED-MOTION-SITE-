@@ -10,12 +10,12 @@ export default function ContactCTA({ onOpenContact }: ContactCTAProps) {
       {/* High-res ocean background with atmospheric shading */}
       <div className="absolute inset-0 z-0">
         <img
-          alt="South Florida Coastline"
-          aria-hidden="true"
           loading="lazy"
           decoding="async"
+          alt="South Florida Coastline"
+          aria-hidden="true"
           className="w-full h-full object-cover opacity-60 scale-105"
-          src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=70"
+          src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2200&q=80"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0e1416] via-transparent to-[#0e1416]" />
       </div>
