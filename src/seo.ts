@@ -25,7 +25,7 @@ export const PAGE_META = {
   about: {title: 'About Miguel Perez, REALTOR® | Luxe Properties South Florida', description: 'Local knowledge, elevated perspective. Miguel Perez, REALTOR® with Luxe Properties since 2021, helps clients navigate South Florida real estate with clarity.'},
   listings: {title: 'South Florida Homes for Sale | On the Market | Miguel Perez', description: 'Active South Florida listings with Miguel Perez of Luxe Properties. Before you tour, get the flood zone, HOA and building details the listing itself leaves out.'},
   journal: {title: 'The Journal | South Florida Real Estate Guides & Market News', description: 'Neighborhood guides, market analysis, relocation checklists and newsletters from South Florida Elevated for buyers and sellers in Miami and Fort Lauderdale.'},
-  'home-value': {title: "What's My Home Worth? Free Home Evaluation | Miguel Perez", description: 'Get a free, personalized home evaluation from Miguel Perez of Luxe Properties, informed by relevant local sales and your home\'s features. Fort Lauderdale to Miami.'},
+  'home-value': {title: "What's My Home Worth? Free Home Evaluation | Miguel Perez", description: 'Get a free, personalized home evaluation from Miguel Perez of Luxe Properties, based on local sales and your home\'s features. Fort Lauderdale to Miami.'},
   'free-home-evaluation': {title: 'Free Home Evaluation | Miguel Perez, Luxe Properties', description: 'Thanks for scanning. Get a free, personalized home evaluation from Miguel Perez of Luxe Properties, informed by relevant local sales and your home\'s features.'},
   notfound: {title: 'Page Not Found | South Florida Elevated', description: 'That page has moved or no longer exists. Explore South Florida real estate, neighborhoods and the Journal with Miguel Perez of Luxe Properties.'},
 };
@@ -41,7 +41,7 @@ const WEBSITE = {
   publisher: {'@id': `${SITE_URL}/#agent`},
 };
 
-const LUXE = {'@type': 'RealEstateOrganization', '@id': `${SITE_URL}/#brokerage`, name: 'Luxe Properties'};
+const LUXE = {'@type': 'Organization', '@id': `${SITE_URL}/#brokerage`, name: 'Luxe Properties', url: 'https://www.luxeknows.com/'};
 const KNOWS = ['Luxury real estate', 'Residential real estate', 'Condominiums', 'Waterfront homes', 'New developments', 'Pre-construction condos', 'Relocation to South Florida', 'Real estate investment', 'Buyer representation', 'Seller representation', 'Home valuation'];
 const AREAS = [
   ...['Miami-Dade County', 'Broward County', 'Palm Beach County'].map((name) => ({'@type': 'AdministrativeArea', name: `${name}, FL`})),
@@ -121,7 +121,7 @@ export function headFor(route) {
         {'@type': 'WebPage', '@id': `${url}#webpage`, url, name: a.seoTitle, description: a.description, isPartOf: {'@id': `${SITE_URL}/#website`}, breadcrumb: {'@id': `${url}#breadcrumb`}, inLanguage: 'en-US'},
         breadcrumb(crumbs),
         {
-          '@type': 'BlogPosting',
+          '@type': ['Article', 'BlogPosting'],
           '@id': `${url}#article`,
           headline: a.title.length > 110 ? a.seoTitle : a.title,
           description: a.description,
@@ -129,7 +129,7 @@ export function headFor(route) {
           datePublished: iso(a.date),
           dateModified: iso(a.updated),
           author: {'@type': 'Person', '@id': `${SITE_URL}/#miguel`, name: 'Miguel Perez', url: `${SITE_URL}/about`},
-          publisher: {'@type': 'Organization', '@id': `${SITE_URL}/#publisher`, name: SITE_NAME, logo: {'@type': 'ImageObject', url: LOGO}},
+          publisher: {'@id': `${SITE_URL}/#agent`},
           mainEntityOfPage: {'@id': `${url}#webpage`},
           isPartOf: {'@id': `${SITE_URL}/journal#blog`},
           articleSection: a.category,
@@ -138,6 +138,7 @@ export function headFor(route) {
           inLanguage: 'en-US',
           citation: a.sources.filter((s) => s.url).map((s) => s.url),
         },
+        AGENT,
         PERSON,
       ],
     };
