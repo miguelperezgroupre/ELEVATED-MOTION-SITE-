@@ -19,6 +19,8 @@ export const PAGE_ROUTES = [
   {view: 'about', path: '/about', label: 'About'},
   {view: 'listings', path: '/listings', label: 'Listings'},
   {view: 'journal', path: '/journal', label: 'Journal'},
+  {view: 'terms-of-service', path: '/terms-of-service', label: 'Terms of Service'},
+  {view: 'privacy-policy', path: '/privacy-policy', label: 'Privacy Policy'},
 ];
 
 const BY_VIEW = Object.fromEntries(PAGE_ROUTES.map((r) => [r.view, r]));
@@ -47,7 +49,7 @@ export function routeFromPath(p) {
   const m = path.match(/^\/journal\/([a-z0-9-]+)$/);
   if (m) return {view: 'article', slug: m[1]};
   // Friendly aliases
-  const alias = {'/home-valuation': 'home-value', '/relocate': 'relocate', '/developments': 'developments', '/lifestyle': 'south-florida', '/blog': 'journal', '/news': 'journal'}[path];
+  const alias = {'/home-valuation': 'home-value', '/relocate': 'relocate', '/developments': 'developments', '/lifestyle': 'south-florida', '/blog': 'journal', '/news': 'journal', '/terms': 'terms-of-service', '/terms-of-use': 'terms-of-service', '/privacy': 'privacy-policy'}[path];
   if (alias) return {view: alias, redirect: true};
   return {view: 'notfound'};
 }
