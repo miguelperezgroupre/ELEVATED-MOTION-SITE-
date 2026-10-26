@@ -1,6 +1,6 @@
 // @ts-nocheck
-/** Privacy Policy body for South Florida Elevated. Effective 2026-10-25. Not legal advice. */
-export const PRIVACY_EFFECTIVE = 'October 25, 2026';
+/** Privacy Policy body for South Florida Elevated. Effective 2026-10-26. Not legal advice. */
+export const PRIVACY_EFFECTIVE = 'October 26, 2026';
 export const PRIVACY_TITLE = 'Privacy Policy';
 export const PRIVACY_INTRO = 'This Privacy Policy explains how South Florida Elevated and Miguel Perez, REALTOR® with Luxe Properties (Florida license SL3515849) collect, use, store, and share personal information in connection with southfloridaelevated.com and related communications. By using the website or submitting information to us, you acknowledge this Policy.';
 
@@ -39,7 +39,8 @@ export const PRIVACY_SECTIONS = [
     paragraphs: [
       'Like most websites, ours may automatically collect technical information such as browser type, device characteristics, approximate location derived from IP address, referring URLs, pages viewed, and performance metrics.',
       'We use Vercel Analytics and Vercel Speed Insights on the site to understand traffic and performance. These tools may use cookies, local storage, or similar technologies as described by Vercel’s documentation.',
-      'We do not claim use of Google Analytics, Meta Pixel, or other advertising pixels on this website unless and until their presence is separately verified and this Policy is updated.',
+      'We also use Google Analytics (GA4) to measure website traffic and usage. Google may process technical and usage data (such as IP address, device/browser information, and pages viewed) according to Google’s terms and privacy documentation. Measurement ID used on this site: G-G1TT81J7CN.',
+      'We do not claim use of Meta Pixel or other advertising/retargeting pixels on this website unless and until their presence is separately verified and this Policy is updated.',
     ],
   },
   {
@@ -60,6 +61,7 @@ export const PRIVACY_SECTIONS = [
     paragraphs: [
       'We use service providers that process information on our behalf, including:',
       '• Website hosting and edge delivery: Vercel.',
+      '• Website analytics: Google Analytics (GA4).',
       '• Lead intake and CRM / lead management: website form submissions are processed through our /api/lead endpoint and may be sent to GoHighLevel (LeadConnector) and/or Follow Up Boss, using credentials stored only in server environment variables.',
       '• Listing data services: MLS/IDX-related APIs used to display property information (for example Bridge-powered listing access as configured for the site).',
       'These providers may process data in the United States or other locations where they operate. We do not authorize them to use your information for their own unrelated marketing.',
@@ -88,7 +90,7 @@ export const PRIVACY_SECTIONS = [
     title: '9. Cookies, Analytics, and Advertising Technologies',
     paragraphs: [
       'You can control cookies through your browser settings. Blocking certain cookies may affect site functionality or analytics accuracy.',
-      'We currently use first-party/hosting analytics as described above. If we introduce advertising or retargeting technologies in the future, we will update this Policy and, where required, provide additional notice or choice mechanisms.',
+      'We currently use Vercel Analytics/Speed Insights and Google Analytics as described above. If we introduce advertising or retargeting technologies in the future, we will update this Policy and, where required, provide additional notice or choice mechanisms.',
     ],
   },
   {
