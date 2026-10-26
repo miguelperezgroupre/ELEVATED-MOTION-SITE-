@@ -185,10 +185,17 @@ function Footer({
      })]
     }), n.jsxs('div', {
      className: 'flex flex-wrap items-center gap-6',
-     // Privacy Policy / Terms of Representation pages do not exist yet (/privacy, /terms → 404).
-     // Dead '#' links removed until Miguel/Luxe Properties supply approved copy; then add
-     // routes in src/routes.ts and restore: { href: '/privacy' }, { href: '/terms-of-representation' }.
      children: [n.jsx('a', {
+      href: '/privacy-policy',
+      onClick: e => { if (e.metaKey || e.ctrlKey || e.shiftKey) return; e.preventDefault(); c('privacy-policy'); },
+      className: 'hover:text-[#c9a24a] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#c9a24a]',
+      children: 'Privacy Policy'
+     }), n.jsx('a', {
+      href: '/terms-of-service',
+      onClick: e => { if (e.metaKey || e.ctrlKey || e.shiftKey) return; e.preventDefault(); c('terms-of-service'); },
+      className: 'hover:text-[#c9a24a] transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#c9a24a]',
+      children: 'Terms of Service'
+     }), n.jsx('a', {
       href: 'https://www.instagram.com/miguelperezflorida',
       target: '_blank',
       rel: 'noopener noreferrer',

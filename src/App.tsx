@@ -34,6 +34,7 @@ import AboutView from './components/views/AboutView';
 import ListingsView from './views/ListingsView';
 import JournalIndex from './components/journal/JournalIndex';
 import JournalArticle from './components/journal/JournalArticle';
+import LegalView from './components/views/LegalView';
 import {routeFromPath, pathFor, legacyHashView} from './routes';
 import {headFor, applyHead} from './seo';
 import {FAQS} from './faq';
@@ -174,6 +175,8 @@ function App({initialPath}) {
           currentView === 'about' && jsx(AboutView, {onOpenContact: handleOpenContact}),
           currentView === 'journal' && jsx(JournalIndex, {}),
           currentView === 'article' && jsx(JournalArticle, {slug: route.slug, onOpenContact: handleOpenContact}, route.slug),
+          currentView === 'terms-of-service' && jsx(LegalView, {doc: 'terms', onNavigate: handleNavigate}),
+          currentView === 'privacy-policy' && jsx(LegalView, {doc: 'privacy', onNavigate: handleNavigate}),
           currentView === 'notfound' && jsx(NotFound, {onNavigate: handleNavigate}),
           FAQS[currentView] && jsx(FaqSection, {items: FAQS[currentView]}),
         ],

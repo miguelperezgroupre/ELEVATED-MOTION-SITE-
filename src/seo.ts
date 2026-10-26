@@ -28,6 +28,8 @@ export const PAGE_META = {
   'home-value': {title: "What's My Home Worth? Free Home Evaluation | Miguel Perez", description: 'Get a free, personalized home evaluation from Miguel Perez of Luxe Properties, informed by relevant local sales and your home\'s features. Fort Lauderdale to Miami.'},
   'free-home-evaluation': {title: 'Free Home Evaluation | Miguel Perez, Luxe Properties', description: 'Thanks for scanning. Get a free, personalized home evaluation from Miguel Perez of Luxe Properties, informed by relevant local sales and your home\'s features.'},
   notfound: {title: 'Page Not Found | South Florida Elevated', description: 'That page has moved or no longer exists. Explore South Florida real estate, neighborhoods and the Journal with Miguel Perez of Luxe Properties.'},
+  'terms-of-service': {title: 'Terms of Service | South Florida Elevated', description: 'Review the terms and conditions governing the use of the South Florida Elevated website, services, content, and communications.'},
+  'privacy-policy': {title: 'Privacy Policy | South Florida Elevated', description: 'Learn how South Florida Elevated collects, uses, stores, and protects personal information submitted through our website and services.'},
 };
 
 const LABELS = Object.fromEntries(PAGE_ROUTES.map((r) => [r.view, r.label]));
