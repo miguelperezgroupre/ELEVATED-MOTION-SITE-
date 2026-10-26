@@ -198,7 +198,7 @@
           "value": "miguelperezflorida.com"
         }
       ],
-      "destination": "https://www.southfloridaelevated.com/",
+      "destination": "https://www.southfloridaelevated.com/privacy-policy",
       "statusCode": 301
     },
     {
@@ -209,7 +209,7 @@
           "value": "miguelperezflorida.com"
         }
       ],
-      "destination": "https://www.southfloridaelevated.com/",
+      "destination": "https://www.southfloridaelevated.com/terms-of-service",
       "statusCode": 301
     },
     {
@@ -396,7 +396,7 @@
           "value": "www.miguelperezflorida.com"
         }
       ],
-      "destination": "https://www.southfloridaelevated.com/",
+      "destination": "https://www.southfloridaelevated.com/privacy-policy",
       "statusCode": 301
     },
     {
@@ -407,7 +407,7 @@
           "value": "www.miguelperezflorida.com"
         }
       ],
-      "destination": "https://www.southfloridaelevated.com/",
+      "destination": "https://www.southfloridaelevated.com/terms-of-service",
       "statusCode": 301
     },
     {
@@ -454,6 +454,21 @@
     {
       "source": "/news",
       "destination": "/journal",
+      "permanent": true
+    },
+    {
+      "source": "/terms",
+      "destination": "/terms-of-service",
+      "permanent": true
+    },
+    {
+      "source": "/terms-of-use",
+      "destination": "/terms-of-service",
+      "permanent": true
+    },
+    {
+      "source": "/privacy",
+      "destination": "/privacy-policy",
       "permanent": true
     }
   ],
