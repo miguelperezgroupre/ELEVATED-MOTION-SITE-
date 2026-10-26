@@ -78,6 +78,8 @@ Miami-Dade County, Broward County and Palm Beach County, Florida. Focus cities: 
 ${[
   L('/', 'Home', 'overview of South Florida Elevated and Miguel Perez'),
   L('/about', 'About Miguel Perez', 'background, brokerage, license and designations'),
+  L('/terms-of-service', 'Terms of Service', 'website terms and conditions'),
+  L('/privacy-policy', 'Privacy Policy', 'how personal information is collected and used'),
   L('/buy', 'Buy', 'buyer representation in Miami, Fort Lauderdale and Palm Beach'),
   L('/sell', 'Sell', 'listing, pricing and marketing for South Florida sellers'),
   L('/home-value', "What's My Home Worth?", 'request a free, personalized home evaluation'),

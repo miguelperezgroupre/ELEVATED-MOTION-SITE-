@@ -84,6 +84,12 @@ export default function Newsletter() {
         <p className="font-mono text-[9px] uppercase tracking-widest text-[#f4efe2]/30 mt-8">
           Unsubscribe at any time. We respect your privacy.
         </p>
+        <p className="font-mono text-[10px] text-[#f4efe2]/45 mt-3">
+          By subscribing, you agree to our{' '}
+          <a href="/privacy-policy" className="text-[#c9a24a] hover:text-[#ffd9a0] underline underline-offset-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#c9a24a]">Privacy Policy</a>
+          {' '}and{' '}
+          <a href="/terms-of-service" className="text-[#c9a24a] hover:text-[#ffd9a0] underline underline-offset-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#c9a24a]">Terms of Service</a>.
+        </p>
       </div>
     </section>
   );

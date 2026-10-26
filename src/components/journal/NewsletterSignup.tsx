@@ -58,6 +58,7 @@ export default function NewsletterSignup({source = 'journal', compact = false}) 
         </button>
       </form>
       <p role="status" aria-live="polite" className={`j-sans text-sm mt-3 min-h-[1.25rem] m-0 ${state === 'error' ? 'text-[#ffb4a2]' : 'text-[#E7C878]'}`}>{msg}</p>
+      <p className="j-sans text-[12px] text-[#F4EFE2]/50 mt-3 m-0">By subscribing you agree to our <a href="/privacy-policy" className="text-[#C9A24A] hover:text-[#E7C878] underline underline-offset-2">Privacy Policy</a> and <a href="/terms-of-service" className="text-[#C9A24A] hover:text-[#E7C878] underline underline-offset-2">Terms of Service</a>.</p>
     </section>
   );
 }

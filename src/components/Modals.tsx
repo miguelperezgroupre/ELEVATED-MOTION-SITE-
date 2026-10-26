@@ -553,6 +553,13 @@ export default function Modals({
                       <ArrowRight className="w-4 h-4" />
                     </button>
                   </div>
+                  <p className="font-mono text-[10px] text-[#f4efe2]/45 leading-relaxed pt-2">
+                    By submitting, you agree to our{' '}
+                    <a href="/privacy-policy" className="text-[#c9a24a] hover:text-[#ffd9a0] underline underline-offset-2">Privacy Policy</a>
+                    {' '}and{' '}
+                    <a href="/terms-of-service" className="text-[#c9a24a] hover:text-[#ffd9a0] underline underline-offset-2">Terms of Service</a>.
+                    Providing a phone number lets Miguel return your call or message about this inquiry; it is not consent for recurring marketing texts.
+                  </p>
                 </form>
               </div>
             )}
