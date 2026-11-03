@@ -2,7 +2,7 @@
 title: Before You Move to South Florida
 seoTitle: Moving to South Florida: Insurance, Flood Zones & Homestead
 slug: relocating-to-south-florida-checklist
-description: Moving to Miami, Fort Lauderdale or Palm Beach? Line up flood zones, insurance, wind mitigation, homestead filing and your Florida license, with official links.
+description: Moving to Miami, Fort Lauderdale or Palm Beach? Line up flood zones, insurance, wind mitigation, homestead and your Florida license.
 dek: Flood zones, insurance, homestead and your license, in order.
 date: 2026-10-09
 category: Relocation

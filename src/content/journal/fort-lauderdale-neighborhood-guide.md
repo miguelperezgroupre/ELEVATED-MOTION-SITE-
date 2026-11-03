@@ -2,7 +2,7 @@
 title: The Fort Lauderdale Neighborhood Guide
 seoTitle: Fort Lauderdale Neighborhood Guide: Las Olas & Wilton Manors
 slug: fort-lauderdale-neighborhood-guide
-description: Las Olas, Victoria Park, Rio Vista, Tarpon River, the beach and Wilton Manors: median prices, housing, water access and drive times for Fort Lauderdale buyers.
+description: Las Olas, Victoria Park, Rio Vista, Tarpon River, the beach and Wilton Manors: prices, housing, water access and drive times for Fort Lauderdale buyers.
 dek: Six neighborhoods, from Las Olas to Wilton Manors, with sourced data.
 date: 2026-10-09
 category: Neighborhoods

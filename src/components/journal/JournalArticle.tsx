@@ -27,7 +27,7 @@ function Share({url, title}) {
   const u = encodeURIComponent(url);
   const t = encodeURIComponent(title);
   const links = [
-    {label: 'Share on X', short: 'X', href: `https://twitter.com/intent/tweet?url=${u}&text=${t}`},
+    {label: 'Share on X', short: 'X', href: `https://x.com/intent/post?url=${u}&text=${t}`},
     {label: 'Share on Facebook', short: 'Facebook', href: `https://www.facebook.com/sharer/sharer.php?u=${u}`},
     {label: 'Share on LinkedIn', short: 'LinkedIn', href: `https://www.linkedin.com/sharing/share-offsite/?url=${u}`},
     {label: 'Share by email', short: 'Email', href: `mailto:?subject=${t}&body=${u}`},
@@ -37,7 +37,7 @@ function Share({url, title}) {
     <div className="flex flex-wrap items-center gap-2" aria-label="Share this article" role="group">
       <span className="font-mono text-[11px] tracking-[0.2em] uppercase text-[#F4EFE2]/65 mr-1">Share</span>
       {links.map((l) => (
-        <a key={l.short} href={l.href} aria-label={l.label} className={cls} {...(l.short === 'Email' ? {} : {target: '_blank', rel: 'noopener noreferrer'})}>{l.short}</a>
+        <a key={l.short} href={l.href} aria-label={l.label} className={cls} {...(l.short === 'Email' ? {} : {target: '_blank', rel: 'nofollow noopener noreferrer'})}>{l.short}</a>
       ))}
       <button type="button" className={cls} onClick={() => { navigator.clipboard?.writeText(url).then(() => { setCopied(true); setTimeout(() => setCopied(false), 2500); }); }}>
         {copied ? 'Link copied' : 'Copy link'}

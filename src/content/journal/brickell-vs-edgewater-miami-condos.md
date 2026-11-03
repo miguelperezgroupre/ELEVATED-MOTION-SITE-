@@ -2,7 +2,7 @@
 title: Brickell vs. Edgewater: Where to Buy a Condo
 seoTitle: Brickell vs. Edgewater Condos: Where to Buy in Miami (2026)
 slug: brickell-vs-edgewater-miami-condos
-description: Brickell or Edgewater? Median prices, price per square foot, transit, drive times and Florida's condo inspection rules, compared side by side with sourced data.
+description: Brickell or Edgewater? Median prices, price per square foot, transit, drive times and Florida's condo inspection rules, compared side by side.
 dek: Prices, transit, drive times and condo rules, compared side by side.
 date: 2026-10-09
 category: Neighborhoods

@@ -122,7 +122,7 @@ export const TERMS_SECTIONS = [
       'Questions about these Terms may be directed to:',
       'Miguel Perez, REALTOR® — South Florida Elevated / Luxe Properties',
       'Phone: (786) 460-1023',
-      'Email: miguel@southfloridaelevated.com',
+      'Email: miguelperez@southfloridaelevated.com',
       'Also: miguelperez@luxeknows.com',
       'Website: https://www.southfloridaelevated.com',
       'These Terms are business-specific website terms, not a substitute for advice from a qualified Florida attorney. Material legal questions should be reviewed by counsel before treating this document as final.',

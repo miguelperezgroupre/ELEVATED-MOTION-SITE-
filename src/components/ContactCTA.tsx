@@ -61,11 +61,11 @@ export default function ContactCTA({ onOpenContact }: ContactCTAProps) {
           </a>
 
           <a
-            href="mailto:miguel@southfloridaelevated.com"
+            href="mailto:miguelperez@southfloridaelevated.com"
             className="flex items-center gap-2 text-[#f4efe2]/80 hover:text-[#c9a24a] transition-colors"
           >
             <Mail className="w-3.5 h-3.5" />
-            miguel@southfloridaelevated.com
+            miguelperez@southfloridaelevated.com
           </a>
 
           <span className="flex items-center gap-1.5 text-[#f4efe2]/50">
