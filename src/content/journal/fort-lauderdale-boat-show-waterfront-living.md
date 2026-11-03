@@ -2,7 +2,7 @@
 title: The Boat Show Is Back: What FLIBS Says About Waterfront Living in Fort Lauderdale
 seoTitle: Fort Lauderdale Boat Show 2026: Waterfront Living Guide
 slug: fort-lauderdale-boat-show-waterfront-living
-description: The Fort Lauderdale International Boat Show runs Oct. 28–Nov. 1, 2026. Visiting tips, plus what the show says about waterfront living in Fort Lauderdale.
+description: The Fort Lauderdale International Boat Show runs Oct. 28–Nov. 1, 2026. Visiting tips, plus what it says about waterfront living here.
 dek: Show dates, visiting tips and the dock questions to ask.
 date: 2026-10-20
 category: Lifestyle

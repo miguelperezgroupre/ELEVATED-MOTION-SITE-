@@ -64,6 +64,13 @@ function Footer({
        })
       }), n.jsx('li', {
        children: n.jsx('a', {
+        href: pathFor('home-value'),
+        onClick: e => { if (e.metaKey || e.ctrlKey || e.shiftKey) return; e.preventDefault(); c('home-value'); },
+        className: 'hover:text-[#c9a24a] transition-colors cursor-pointer bg-transparent border-none p-0',
+        children: 'Free Home Evaluation'
+       })
+      }), n.jsx('li', {
+       children: n.jsx('a', {
         href: pathFor('relocate'),
         onClick: e => { if (e.metaKey || e.ctrlKey || e.shiftKey) return; e.preventDefault(); c('relocate'); },
         className: 'hover:text-[#c9a24a] transition-colors cursor-pointer bg-transparent border-none p-0',
