@@ -70,7 +70,7 @@ Miami-Dade County, Broward County and Palm Beach County, Florida. Focus cities: 
 - Agent: Miguel Perez, REALTOR®
 - Brokerage: Luxe Properties
 - Phone: 786-460-1023
-- Email: miguel@southfloridaelevated.com
+- Email: miguelperez@southfloridaelevated.com
 - Website: ${SITE_URL}/
 - Instagram: https://www.instagram.com/miguelperezflorida
 

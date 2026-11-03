@@ -53,7 +53,7 @@ export default function AboutSection() {
                 <span className="mono-label block text-[10px]">Florida license</span>
               </div>
               <div className="space-y-1">
-                <img loading="lazy" decoding="async" src="/assets/brand/luxe-properties-logo.png" alt="Luxe Properties" className="h-6 mb-2 object-contain" />
+                <img loading="lazy" decoding="async" src="/assets/brand/luxe-properties-logo-transparent-v2-2026-10-21.svg" alt="Luxe Properties" className="h-6 mb-2 object-contain" />
                 <b className="block text-sm sm:text-base text-[#f4efe2] font-medium">Luxe Properties</b>
                 <span className="mono-label block text-[10px]">Brokerage</span>
               </div>
