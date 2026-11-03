@@ -118,7 +118,7 @@ export const PRIVACY_SECTIONS = [
     title: '12. Consumer Privacy Rights Under Applicable Law',
     paragraphs: [
       'Depending on where you live, you may have rights to request access to, correction of, or deletion of personal information we hold about you, or to appeal a denial of a consumer request, subject to legal exceptions (for example records we must keep for compliance).',
-      'To make a request, email miguel@southfloridaelevated.com with the subject line “Privacy Request,” and include enough detail for us to verify and locate your information. We may need to confirm your identity before completing the request.',
+      'To make a request, email miguelperez@southfloridaelevated.com with the subject line “Privacy Request,” and include enough detail for us to verify and locate your information. We may need to confirm your identity before completing the request.',
       'Florida and other U.S. state privacy laws continue to evolve. We will honor applicable rights. If you are an EU/UK resident and believe GDPR applies to a particular processing activity, contact us and we will assess the request in good faith.',
     ],
   },
@@ -150,7 +150,7 @@ export const PRIVACY_SECTIONS = [
       'Privacy questions and consumer requests:',
       'Miguel Perez, REALTOR® — South Florida Elevated / Luxe Properties',
       'Phone: (786) 460-1023',
-      'Email: miguel@southfloridaelevated.com',
+      'Email: miguelperez@southfloridaelevated.com',
       'Also: miguelperez@luxeknows.com',
       'Website: https://www.southfloridaelevated.com',
       'This Policy is a business-specific privacy notice, not legal advice. Have a qualified Florida attorney review it before treating it as final, especially if you expand SMS marketing, advertising pixels, or data-sale practices.',

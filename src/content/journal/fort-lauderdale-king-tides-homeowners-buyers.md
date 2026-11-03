@@ -2,7 +2,7 @@
 title: King Tides in Fort Lauderdale: What Homeowners and Buyers Should Know
 seoTitle: Fort Lauderdale King Tides 2026: What Buyers Should Know
 slug: fort-lauderdale-king-tides-homeowners-buyers
-description: Fort Lauderdale expects king tides Oct. 24–31 and Nov. 5–11, 2026. What homeowners and buyers should ask about flood zones, elevation, seawalls and insurance.
+description: Fort Lauderdale expects king tides Oct. 24–31 and Nov. 5–11, 2026. What to ask about flood zones, elevation, seawalls and insurance.
 dek: King tide dates, and the flood questions to ask about a property.
 date: 2026-10-20
 category: Buying
