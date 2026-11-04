@@ -7,10 +7,10 @@ dek: Flood zones, insurance, homestead and your license, in order.
 date: 2026-10-09
 category: Relocation
 tags: Relocation, Flood zones, Homeowners insurance, Homestead exemption, Moving to Florida
-cover: https://images.pexels.com/photos/16619278/pexels-photo-16619278.jpeg?auto=compress&cs=tinysrgb&fm=webp&w=1600
-coverOg: https://images.pexels.com/photos/16619278/pexels-photo-16619278.jpeg?auto=compress&cs=tinysrgb&w=1200&h=630&fit=crop
-coverAlt: The Miami skyline across Biscayne Bay at dusk
-coverCredit: Photo: Pexels (photo 16619278)
+cover: /media/aerial-sunset-coastal-skyline-1600.webp
+coverOg: /media/aerial-sunset-coastal-skyline-og.jpg
+coverAlt: An aerial view of the South Florida coast at sunset, with a causeway leading toward the skyline
+coverCredit: Photo: Miguel Perez / South Florida Elevated
 cta: MOVE
 sources:
 - FEMA Flood Map Service Center: official flood hazard maps (FIRMs). Accessed October 9, 2026. | https://msc.fema.gov/portal/home
