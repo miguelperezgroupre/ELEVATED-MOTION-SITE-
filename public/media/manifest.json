@@ -1,0 +1,221 @@
+[
+ {
+  "slug": "palm-lined-shopping-promenade",
+  "alt": "A palm-lined sidewalk outside glass-fronted shops and galleries on a bright South Florida afternoon",
+  "tags": [
+   "lifestyle",
+   "shopping"
+  ],
+  "use": "Lifestyle and shopping sections; editorial posts about walkable retail districts",
+  "width": 738,
+  "height": 1234,
+  "ratio": 0.598,
+  "src": "/media/palm-lined-shopping-promenade-700.webp",
+  "jpg": "/media/palm-lined-shopping-promenade-1600.jpg",
+  "srcset": {
+   "700": "/media/palm-lined-shopping-promenade-700.webp"
+  },
+  "og": "/media/palm-lined-shopping-promenade-og.jpg"
+ },
+ {
+  "slug": "biscayne-bay-boat-bow-skyline",
+  "alt": "The bow of a boat on turquoise Biscayne Bay with the Miami skyline on the horizon",
+  "tags": [
+   "miami",
+   "water",
+   "boating"
+  ],
+  "use": "Miami guide hero, boat lifestyle posts, relocation content",
+  "width": 862,
+  "height": 1164,
+  "ratio": 0.741,
+  "src": "/media/biscayne-bay-boat-bow-skyline-700.webp",
+  "jpg": "/media/biscayne-bay-boat-bow-skyline-1600.jpg",
+  "srcset": {
+   "700": "/media/biscayne-bay-boat-bow-skyline-700.webp"
+  },
+  "og": "/media/biscayne-bay-boat-bow-skyline-og.jpg"
+ },
+ {
+  "slug": "waterfront-promenade-palms",
+  "alt": "A palm-lined waterfront promenade and seawall leading toward a high-rise skyline",
+  "tags": [
+   "miami",
+   "waterfront",
+   "walkability"
+  ],
+  "use": "Neighborhood walkability and waterfront lifestyle posts",
+  "width": 734,
+  "height": 1090,
+  "ratio": 0.673,
+  "src": "/media/waterfront-promenade-palms-700.webp",
+  "jpg": "/media/waterfront-promenade-palms-1600.jpg",
+  "srcset": {
+   "700": "/media/waterfront-promenade-palms-700.webp"
+  },
+  "og": "/media/waterfront-promenade-palms-og.jpg"
+ },
+ {
+  "slug": "aerial-sunset-coastal-skyline",
+  "alt": "An aerial view of a coastal city skyline at sunset with a causeway bridge and a strip of beach",
+  "tags": [
+   "miami",
+   "aerial",
+   "sunset"
+  ],
+  "use": "Guide covers, market update posts, sunset editorial",
+  "width": 904,
+  "height": 1244,
+  "ratio": 0.727,
+  "src": "/media/aerial-sunset-coastal-skyline-700.webp",
+  "jpg": "/media/aerial-sunset-coastal-skyline-1600.jpg",
+  "srcset": {
+   "700": "/media/aerial-sunset-coastal-skyline-700.webp"
+  },
+  "og": "/media/aerial-sunset-coastal-skyline-og.jpg"
+ },
+ {
+  "slug": "beachfront-towers-dusk",
+  "alt": "A line of beachfront high-rise towers above the Atlantic at dusk",
+  "tags": [
+   "beachfront",
+   "condos",
+   "sunset"
+  ],
+  "use": "Condominium content and beachfront market posts",
+  "width": 2716,
+  "height": 1668,
+  "ratio": 1.628,
+  "src": "/media/beachfront-towers-dusk-2200.webp",
+  "jpg": "/media/beachfront-towers-dusk-1600.jpg",
+  "srcset": {
+   "2200": "/media/beachfront-towers-dusk-2200.webp",
+   "1600": "/media/beachfront-towers-dusk-1600.webp",
+   "1100": "/media/beachfront-towers-dusk-1100.webp",
+   "700": "/media/beachfront-towers-dusk-700.webp"
+  },
+  "og": "/media/beachfront-towers-dusk-og.jpg"
+ },
+ {
+  "slug": "downtown-miami-aerial-biscayne-bay",
+  "alt": "An aerial view over downtown Miami high-rises toward Biscayne Bay and PortMiami",
+  "tags": [
+   "miami",
+   "aerial",
+   "downtown"
+  ],
+  "use": "Miami guide and downtown/Brickell content",
+  "width": 700,
+  "height": 1242,
+  "ratio": 0.564,
+  "src": "/media/downtown-miami-aerial-biscayne-bay-700.webp",
+  "jpg": "/media/downtown-miami-aerial-biscayne-bay-1600.jpg",
+  "srcset": {
+   "700": "/media/downtown-miami-aerial-biscayne-bay-700.webp"
+  },
+  "og": "/media/downtown-miami-aerial-biscayne-bay-og.jpg"
+ },
+ {
+  "slug": "high-rise-cluster-ocean-slice",
+  "alt": "A dense cluster of modern high-rise buildings with a slice of turquoise ocean between them",
+  "tags": [
+   "condos",
+   "architecture",
+   "ocean"
+  ],
+  "use": "New development and condominium posts",
+  "width": 2716,
+  "height": 1668,
+  "ratio": 1.628,
+  "src": "/media/high-rise-cluster-ocean-slice-2200.webp",
+  "jpg": "/media/high-rise-cluster-ocean-slice-1600.jpg",
+  "srcset": {
+   "2200": "/media/high-rise-cluster-ocean-slice-2200.webp",
+   "1600": "/media/high-rise-cluster-ocean-slice-1600.webp",
+   "1100": "/media/high-rise-cluster-ocean-slice-1100.webp",
+   "700": "/media/high-rise-cluster-ocean-slice-700.webp"
+  },
+  "og": "/media/high-rise-cluster-ocean-slice-og.jpg"
+ },
+ {
+  "slug": "twin-towers-beach-amenities",
+  "alt": "Twin white beachfront towers with pools, tennis courts and the ocean behind them",
+  "tags": [
+   "condos",
+   "amenities",
+   "beachfront"
+  ],
+  "use": "Amenity-led condo posts and building spotlights",
+  "width": 2716,
+  "height": 1668,
+  "ratio": 1.628,
+  "src": "/media/twin-towers-beach-amenities-2200.webp",
+  "jpg": "/media/twin-towers-beach-amenities-1600.jpg",
+  "srcset": {
+   "2200": "/media/twin-towers-beach-amenities-2200.webp",
+   "1600": "/media/twin-towers-beach-amenities-1600.webp",
+   "1100": "/media/twin-towers-beach-amenities-1100.webp",
+   "700": "/media/twin-towers-beach-amenities-700.webp"
+  },
+  "og": "/media/twin-towers-beach-amenities-og.jpg"
+ },
+ {
+  "slug": "florida-peninsula-satellite",
+  "alt": "A satellite view of the southern Florida peninsula, the Keys and the shallow turquoise shelf",
+  "tags": [
+   "south-florida",
+   "map",
+   "regional"
+  ],
+  "use": "Regional context, relocation posts, guide intros",
+  "width": 1254,
+  "height": 1254,
+  "ratio": 1.0,
+  "src": "/media/florida-peninsula-satellite-1100.webp",
+  "jpg": "/media/florida-peninsula-satellite-1600.jpg",
+  "srcset": {
+   "1100": "/media/florida-peninsula-satellite-1100.webp",
+   "700": "/media/florida-peninsula-satellite-700.webp"
+  },
+  "og": "/media/florida-peninsula-satellite-og.jpg"
+ },
+ {
+  "slug": "florida-keys-satellite-square",
+  "alt": "A square satellite view of South Florida, the Florida Keys and the Bahamas to the east",
+  "tags": [
+   "south-florida",
+   "map"
+  ],
+  "use": "Square social posts about the region",
+  "width": 1254,
+  "height": 1254,
+  "ratio": 1.0,
+  "src": "/media/florida-keys-satellite-square-1100.webp",
+  "jpg": "/media/florida-keys-satellite-square-1600.jpg",
+  "srcset": {
+   "1100": "/media/florida-keys-satellite-square-1100.webp",
+   "700": "/media/florida-keys-satellite-square-700.webp"
+  },
+  "og": "/media/florida-keys-satellite-square-og.jpg"
+ },
+ {
+  "slug": "florida-keys-bahamas-satellite",
+  "alt": "A vertical satellite view of South Florida with the Keys curving southwest into turquoise water",
+  "tags": [
+   "south-florida",
+   "map",
+   "vertical"
+  ],
+  "use": "Story-format regional posts",
+  "width": 1145,
+  "height": 1374,
+  "ratio": 0.833,
+  "src": "/media/florida-keys-bahamas-satellite-1100.webp",
+  "jpg": "/media/florida-keys-bahamas-satellite-1600.jpg",
+  "srcset": {
+   "1100": "/media/florida-keys-bahamas-satellite-1100.webp",
+   "700": "/media/florida-keys-bahamas-satellite-700.webp"
+  },
+  "og": "/media/florida-keys-bahamas-satellite-og.jpg"
+ }
+]
