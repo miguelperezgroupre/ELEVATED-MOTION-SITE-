@@ -7,7 +7,7 @@ dek: Brickell, Edgewater and Aventura, by the numbers, October 2026.
 date: 2026-11-03
 category: Market
 tags: Brickell, Edgewater, Aventura, Miami condos, Miami condo prices
-cover: /media/downtown-miami-aerial-biscayne-bay-1600.jpg
+cover: /media/downtown-miami-aerial-biscayne-bay-og.jpg
 coverOg: /media/downtown-miami-aerial-biscayne-bay-og.jpg
 coverAlt: An aerial view over downtown Miami high-rises toward Biscayne Bay and PortMiami
 coverCredit: Photo: Miguel Perez / South Florida Elevated

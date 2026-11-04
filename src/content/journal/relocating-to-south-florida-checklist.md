@@ -7,7 +7,7 @@ dek: Flood zones, insurance, homestead and your license, in order.
 date: 2026-10-09
 category: Relocation
 tags: Relocation, Flood zones, Homeowners insurance, Homestead exemption, Moving to Florida
-cover: /media/aerial-sunset-coastal-skyline-1600.jpg
+cover: /media/aerial-sunset-coastal-skyline-og.jpg
 coverOg: /media/aerial-sunset-coastal-skyline-og.jpg
 coverAlt: An aerial view of the South Florida coast at sunset, with a causeway leading toward the skyline
 coverCredit: Photo: Miguel Perez / South Florida Elevated

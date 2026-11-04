@@ -7,7 +7,7 @@ dek: Lived-in, not postcard. What you learn once you actually live here.
 date: 2026-11-03
 category: Relocation
 tags: living in Miami, relocating to Miami, Miami neighborhoods, hurricane season, flood zones, Brickell, Aventura
-cover: /media/biscayne-bay-boat-bow-skyline-1600.jpg
+cover: /media/biscayne-bay-boat-bow-skyline-og.jpg
 coverOg: /media/biscayne-bay-boat-bow-skyline-og.jpg
 coverAlt: The bow of a boat on turquoise Biscayne Bay with the Miami skyline on the horizon
 coverCredit: Photo: Miguel Perez / South Florida Elevated
