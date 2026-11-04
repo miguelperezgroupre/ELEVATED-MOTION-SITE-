@@ -129,7 +129,11 @@ export default function MiamiGuideView({onOpenContact}) {
   const minutes = Math.max(8, Math.round(words / 220));
   return jsxs('div', {className: 'pb-24 bg-[#0B0B0B] animate-fadeIn', children: [
 
-    jsx('header', {className: 'pt-28 sm:pt-32 pb-10 border-b border-[rgba(244,239,226,0.08)] bg-[#0B0B0B]', children: jsxs('div', {className: 'wrap max-w-4xl', children: [
+    jsx('section', {'aria-hidden': 'true', className: 'relative w-full h-[38vh] sm:h-[46vh] min-h-[240px] overflow-hidden bg-[#052C3A]', children: [
+      jsx('img', {src: '/media/waterfront-promenade-palms-700.webp', alt: '', className: 'absolute inset-0 w-full h-full object-cover', style: {objectPosition: '50% 45%'}, loading: 'eager', decoding: 'async'}, 'img'),
+      jsx('div', {className: 'absolute inset-0', style: {background: 'linear-gradient(180deg, rgba(11,11,11,0.55) 0%, rgba(11,11,11,0.15) 45%, rgba(11,11,11,0.95) 100%)'}}, 'scrim'),
+    ]}, 'photo-hero'),
+    jsx('header', {className: 'relative -mt-16 sm:-mt-20 pt-0 pb-10 border-b border-[rgba(244,239,226,0.08)]', children: jsxs('div', {className: 'wrap max-w-4xl', children: [
       jsx('nav', {'aria-label': 'Breadcrumb', className: 'mb-6', children: jsxs('ol', {className: 'flex flex-wrap items-center gap-2 list-none m-0 p-0 font-mono text-[11px] tracking-[0.16em] uppercase text-[#F4EFE2]/65', children: [
         jsx('li', {children: jsx('a', {href: '/', className: 'hover:text-[#E7C878]', children: 'Home'})}, 'c1'),
         jsx('li', {'aria-hidden': 'true', children: '/'}, 'c2'),
@@ -148,6 +152,11 @@ export default function MiamiGuideView({onOpenContact}) {
         jsx('span', {children: minutes + ' min read'}, 'read'),
       ]}, 'meta'),
     ]})}, 'header'),
+
+    jsx('section', {className: 'bg-[#12110f] border-b border-[rgba(201,162,74,0.35)]', children: jsx('div', {className: 'wrap max-w-4xl py-4', children: jsxs('div', {className: 'flex flex-col sm:flex-row sm:items-center justify-between gap-3', children: [
+        jsx('p', {className: 'text-[13px] sm:text-[14px] text-[#F4EFE2]/85 font-light m-0', children: jsxs('span', {children: [jsx('span', {className: 'font-mono text-[10px] tracking-[0.18em] uppercase text-[#C9A24A] mr-2', children: 'PDF'}, 'lbl'), 'Take this guide with you: the full 20-page version, free.']})}, 'p'),
+      jsx('a', {href: '/guides/miami', className: 'btn btn--gold btn--sm whitespace-nowrap no-underline', children: jsx('span', {children: 'Download the PDF'})}, 'a'),
+    ]})})}, 'download-banner'),
 
     jsx('section', {className: 'py-12 sm:py-16 bg-[#0e1416] border-b border-[rgba(244,239,226,0.08)]', children: jsxs('div', {className: 'wrap max-w-4xl', children: [
       jsx('h2', {className: 'font-mono text-[11px] tracking-[0.22em] uppercase text-[#C9A24A] m-0 mb-4', children: 'The short answer'}, 'h'),
