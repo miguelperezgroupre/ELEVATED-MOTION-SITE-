@@ -143,6 +143,7 @@ export function headFor(route) {
           inLanguage: 'en-US',
           citation: a.sources.filter((s) => s.url).map((s) => s.url),
         },
+        ...(a.faq && a.faq.length ? [{'@type': 'FAQPage', '@id': `${url}#faq`, isPartOf: {'@id': `${url}#webpage`}, mainEntity: a.faq.map((f) => ({'@type': 'Question', name: f.q, acceptedAnswer: {'@type': 'Answer', text: f.a}}))}] : []),
         AGENT,
         PERSON,
       ],
@@ -187,7 +188,7 @@ export function headFor(route) {
   };
 }
 
-const attr = (s) => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const attr = (s) => String(s).replace(/&/g, '&').replace(/"/g, '"').replace(/</g, '<').replace(/>/g, '>');
 export const jsonLdString = (graph) => JSON.stringify({'@context': 'https://schema.org', '@graph': graph}).replace(/</g, '\\u003c');
 
 /** Build-time: the full set of per-route head tags as an HTML string. */

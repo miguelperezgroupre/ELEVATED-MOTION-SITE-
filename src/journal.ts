@@ -7,7 +7,7 @@ export const JOURNAL_CATEGORIES = ['Market', 'Neighborhoods', 'Buying', 'Selling
 
 const RAW = import.meta.glob('./content/journal/*.md', {query: '?raw', import: 'default', eager: true});
 
-const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+const esc = (s) => String(s).replace(/&/g, '&').replace(/</g, '<').replace(/>/g, '>').replace(/"/g, '"');
 export const slugify = (s) => String(s).toLowerCase().replace(/[’']/g, '').replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 
 function parseFrontmatter(src) {
@@ -97,6 +97,17 @@ function wordCount(md) {
   return (md.replace(/\[\^\d+\]/g, '').replace(/[|#*>-]/g, ' ').match(/[A-Za-z0-9$][\w'’$.,%]*/g) || []).length;
 }
 
+// FAQ: a "## Frequently asked questions" section whose "### Question" headings are each followed by an answer.
+function extractFaq(md) {
+  const m = md.match(/^## Frequently asked questions\s*$([\s\S]*?)(?=^## |(?![\s\S]))/m);
+  if (!m) return [];
+  return m[1].split(/^### /m).slice(1).map((chunk) => {
+    const [q, ...rest] = chunk.split('\n');
+    const a = rest.join(' ').replace(/\[\^\d+\]/g, '').replace(/\[([^\]]+)\]\([^)]+\)/g, '$1').replace(/[*_`]/g, '').replace(/\s+/g, ' ').trim();
+    return {q: q.trim(), a};
+  }).filter((f) => f.q && f.a);
+}
+
 function build(file, src) {
   const {data, body} = parseFrontmatter(src);
   const slug = data.slug || file.split('/').pop().replace(/\.md$/, '');
@@ -119,6 +130,7 @@ function build(file, src) {
     cta: (data.cta || 'MAP').toUpperCase(),
     draft: data.draft === 'true',
     sources: data.sources,
+    faq: extractFaq(body),
     html,
     toc,
     words,
