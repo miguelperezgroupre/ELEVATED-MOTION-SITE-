@@ -87,6 +87,7 @@ ${[
   L('/pre-construction', 'Pre-Construction', 'new developments and pre-construction condos'),
   L('/invest', 'Invest', 'South Florida real estate investment'),
   L('/neighborhoods', 'Neighborhoods', 'guide to South Florida neighborhoods'),
+  L('/miami-neighborhood-guide', 'Miami Neighborhood Guide', 'Brickell, Edgewater, Wynwood, Coconut Grove, Coral Gables, Little Havana, Miami Beach, Aventura, Key Biscayne, Doral and more, with sourced median prices, walk scores and flood risk'),
   L('/south-florida', 'South Florida Lifestyle', 'living in Miami-Dade, Broward and Palm Beach'),
   L('/listings', 'Listings', 'active South Florida listings'),
   L('/journal', 'The Journal', 'guides and market articles'),
