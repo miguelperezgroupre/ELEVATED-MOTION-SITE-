@@ -5,6 +5,7 @@ import {SITE_URL, PAGE_ROUTES, absUrl, pathFor} from './routes';
 import {ARTICLES, getArticle} from './journal';
 import {FAQS} from './faq';
 import {GUIDE_PUBLISHED, GUIDE_UPDATED} from './guide/sources';
+import {getGuide} from './guide/guides';
 
 export const SITE_NAME = 'South Florida Elevated';
 export const DEFAULT_OG = `${SITE_URL}/assets/brand/og-image-v5-2026-10-18.png`;
@@ -23,6 +24,9 @@ export const PAGE_META = {
   'south-florida': {title: 'South Florida Lifestyle Guide | Live Beyond the Address', description: 'Discover the neighborhoods, culture, places and experiences that make South Florida extraordinary, from Miami-Dade to Broward and Palm Beach.'},
   neighborhoods: {title: 'South Florida Neighborhood Guide | Find Where You Belong', description: 'Find where you belong. Explore the communities that define South Florida living, from Brickell and Coconut Grove to Las Olas and Wilton Manors.'},
   'miami-neighborhood-guide': {title: 'Miami Neighborhood Guide 2026: Prices and Flood Risk', description: 'A sourced Miami neighborhood guide: Brickell, Edgewater, Wynwood, the Grove, the Gables and more, with median prices, walk scores and flood risk.'},
+  guides: {title: 'Free Neighborhood Guides | Miami & Fort Lauderdale Downloads', description: 'Download the Miami and Fort Lauderdale neighborhood guides: sourced median prices, walk scores, schools and flood risk in one PDF, free.'},
+  'guide-miami': {title: 'Free Miami Neighborhood Guide PDF | Miguel Perez', description: 'Download the free Miami Neighborhood Guide: 14 neighborhoods with sourced median prices, walk scores, school ratings and flood risk. 20 pages, updated 2026.'},
+  'guide-fort-lauderdale': {title: 'Free Fort Lauderdale Neighborhood Guide PDF | Miguel Perez', description: 'Download the free Fort Lauderdale Neighborhood Guide: sourced median prices, walk scores and flood risk from Las Olas to the Galt Mile. Free, updated 2026.'},
   insights: {title: 'South Florida Market Insights | The Market, Decoded', description: 'The market, decoded. Data-driven analysis of the South Florida real estate market: the trends, the neighborhoods and the strategy behind every transaction.'},
   about: {title: 'About Miguel Perez, REALTOR® | Luxe Properties South Florida', description: 'Local knowledge, elevated perspective. Miguel Perez, REALTOR® with Luxe Properties since 2021, guides South Florida clients with clarity.'},
   listings: {title: 'South Florida Homes for Sale | On the Market | Miguel Perez', description: 'Active South Florida listings with Miguel Perez of Luxe Properties. Before you tour, get the flood zone, HOA and building details listings leave out.'},
@@ -158,7 +162,7 @@ export function headFor(route) {
   if (view !== 'notfound') graph.push(AGENT, PERSON);
   if (FAQS[view]) graph.push({'@type': 'FAQPage', '@id': `${url}#faq`, mainEntity: FAQS[view].map((f) => ({'@type': 'Question', name: f.q, acceptedAnswer: {'@type': 'Answer', text: f.a}}))});
   if (url) {
-    const pageType = view === 'about' ? 'AboutPage' : view === 'journal' || view === 'listings' || view === 'neighborhoods' || view === 'miami-neighborhood-guide' ? 'CollectionPage' : 'WebPage';
+    const pageType = view === 'about' ? 'AboutPage' : view === 'journal' || view === 'listings' || view === 'neighborhoods' || view === 'miami-neighborhood-guide' || view === 'guides' ? 'CollectionPage' : 'WebPage';
     const page = {'@type': pageType, '@id': `${url}#webpage`, url, name: meta.title, description: meta.description, isPartOf: {'@id': `${SITE_URL}/#website`}, inLanguage: 'en-US'};
     if (view === 'home' || view === 'about') page.about = {'@id': `${SITE_URL}/#agent`};
     if (view === 'miami-neighborhood-guide') {
@@ -192,6 +196,26 @@ export function headFor(route) {
       isPartOf: {'@id': `${SITE_URL}/#website`},
       inLanguage: 'en-US',
     });
+  }
+  if (view === 'guides' || view === 'guide-miami' || view === 'guide-fort-lauderdale') {
+    const ids = view === 'guides' ? ['miami', 'fort-lauderdale'] : [view === 'guide-miami' ? 'miami' : 'fort-lauderdale'];
+    graph.push(...ids.map((id) => {
+      const g = getGuide(id);
+      const gurl = absUrl(`/guides/${id}`);
+      return {
+        '@type': 'DigitalDocument',
+        '@id': `${gurl}#guide`,
+        name: g.title,
+        description: g.blurb,
+        url: gurl,
+        encoding: {'@type': 'MediaObject', contentUrl: absUrl(g.pdf), encodingFormat: 'application/pdf', name: `${g.fileName}.pdf`},
+        author: {'@id': `${SITE_URL}/#miguel`},
+        publisher: {'@id': `${SITE_URL}/#agent`},
+        about: {'@type': 'Place', name: `${g.city}, Florida`},
+        isAccessibleForFree: true,
+        inLanguage: 'en-US',
+      };
+    }));
   }
   if (view === 'journal') {
     graph.push({
