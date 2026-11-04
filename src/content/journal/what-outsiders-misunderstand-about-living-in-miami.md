@@ -7,10 +7,10 @@ dek: Lived-in, not postcard. What you learn once you actually live here.
 date: 2026-11-03
 category: Relocation
 tags: living in Miami, relocating to Miami, Miami neighborhoods, hurricane season, flood zones, Brickell, Aventura
-cover: https://images.pexels.com/photos/16619278/pexels-photo-16619278.jpeg?auto=compress&cs=tinysrgb&fm=webp&w=1600
-coverOg: https://images.pexels.com/photos/16619278/pexels-photo-16619278.jpeg?auto=compress&cs=tinysrgb&w=1200&h=630&fit=crop
-coverAlt: The Miami skyline across Biscayne Bay at dusk
-coverCredit: Photo: Pexels (photo 16619278)
+cover: /media/biscayne-bay-boat-bow-skyline-1600.webp
+coverOg: /media/biscayne-bay-boat-bow-skyline-og.jpg
+coverAlt: The bow of a boat on turquoise Biscayne Bay with the Miami skyline on the horizon
+coverCredit: Photo: Miguel Perez / South Florida Elevated
 cta: MOVE
 sources:
 - Redfin, Brickell housing market: median $/sq ft, last 3 months (October 2026 page). Accessed November 3, 2026. | https://www.redfin.com/neighborhood/91805/FL/Miami/Brickell/housing-market

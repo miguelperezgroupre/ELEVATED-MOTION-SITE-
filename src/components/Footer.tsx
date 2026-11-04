@@ -115,6 +115,13 @@ function Footer({
        })
       }), n.jsx('li', {
        children: n.jsx('a', {
+        href: '/guides',
+        onClick: e => { if (e.metaKey || e.ctrlKey || e.shiftKey) return; e.preventDefault(); c('guides'); },
+        className: 'hover:text-[#c9a24a] transition-colors cursor-pointer bg-transparent border-none p-0',
+        children: 'Free Guide Downloads'
+       })
+      }), n.jsx('li', {
+       children: n.jsx('a', {
         href: pathFor('insights'),
         onClick: e => { if (e.metaKey || e.ctrlKey || e.shiftKey) return; e.preventDefault(); c('insights'); },
         className: 'hover:text-[#c9a24a] transition-colors cursor-pointer bg-transparent border-none p-0',

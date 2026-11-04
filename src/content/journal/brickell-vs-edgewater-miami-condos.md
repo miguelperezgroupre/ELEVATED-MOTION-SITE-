@@ -7,10 +7,10 @@ dek: Prices, transit, drive times and condo rules, compared side by side.
 date: 2026-10-09
 category: Neighborhoods
 tags: Brickell, Edgewater, Downtown Miami, Miami condos
-cover: https://images.unsplash.com/photo-1741023705528-2953cb652705?auto=format&fit=crop&w=1600&q=65
-coverOg: https://images.unsplash.com/photo-1741023705528-2953cb652705?auto=format&fit=crop&w=1200&h=630&q=75&fm=jpg
-coverAlt: Miami condo towers rising along the water on Biscayne Bay
-coverCredit: Photo: Walter Martin / Unsplash
+cover: /media/high-rise-cluster-ocean-slice-1600.webp
+coverOg: /media/high-rise-cluster-ocean-slice-og.jpg
+coverAlt: A dense cluster of modern Miami high-rises with a slice of turquoise ocean between them
+coverCredit: Photo: Miguel Perez / South Florida Elevated
 cta: MAP
 sources:
 - Redfin, Brickell housing market: median sale price and median $/sq ft, trailing 3 months (September 2026 update). Accessed October 7, 2026. | https://www.redfin.com/neighborhood/91805/FL/Miami/Brickell/housing-market

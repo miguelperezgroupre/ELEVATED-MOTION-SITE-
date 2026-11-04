@@ -7,10 +7,10 @@ dek: Brickell, Edgewater and Aventura, by the numbers, October 2026.
 date: 2026-11-03
 category: Market
 tags: Brickell, Edgewater, Aventura, Miami condos, Miami condo prices
-cover: https://images.unsplash.com/photo-1741023705528-2953cb652705?auto=format&fit=crop&w=1600&q=65
-coverOg: https://images.unsplash.com/photo-1741023705528-2953cb652705?auto=format&fit=crop&w=1200&h=630&q=75&fm=jpg
-coverAlt: Miami condo towers rising along the water on Biscayne Bay
-coverCredit: Photo: Walter Martin / Unsplash
+cover: /media/downtown-miami-aerial-biscayne-bay-1600.webp
+coverOg: /media/downtown-miami-aerial-biscayne-bay-og.jpg
+coverAlt: An aerial view over downtown Miami high-rises toward Biscayne Bay and PortMiami
+coverCredit: Photo: Miguel Perez / South Florida Elevated
 cta: MAP
 sources:
 - Redfin, Brickell housing market: median sale price and median $/sq ft, last 3 months (October 2026 page). Accessed November 3, 2026. | https://www.redfin.com/neighborhood/91805/FL/Miami/Brickell/housing-market
