@@ -29,6 +29,7 @@ import InvestView from './components/views/InvestView';
 import DevelopmentsView from './components/views/DevelopmentsView';
 import SouthFloridaView from './components/views/SouthFloridaView';
 import NeighborhoodsView from './components/views/NeighborhoodsView';
+import MiamiGuideView from './components/views/MiamiGuideView';
 import InsightsView from './components/views/InsightsView';
 import AboutView from './components/views/AboutView';
 import ListingsView from './views/ListingsView';
@@ -170,6 +171,7 @@ function App({initialPath}) {
           currentView === 'developments' && jsx(DevelopmentsView, {onOpenContact: handleOpenContact}),
           currentView === 'south-florida' && jsx(SouthFloridaView, {onOpenContact: handleOpenContact, onNavigate: handleNavigate}),
           currentView === 'neighborhoods' && jsx(NeighborhoodsView, {onOpenContact: handleOpenContact}),
+          currentView === 'miami-neighborhood-guide' && jsx(MiamiGuideView, {onOpenContact: handleOpenContact}),
           currentView === 'insights' && jsx(InsightsView, {onOpenContact: handleOpenContact}),
           currentView === 'listings' && jsx(ListingsView, {onSelectProperty: (p) => setSelectedProperty(p), onOpenContact: handleOpenContact}),
           currentView === 'about' && jsx(AboutView, {onOpenContact: handleOpenContact}),

@@ -1,0 +1,296 @@
+// @ts-nocheck
+// South Florida Elevated: Miami Neighborhood Guide content.
+// Every price is a median sale price (all home types) or a median price per square foot, taken from the
+// Redfin market page named in `price.src`, which reported a three-month window ending September 2026.
+// Nothing here is estimated: where a figure could not be sourced, the entry says so.
+import {REDFIN_LABEL} from './sources';
+
+export const NEIGHBORHOODS = [
+  {
+    id: 'brickell',
+    name: 'Brickell',
+    kicker: 'Financial district, walk to work',
+    rank: 1,
+    intro:
+      'Brickell is the densest, most walkable place to own a condo in Miami. Offices, restaurants, a mall and the Metromover sit inside a few blocks, and most of the housing stock is high-rise. It is the neighborhood buyers ask about first when they want to sell a car and keep a city life.',
+    bestFor: ['Buyers who want to walk to work and dinner', 'Lock-and-leave owners who travel', 'Investors who want a deep rental pool'],
+    housing:
+      'Almost entirely condominiums and co-ops, from 1980s towers on Brickell Bay Drive to new branded buildings near Brickell City Centre. Detached houses are effectively absent, and townhouses are rare.',
+    price: {median: '$685K', ppsf: '$615', yoy: '+7.0%', ppsfYoy: '−0.57%', dom: '146 days', sold: '58', src: 'brickell', note: 'Redfin notes multiple offers are rare here and homes close about 6% below list.'},
+    transit: 'Walk Score gives 33131 a 94 ("Walker\'s Paradise") and rates transit "Excellent," with the Metromover Financial District station a four-minute walk away; the Metromover is fare-free and runs 5:30 a.m. to 10 p.m. daily.',
+    schools: 'Redfin lists Southside Elementary (PreK–8, GreatSchools 7/10) inside the neighborhood. Assignment depends on the address, so confirm with Miami-Dade County Public Schools before you buy.',
+    flood: {label: 'Minor', note: '79% of Brickell properties are projected to face severe flood risk over 30 years, and 100% carry an extreme wind rating.'},
+    tradeoffs: [
+      'The median sat above list for neither buyer nor seller in this window: homes averaged roughly 5.5% under list and 146 days to sell, so price it right and expect to negotiate.',
+      'Traffic on Southeast 2nd Avenue and the Brickell Avenue bridge is the real cost of the location.',
+      'HOA dues and special assessments in older towers do more to your monthly payment than the price per foot.',
+    ],
+    links: [{label: 'What $750K buys in Brickell, Edgewater and Aventura', href: '/journal/what-750k-buys-miami-condos-brickell-edgewater-aventura'}],
+  },
+  {
+    id: 'downtown',
+    name: 'Downtown Miami',
+    kicker: 'The most walkable address in the city',
+    rank: 2,
+    intro:
+      'Downtown is Brickell\'s neighbor to the north and the highest-supply condo market in Miami-Dade: 257 closings in September 2026 alone. It is also the only place in the county where a fare-free train, rail and a dense street grid meet, which is why buyers who work downtown or in health care and government choose it over the beach.',
+    bestFor: ['Buyers who want the lowest entry price inside the urban core', 'Anyone commuting by Metrorail or Metromover', 'Investors who want volume and liquidity'],
+    housing:
+      'Condominiums dominate, from 1970s bayfront buildings to new towers near Miami Worldcenter, with a small stock of older apartments and lofts. Expect studios and one-bedrooms to set the bottom of the market.',
+    price: {median: '$580K', ppsf: '$627', yoy: '+0.4%', ppsfYoy: '+2.3%', dom: '153 days', sold: '257 in September', src: 'downtown', note: 'Price per square foot is the highest of the mainland core neighborhoods in this guide, even though the median price is lower than Brickell\'s.'},
+    transit: 'Walk Score ranks Downtown first in Miami at 91 for walking, 94 for transit and 75 for biking. Metromover, Metrorail and Brightline all connect here.',
+    schools: 'Redfin lists I Preparatory Academy (PreK–12, 10/10) and Ada Merritt K-8 Center (10/10) among the schools serving the area. These are not guaranteed assignments; verify the address.',
+    flood: {label: 'Severe', note: '89% of properties are projected to face severe flood risk over 30 years, the highest of the mainland neighborhoods covered here.'},
+    tradeoffs: [
+      'Inventory is heavy: 27.2% of listings took a price cut in this window and the median home sat 153 days, so buyers hold leverage.',
+      'A lower median often buys a smaller or older unit. Compare price per square foot, not headline price.',
+      'Flood insurance is a separate policy and is not included in the county homeowners average.',
+    ],
+    links: [],
+  },
+  {
+    id: 'edgewater',
+    name: 'Edgewater',
+    kicker: 'Bayfront new construction',
+    rank: 3,
+    intro:
+      'Edgewater runs along Biscayne Bay just north of Downtown and has become the address for new bayfront towers, with the Design District and Wynwood a short walk or ride inland. It is the value alternative to Brickell for buyers who want water views and a newer building.',
+    bestFor: ['Buyers who want a new or newer bayfront building', 'Culture-first buyers who want Wynwood and the Design District nearby', 'Pre-construction buyers comparing branded projects'],
+    housing:
+      'High-rise condominiums, a large share of them built or delivered since 2015, plus a thin layer of older low-rise apartments and a few townhouses on the side streets.',
+    price: {median: '$526K', ppsf: '$570', yoy: '−37.4%', ppsfYoy: '−22.3%', dom: '146 days', sold: '24', src: 'edgewater', note: 'A 37% drop in the median with only 24 sales is a warning about mix, not proof that every unit lost a third of its value: what sold changed.'},
+    transit: 'Walk Score rates the combined Wynwood-Edgewater district 87 for walking, 64 for transit and 78 for biking. Edgewater\'s bay side is quieter than that average; plan on a car for errands north of the neighborhood.',
+    schools: 'Redfin\'s Edgewater page lists no elementary school inside the neighborhood boundary, so school-age buyers should check the assigned school for the exact address first.',
+    flood: {label: 'Major', note: '72% of properties are projected to face severe flood risk over 30 years, with 100% at extreme wind risk.'},
+    tradeoffs: [
+      'Twenty-four closings is a small sample. Ask for the last six months of comps in your specific building before you trust any neighborhood median.',
+      'Construction noise and new-tower supply are the two things resale buyers complain about most.',
+      'Bayfront exposure means wind and flood coverage, not just HOA dues, drive the monthly cost.',
+    ],
+    links: [{label: 'Brickell vs. Edgewater: which condo neighborhood fits', href: '/journal/brickell-vs-edgewater-miami-condos'}],
+  },
+  {
+    id: 'wynwood',
+    name: 'Wynwood',
+    kicker: 'Arts district, tiny resale market',
+    rank: 4,
+    intro:
+      'Wynwood is Miami\'s gallery and mural district, ringed by warehouses converted to lofts and restaurants. It has the smallest resale sample in this guide, which matters more than the headline price: six sales in three months is not a market, it is an anecdote.',
+    bestFor: ['Buyers who want a loft or a walkable arts district', 'Short-commute renters and second-home buyers', 'Buyers comfortable with a thin resale market'],
+    housing: 'Converted warehouses and lofts, newer mid-rise condominiums, and a small number of older single-family houses and duplexes on the neighborhood edges.',
+    price: {median: '$676K', ppsf: '$591', yoy: '+35.5%', ppsfYoy: '−8.6%', dom: '119 days', sold: '6', src: 'wynwood', note: 'Six sales. The median price rose 35.5% while price per square foot fell 8.6%, which happens when a few larger or smaller units trade.'},
+    transit: 'Walk Score gives the Wynwood-Edgewater district 87 for walking and 78 for biking; transit scores 64. Rideshare and the trolley do most of the work beyond the core blocks.',
+    schools: 'Redfin lists Paul Laurence Dunbar K-8 Center (5/10) and Eneida M. Hartner Elementary (4/10). Families comparing schools usually look at the Design District, Edgewater or Coral Gables instead.',
+    flood: {label: 'Moderate', note: '21% of properties are projected to face severe flood risk over 30 years, the lowest of the urban-core neighborhoods in this guide; 100% carry extreme wind risk.'},
+    tradeoffs: [
+      'Six sales in the quarter means one atypical closing can move the median by double digits either way.',
+      'Noise from galleries, bars and events is part of the address, not a temporary condition.',
+      'Parking is scarce and many buildings have rental caps or minimum lease terms. Read the condo docs before buying as an investment.',
+    ],
+    links: [],
+  },
+  {
+    id: 'coconut-grove',
+    name: 'Coconut Grove',
+    kicker: 'Trees, water and the highest price per foot',
+    rank: 5,
+    intro:
+      'Coconut Grove is the oldest continuously settled part of Miami and still reads as a village: sailboats, banyans, a walkable center and detached houses on real lots. It is also the most expensive neighborhood in this guide per square foot at $1.1K, ahead of Coral Gables and Key Biscayne.',
+    bestFor: ['Buyers who want a house and a garden inside the city', 'Sailing and waterfront families', 'Buyers who want walkability without high-rise density'],
+    housing: 'A mix of single-family houses, townhouses and a smaller number of condominiums, with waterfront estates on the bay side and smaller 1950s and 1960s houses inland.',
+    price: {median: '$1.89M', ppsf: '$1.1K', yoy: '+9.3%', ppsfYoy: '+20.9%', dom: '110 days', sold: '32', src: 'grove', note: 'Price per square foot rose 20.9% year over year, the steepest increase of any neighborhood in this guide.'},
+    transit: 'Walk Score splits the Grove: Northeast Coconut Grove scores 74 for walking, 50 for transit and 79 for biking, while Southwest Coconut Grove scores 60, 42 and 61.',
+    schools: 'Redfin lists Coconut Grove Elementary and George W. Carver Elementary, both 10/10 on GreatSchools, plus Silver Bluff Elementary at 7/10.',
+    flood: {label: 'Major', note: '54% of properties are projected to face severe flood risk over 30 years, lower than the beach but higher than Brickell.'},
+    tradeoffs: [
+      'The entry price for a house is far above the condo median in other neighborhoods. Budget for insurance and older-home maintenance.',
+      'Older housing stock means roof age, cast iron and 1950s electrical systems show up in inspections.',
+      'The village center is walkable, but most of the neighborhood is not: a car is realistic inland.',
+    ],
+    links: [{label: '3 things outsiders misunderstand about living in Miami', href: '/journal/what-outsiders-misunderstand-about-living-in-miami'}],
+  },
+  {
+    id: 'coral-gables',
+    name: 'Coral Gables',
+    kicker: 'Planned city, schools and 87-day sales',
+    rank: 6,
+    intro:
+      'Coral Gables is a separately incorporated city with its own zoning, tree canopy and design review, which is why it holds value differently from the city of Miami. It sells faster than any neighborhood in this guide: 87 days on market against 146 in Brickell.',
+    bestFor: ['Families prioritizing public school ratings', 'Buyers who want architectural controls and tree canopy', 'Buyers who value resale speed'],
+    housing: 'Mediterranean Revival and mid-century single-family houses, townhouses, and a limited number of condominiums near Miracle Mile and Ponce de Leon Boulevard.',
+    price: {median: '$1.4M', ppsf: '$819', yoy: '+7.6%', ppsfYoy: '+16.4%', dom: '87 days', sold: '148', src: 'gables', note: 'The deepest market of the high-price neighborhoods here, with 148 closings in September.'},
+    transit: 'Redfin reports a Walk Score of 56, a Transit Score of 38 and a Bike Score of 56 for the city. The commercial core is walkable; the residential blocks are not.',
+    schools: 'Redfin lists five elementary schools rated 10/10 by GreatSchools: Pinecrest, Sunset, Coral Gables Preparatory Academy, George W. Carver and Henry S. West Laboratory.',
+    flood: {label: 'Not published', note: 'Redfin\'s Coral Gables page did not publish a First Street flood rating in the version read on November 3, 2026. Check the FEMA flood map for the exact address instead of assuming.'},
+    tradeoffs: [
+      'Design review and permitting take longer than in unincorporated Miami-Dade, which affects renovations.',
+      'Price per square foot is high for what the house itself delivers; you are paying for the city, the trees and the schools.',
+      'Much of the city is outside the walkable core, so two cars is common.',
+    ],
+    links: [],
+  },
+  {
+    id: 'little-havana',
+    name: 'Little Havana',
+    kicker: 'Calle Ocho, houses and the lowest price per foot',
+    rank: 7,
+    intro:
+      'Little Havana is the most affordable place in this guide to buy a house inside the city of Miami, at $361 per square foot. Calle Ocho, domino park and the food corridor give it a street life that newer neighborhoods imitate, and it is genuinely walkable at a 87 Walk Score.',
+    bestFor: ['Buyers who want a single-family house under $700K', 'Buyers who want a walkable, established neighborhood', 'Investors looking at small multifamily'],
+    housing: 'Single-family houses, duplexes and small apartment buildings, mostly built between the 1920s and 1970s, with a growing number of new townhouse projects.',
+    price: {median: '$582K', ppsf: '$361', yoy: '+40.3%', ppsfYoy: '+9.2%', dom: '62 days', sold: '10 in September', src: 'littleHavana', note: 'Ten sales in the month. The 40% jump in the median is partly a change in what sold, so treat it as direction, not a target price.'},
+    transit: 'Walk Score rates Little Havana 87 for walking, 62 for transit and 65 for biking, the strongest combination of walkability and price in this guide.',
+    schools: 'Redfin lists Citrus Grove Elementary (PreK–8) at 3/10 on GreatSchools. Buyers focused on school ratings usually cross-shop Coral Way or Coral Gables.',
+    flood: {label: 'Moderate', note: '81% of properties are projected to face severe flood risk over 30 years; 100% carry an extreme wind rating.'},
+    tradeoffs: [
+      'Older houses mean roof, plumbing and electrical work, and many have had additions without permits. Order a permit history.',
+      'Small sales volume makes medians jumpy from month to month.',
+      'Insurance on a 1950s house with an older roof can cost more than the mortgage difference between two neighborhoods.',
+    ],
+    links: [],
+  },
+  {
+    id: 'south-beach',
+    name: 'South Beach',
+    kicker: 'Art Deco, hotels and the highest flood exposure',
+    rank: 8,
+    intro:
+      'South Beach is the ZIP 33139 market: Art Deco blocks, Lincoln Road, the ocean and a rental economy built on visitors. It is the most walkable place in this guide by address-level score and also the most exposed to flood risk, at 97% of properties.',
+    bestFor: ['Second-home buyers who want to walk to the ocean', 'Buyers who want a short-term-rental-capable address', 'Buyers who want a compact, car-optional life'],
+    housing: 'Condominiums and co-ops dominate, from 1920s Art Deco buildings to new South of Fifth towers, with a small number of single-family houses on the quietest streets.',
+    price: {median: '$590K', ppsf: '$665', yoy: '+36.9%', ppsfYoy: '+17.4%', dom: '129 days', sold: '227', src: 'southBeach', note: 'Redfin publishes this at ZIP level; ZIP 33139 is used here as the proxy for South Beach because Redfin does not break the area out as a neighborhood.'},
+    transit: 'Redfin reports a Walk Score of 87 for the ZIP. Walk Score rates South Beach\'s Flamingo-Lummus blocks 95 and South Pointe 91, among the highest in Miami Beach.',
+    schools: 'Redfin lists South Pointe Elementary at 8/10 and Fienberg/Fisher K-8 Center at 4/10 on GreatSchools.',
+    flood: {label: 'Extreme', note: '97% of properties in 33139 are projected to face severe flood risk over 30 years. Flood insurance is separate from the wind policy and both matter here.'},
+    tradeoffs: [
+      'Nightlife noise, short-term rentals in the building and hotel traffic are part of the address.',
+      'Older Art Deco buildings carry milestone inspection and reserve study requirements under Florida law. Read the association documents first.',
+      'Budget for flood and wind separately; the county average does not include flood.',
+    ],
+    links: [],
+  },
+  {
+    id: 'mid-beach',
+    name: 'Mid-Beach',
+    kicker: 'Oceanfront calm between South Beach and North Beach',
+    rank: 9,
+    intro:
+      'Mid-Beach is the stretch of Miami Beach between South Beach and North Beach, where the oceanfront is quieter and the buildings are a mix of 1950s hotels converted to condos and newer oceanfront towers. It trades nightlife for beach routine.',
+    bestFor: ['Buyers who want oceanfront without the South Beach crowd', 'Seasonal owners who want a calm building', 'Buyers who want a larger unit for the money than South Beach offers'],
+    housing: 'Condominiums and co-ops in oceanfront and bayfront buildings, plus a small number of single-family houses east of Collins Avenue and on the bay side.',
+    price: {median: '$740K', ppsf: '$663', yoy: '+15.4%', ppsfYoy: '−0.08%', dom: '127 days', sold: '99', src: 'midBeach', note: 'Prices per foot were essentially flat year over year while the median sale price rose, which points to a shift toward larger units selling.'},
+    transit: 'Walk Score puts Miami Beach overall at 76 for walking. Mid-Beach is closer to the Ocean Front and North Shore block scores in the high 60s to low 80s than to South Beach\'s 95, and most errands are a short drive.',
+    schools: 'Redfin lists North Beach Elementary at 9/10 on GreatSchools as serving the area.',
+    flood: {label: 'Extreme', note: '97% of properties are projected to face severe flood risk over 30 years, the same exposure as South Beach.'},
+    tradeoffs: [
+      'Fewer restaurants within walking distance than South Beach; the trade is quiet.',
+      'Older oceanfront buildings face milestone inspections and reserve funding requirements, which can mean assessments.',
+      'Wind and flood coverage on the barrier island is the largest non-mortgage cost for most owners.',
+    ],
+    links: [],
+  },
+  {
+    id: 'aventura',
+    name: 'Aventura',
+    kicker: 'Lowest price per foot, mall and a Brightline stop',
+    rank: 10,
+    intro:
+      'Aventura is a planned city on the Intracoastal with the lowest median price per square foot in this guide at $324, a mall that functions as a town center and its own Brightline station. It is the most common answer for buyers who want space and amenities without a Miami Beach price.',
+    bestFor: ['Buyers who want the most square footage per dollar', 'Commuters to both Miami and Fort Lauderdale', 'Buyers who want a managed, amenity-heavy building'],
+    housing: 'Mostly condominiums in Intracoastal and canal-front towers, plus gated townhouse communities and a pocket of single-family houses.',
+    price: {median: '$457K', ppsf: '$324', yoy: '−3.8%', ppsfYoy: '−4.3%', dom: '137 days', sold: '214', src: 'aventura', note: 'One of only two neighborhoods in this guide where both the median price and price per foot fell year over year.'},
+    transit: 'Redfin reports a Walk Score of 43, a Transit Score of 46 and a Bike Score of 55. Brightline opened its Aventura station in December 2022, and the Don Soffer Exercise Trail is a 3.1-mile paved loop open 24 hours.',
+    schools: 'Redfin lists Aventura Waterways K-8 Center at 7/10 and Ojus Elementary at 8/10 on GreatSchools.',
+    flood: {label: 'Major', note: '92% of properties are projected to face severe flood risk over 30 years.'},
+    tradeoffs: [
+      'Not a walking neighborhood: plan on a car for groceries and school runs.',
+      'Large condo buildings mean HOA dues cover a lot, and those dues rise when reserves are underfunded.',
+      'Prices have drifted down for a year, which gives buyers room to negotiate but is worth understanding before you buy for a short hold.',
+    ],
+    links: [{label: 'What $750K buys in Aventura versus Brickell', href: '/journal/what-750k-buys-miami-condos-brickell-edgewater-aventura'}],
+  },
+  {
+    id: 'key-biscayne',
+    name: 'Key Biscayne',
+    kicker: 'Island village, one road in',
+    rank: 11,
+    intro:
+      'Key Biscayne is an incorporated village on a barrier island reached by one causeway, with a two-mile county beach, a state park at its southern tip and a single K-8 school. Buyers choose it for the island life and accept the one-road commute and the flood exposure that come with it.',
+    bestFor: ['Families who want one village school and a beach nearby', 'Buyers who want an island address without South Beach nightlife', 'Buyers who value privacy over convenience'],
+    housing: 'Condominiums in oceanfront and bayfront buildings, single-family houses on the interior streets, and a small number of estate lots near the state park.',
+    price: {median: '$1.5M', ppsf: '$1.44K', yoy: '−10.3%', ppsfYoy: '+42.1%', dom: '92 days', sold: '68', src: 'keyBiscayne', note: 'Redfin also reports a median list price of $2.34M and a median list price per foot of $1.15K on the same page, so the sold market and the asking market are pulling apart.'},
+    transit: 'Walk Score gives 33149 a 74 ("Very Walkable") for the village center. There is one bus route, the 26, so most households keep at least one car and the Rickenbacker Causeway is the only way on and off the island.',
+    schools: 'Redfin lists Key Biscayne K-8 Center at 8/10 on GreatSchools. Crandon Park, run by Miami-Dade County, includes a two-mile beach, a marina, an 18-hole public golf course and a 27-court tennis center.',
+    flood: {label: 'Extreme', note: '99% of properties are projected to face severe flood risk over 30 years, the highest in this guide, and the island sits behind a single causeway.'},
+    tradeoffs: [
+      'One road in and out. Storm evacuation and daily commute both depend on it.',
+      'Price per foot rose 42% year over year while the median price fell 10%, a mix shift that rewards checking comps in your specific building.',
+      'Flood and wind coverage on a barrier island is the single largest ownership cost after the mortgage.',
+    ],
+    links: [],
+  },
+  {
+    id: 'doral',
+    name: 'Doral',
+    kicker: 'Newer houses, lowest flood exposure, car required',
+    rank: 12,
+    intro:
+      'Doral is a separate city west of the airport built largely after 2000, which shows in its housing stock and its insurance profile: only 14% of properties carry projected severe flood risk, against 97% on the beach. It is the practical choice for buyers who want a newer house and a garage.',
+    bestFor: ['Buyers who want a newer single-family house', 'Buyers prioritizing low flood exposure', 'Families who want a newer K-8 campus nearby'],
+    housing: 'Single-family houses and townhouses in planned communities, plus mid-rise and high-rise condominiums near Downtown Doral and the business parks.',
+    price: {median: '$634K', ppsf: '$367', yoy: '+0.7%', ppsfYoy: '+0.8%', dom: '90 days', sold: '195', src: 'doral', note: 'The steadiest market in this guide: both the median price and price per foot moved less than 1% year over year.'},
+    transit: 'Redfin reports a Walk Score of 39, a Transit Score of 35 and a Bike Score of 53. This is a car-first city; the trade is newer housing and easier parking.',
+    schools: 'Redfin lists five K-8 schools at 7/10 or 8/10 on GreatSchools, including John I. Smith and Dr. Toni Bilbao Preparatory Academy.',
+    flood: {label: 'Minor', note: '14% of properties are projected to face severe flood risk over 30 years, the lowest of any neighborhood in this guide, though 98% carry an extreme heat rating.'},
+    tradeoffs: [
+      'Walk Score of 39 means almost every trip is a drive, including school and groceries.',
+      'Houses built during the 2000s boom are now 20 years old: roofs and A/C systems are the near-term costs.',
+      'Commuting to Miami Beach or Brickell crosses the airport corridor, which is the worst traffic in the county.',
+    ],
+    links: [],
+  },
+  {
+    id: 'coral-way',
+    name: 'Coral Way',
+    kicker: 'Banyan streets between Brickell and the Gables',
+    rank: 13,
+    intro:
+      'Coral Way is the neighborhood along the 1922 boulevard that runs from Brickell to Coral Gables, taking in Shenandoah, Coral Gate and The Roads. It is the compromise address: close to downtown, close to the Gables, houses rather than towers, and 77 for walkability.',
+    bestFor: ['Buyers who want a house near Brickell and the Gables', 'Buyers who want a walkable residential street', 'Buyers who want more house than the Grove or Gables allow at this price'],
+    housing: 'Mediterranean Revival and mid-century single-family houses on tree-lined streets, with townhouses and mid-rise condominiums along the boulevard and Southwest 27th Avenue.',
+    price: {median: '$785K', ppsf: '$476', yoy: '−2.0%', ppsfYoy: '−8.8%', dom: '91 days', sold: '153', src: 'coralWay', note: 'One of the few neighborhoods here where price per foot fell while the median held, which favors buyers comparing houses of similar size.'},
+    transit: 'Walk Score rates Coral Way 77 for walking, 53 for transit and 69 for biking. The Metrorail runs along US-1 nearby, and Brickell is a short drive or ride.',
+    schools: 'Redfin lists Coral Way K-8 Center and Southside Elementary at 7/10 and Silver Bluff Elementary at 7/10 on GreatSchools, with Shenandoah Elementary at 6/10.',
+    flood: {label: 'Moderate', note: '75% of properties are projected to face severe flood risk over 30 years.'},
+    tradeoffs: [
+      'Older houses on small lots: expect renovation and permit research before you close.',
+      'US-1 and Southwest 27th Avenue carry heavy traffic at rush hour.',
+      'Insurance on a 1940s–1960s house depends heavily on roof age and wind mitigation credits.',
+    ],
+    links: [],
+  },
+  {
+    id: 'silver-bluff',
+    name: 'Silver Bluff',
+    kicker: 'The quiet pocket next to the Grove',
+    rank: 14,
+    intro:
+      'Silver Bluff sits between Coral Way and Coconut Grove, a small grid of houses that shares the Grove\'s trees and the Coral Way corridor\'s convenience at a lower price per foot than either. Sales volume is thin at 19 closings, so read the numbers carefully.',
+    bestFor: ['Buyers who want a house walkable to the Grove', 'Buyers priced out of Coconut Grove', 'Buyers who want a small, quiet street grid'],
+    housing: 'Predominantly single-family houses from the 1940s through 1970s on 6,000- to 8,000-square-foot lots, with a handful of new builds and small apartment buildings.',
+    price: {median: '$1.0M', ppsf: '$661', yoy: '+29.6%', ppsfYoy: '−1.2%', dom: '106 days', sold: '19', src: 'silverBluff', note: 'Nineteen sales. The median rose 29.6% while price per foot slipped 1.2%, so the increase reflects which houses sold more than a change in value per foot.'},
+    transit: 'Walk Score rates the Coral Way district, which includes Silver Bluff, 77 for walking, 53 for transit and 69 for biking. Coconut Grove and Brickell are each a short drive.',
+    schools: 'Redfin lists Silver Bluff Elementary at 7/10 on GreatSchools.',
+    flood: {label: 'Minor', note: '78% of properties are projected to face severe flood risk over 30 years; Redfin labels the area\'s overall Flood Factor as minor.'},
+    tradeoffs: [
+      'Small sales sample: a single new build can move the median by six figures.',
+      'Inventory is limited and houses rarely come up, so timing matters more than in a condo market.',
+      'The neighborhood is quiet and residential; there is little retail inside it, so errands mean a drive to Coral Way or the Grove.',
+    ],
+    links: [],
+  },
+];
+
+export const getNeighborhood = (id) => NEIGHBORHOODS.find((n) => n.id === id) || null;
+
+export const DATA_NOTE = `Every price and price per square foot on this page is a median for all home types from the Redfin market page for that area, taken from Redfin's October 2026 page, which reports a three-month window ending September 2026 (${REDFIN_LABEL}). Medians describe what sold in that window, not what a specific home is worth, and small samples move sharply.`;

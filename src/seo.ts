@@ -4,6 +4,7 @@
 import {SITE_URL, PAGE_ROUTES, absUrl, pathFor} from './routes';
 import {ARTICLES, getArticle} from './journal';
 import {FAQS} from './faq';
+import {GUIDE_PUBLISHED, GUIDE_UPDATED} from './guide/sources';
 
 export const SITE_NAME = 'South Florida Elevated';
 export const DEFAULT_OG = `${SITE_URL}/assets/brand/og-image-v5-2026-10-18.png`;
@@ -21,6 +22,7 @@ export const PAGE_META = {
   developments: {title: "South Florida Pre-Construction Condos | Own What's Next", description: "Own what's next. Discover South Florida's most compelling new developments early, with deposit terms and developer records reviewed."},
   'south-florida': {title: 'South Florida Lifestyle Guide | Live Beyond the Address', description: 'Discover the neighborhoods, culture, places and experiences that make South Florida extraordinary, from Miami-Dade to Broward and Palm Beach.'},
   neighborhoods: {title: 'South Florida Neighborhood Guide | Find Where You Belong', description: 'Find where you belong. Explore the communities that define South Florida living, from Brickell and Coconut Grove to Las Olas and Wilton Manors.'},
+  'miami-neighborhood-guide': {title: 'Miami Neighborhood Guide 2026: Prices and Flood Risk', description: 'A sourced Miami neighborhood guide: Brickell, Edgewater, Wynwood, the Grove, the Gables and more, with median prices, walk scores and flood risk.'},
   insights: {title: 'South Florida Market Insights | The Market, Decoded', description: 'The market, decoded. Data-driven analysis of the South Florida real estate market: the trends, the neighborhoods and the strategy behind every transaction.'},
   about: {title: 'About Miguel Perez, REALTOR® | Luxe Properties South Florida', description: 'Local knowledge, elevated perspective. Miguel Perez, REALTOR® with Luxe Properties since 2021, guides South Florida clients with clarity.'},
   listings: {title: 'South Florida Homes for Sale | On the Market | Miguel Perez', description: 'Active South Florida listings with Miguel Perez of Luxe Properties. Before you tour, get the flood zone, HOA and building details listings leave out.'},
@@ -156,13 +158,40 @@ export function headFor(route) {
   if (view !== 'notfound') graph.push(AGENT, PERSON);
   if (FAQS[view]) graph.push({'@type': 'FAQPage', '@id': `${url}#faq`, mainEntity: FAQS[view].map((f) => ({'@type': 'Question', name: f.q, acceptedAnswer: {'@type': 'Answer', text: f.a}}))});
   if (url) {
-    const pageType = view === 'about' ? 'AboutPage' : view === 'journal' || view === 'listings' || view === 'neighborhoods' ? 'CollectionPage' : 'WebPage';
+    const pageType = view === 'about' ? 'AboutPage' : view === 'journal' || view === 'listings' || view === 'neighborhoods' || view === 'miami-neighborhood-guide' ? 'CollectionPage' : 'WebPage';
     const page = {'@type': pageType, '@id': `${url}#webpage`, url, name: meta.title, description: meta.description, isPartOf: {'@id': `${SITE_URL}/#website`}, inLanguage: 'en-US'};
     if (view === 'home' || view === 'about') page.about = {'@id': `${SITE_URL}/#agent`};
+    if (view === 'miami-neighborhood-guide') {
+      page.datePublished = iso(GUIDE_PUBLISHED);
+      page.dateModified = iso(GUIDE_UPDATED);
+      page.author = {'@id': `${SITE_URL}/#miguel`};
+      page.publisher = {'@id': `${SITE_URL}/#agent`};
+      page.about = {'@type': 'Place', name: 'Miami, Florida', address: {'@type': 'PostalAddress', addressLocality: 'Miami', addressRegion: 'FL', addressCountry: 'US'}};
+      page.isPartOf = [{'@id': `${SITE_URL}/#website`}, {'@id': `${url}#article`}];
+    }
     if (view !== 'home') {
       page.breadcrumb = {'@id': `${url}#breadcrumb`};
-      graph.push(page, breadcrumb([{name: 'Home', path: '/'}, {name: LABELS[view] || meta.title, path}]));
+      const crumbs = view === 'miami-neighborhood-guide' ? [{name: 'Home', path: '/'}, {name: 'Neighborhoods', path: pathFor('neighborhoods')}, {name: LABELS[view] || meta.title, path}] : [{name: 'Home', path: '/'}, {name: LABELS[view] || meta.title, path}];
+      graph.push(page, breadcrumb(crumbs));
     } else graph.push(page);
+  }
+  if (view === 'miami-neighborhood-guide') {
+    graph.push({
+      '@type': 'Article',
+      '@id': `${url}#article`,
+      headline: meta.title,
+      description: meta.description,
+      url,
+      mainEntityOfPage: {'@id': `${url}#webpage`},
+      datePublished: iso(GUIDE_PUBLISHED),
+      dateModified: iso(GUIDE_UPDATED),
+      author: {'@id': `${SITE_URL}/#miguel`},
+      publisher: {'@id': `${SITE_URL}/#agent`},
+      image: HEADSHOT,
+      about: {'@type': 'Place', name: 'Miami, Florida'},
+      isPartOf: {'@id': `${SITE_URL}/#website`},
+      inLanguage: 'en-US',
+    });
   }
   if (view === 'journal') {
     graph.push({

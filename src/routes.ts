@@ -15,6 +15,7 @@ export const PAGE_ROUTES = [
   {view: 'developments', path: '/pre-construction', label: 'Pre-Construction'},
   {view: 'south-florida', path: '/south-florida', label: 'South Florida'},
   {view: 'neighborhoods', path: '/neighborhoods', label: 'Neighborhoods'},
+  {view: 'miami-neighborhood-guide', path: '/miami-neighborhood-guide', label: 'Miami Neighborhood Guide'},
   {view: 'insights', path: '/insights', label: 'Insights'},
   {view: 'about', path: '/about', label: 'About'},
   {view: 'listings', path: '/listings', label: 'Listings'},
@@ -49,7 +50,7 @@ export function routeFromPath(p) {
   const m = path.match(/^\/journal\/([a-z0-9-]+)$/);
   if (m) return {view: 'article', slug: m[1]};
   // Friendly aliases
-  const alias = {'/home-valuation': 'home-value', '/relocate': 'relocate', '/developments': 'developments', '/lifestyle': 'south-florida', '/blog': 'journal', '/news': 'journal', '/terms': 'terms-of-service', '/terms-of-use': 'terms-of-service', '/privacy': 'privacy-policy'}[path];
+  const alias = {'/neighborhood-guide': 'miami-neighborhood-guide', '/miami-neighborhoods': 'miami-neighborhood-guide', '/home-valuation': 'home-value', '/relocate': 'relocate', '/developments': 'developments', '/lifestyle': 'south-florida', '/blog': 'journal', '/news': 'journal', '/terms': 'terms-of-service', '/terms-of-use': 'terms-of-service', '/privacy': 'privacy-policy'}[path];
   if (alias) return {view: alias, redirect: true};
   return {view: 'notfound'};
 }
