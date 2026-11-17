@@ -7,3 +7,11 @@ coverage/
 .env*
 !.env.example
 .vercel
+
+# secrets / keys
+*.pem
+*.key
+*.p12
+secrets*.json
+service-account*.json
+dist-ssr/
