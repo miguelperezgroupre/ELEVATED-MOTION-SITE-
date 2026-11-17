@@ -12,6 +12,34 @@ const ALLOWED_PARAMS = new Set(['$filter', '$top', '$skip', '$orderby', '$count'
 const RESOURCE_RE = /^(Property|Property\('[A-Za-z0-9_-]{1,64}'\)|listings|listings\/[A-Za-z0-9_-]{1,64})$/;
 const MAX_TOP = 200;
 
+// MLS fields that must never be served publicly (IDX rules + seller/agent privacy):
+// showing/lockbox/gate instructions, private or agent-only remarks, owner/occupant info,
+// agent direct contact details, compensation. Stripped from every record, and requests that
+// try to filter, sort or select on them are rejected.
+const CONFIDENTIAL_FIELD_RE = /(Showing|LockBox|Lockbox|Private(?!YN)|AgentRemarks|BrokerRemarks|Owner(?!shipType)|Occupant|Tenant|Directions|Instructions|AgentEmail|AgentDirectPhone|AgentCellPhone|AgentHomePhone|AgentPager|AgentAlternatePhone|AgentFax|AgentMobilePhone|Commission|Compensation|BuyerAgency|SubAgency|TransactionBroker|GateCode|AlarmCode|Combo|SSN|VirtualTourURLBranded)/;
+
+function stripConfidential(rec) {
+  if (!rec || typeof rec !== 'object') return rec;
+  if (Array.isArray(rec)) return rec.map(stripConfidential);
+  const out = {};
+  for (const [k, v] of Object.entries(rec)) {
+    if (CONFIDENTIAL_FIELD_RE.test(k)) continue;
+    out[k] = v;
+  }
+  return out;
+}
+
+function sanitizeBody(json) {
+  if (!json || typeof json !== 'object') return json;
+  const out = { ...json };
+  delete out['@odata.nextLink']; // points at the upstream API; clients page with $skip
+  if (Array.isArray(out.value)) out.value = out.value.map(stripConfidential);
+  else if (Array.isArray(out.bundle)) out.bundle = out.bundle.map(stripConfidential);
+  else if (out.bundle && typeof out.bundle === 'object') out.bundle = stripConfidential(out.bundle);
+  else return stripConfidential(out);
+  return out;
+}
+
 function token() {
   const e = process.env;
   return (
@@ -46,7 +74,13 @@ export default async function handler(req, res) {
     if (!ALLOWED_PARAMS.has(k)) continue;
     if (k === '$top') qs.set(k, String(Math.min(Math.max(parseInt(v, 10) || 1, 1), MAX_TOP)));
     else if (k === '$skip') qs.set(k, String(Math.max(parseInt(v, 10) || 0, 0)));
-    else if (v.length <= 2000) qs.set(k, v);
+    else if (v.length <= 2000) {
+      // Field names only (strip quoted literals so a search value can't trip the check).
+      if (CONFIDENTIAL_FIELD_RE.test(v.replace(/'[^']*'/g, "''"))) {
+        return res.status(400).json({ error: 'Field not available' });
+      }
+      qs.set(k, v);
+    }
   }
   qs.set('access_token', accessToken);
 
@@ -61,7 +95,9 @@ export default async function handler(req, res) {
       // Never echo upstream bodies on error (could include the request URL).
       return res.status(upstream.status === 404 ? 404 : 502).json({ error: `Upstream ${upstream.status}` });
     }
-    return res.status(200).send(body.split(accessToken).join(''));
+    let json;
+    try { json = JSON.parse(body.split(accessToken).join('')); } catch { return res.status(502).json({ error: 'Upstream parse failed' }); }
+    return res.status(200).json(sanitizeBody(json));
   } catch (err) {
     return res.status(502).json({ error: 'Upstream fetch failed' });
   }
