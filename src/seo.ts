@@ -31,6 +31,12 @@ export const PAGE_META = {
   about: {title: 'About Miguel Perez, REALTOR® | Luxe Properties South Florida', description: 'Local knowledge, elevated perspective. Miguel Perez, REALTOR® with Luxe Properties since 2021, guides South Florida clients with clarity.'},
   listings: {title: 'South Florida Homes for Sale | On the Market | Miguel Perez', description: 'Active South Florida listings with Miguel Perez of Luxe Properties. Before you tour, get the flood zone, HOA and building details listings leave out.'},
   journal: {title: 'The Journal | South Florida Real Estate Guides & Market News', description: 'Neighborhood guides, market analysis, relocation checklists and newsletters from South Florida Elevated for Miami and Fort Lauderdale buyers and sellers.'},
+  featured: {title: 'Elevated Listings | New South Florida Listings | Miguel Perez', description: 'New listings, price changes and closed sales in Miami Beach, Brickell, Coral Gables and Fort Lauderdale, curated by Miguel Perez of Luxe Properties.'},
+  'featured-submit': {title: 'Agents: Get Featured | Elevated Listings by Miguel Perez', description: 'Real estate agents: submit your South Florida listing to be featured by Elevated Listings, credited to you and your brokerage.'},
+  'featured-miami-beach': {title: 'Miami Beach Listings: New, Price Changes, Sold | Elevated Listings', description: 'New Miami Beach listings, price changes and recent closings, live from the MLS and curated by Miguel Perez of Luxe Properties.'},
+  'featured-brickell': {title: 'Brickell Listings: New, Price Changes, Sold | Elevated Listings', description: 'New Brickell listings, price changes and recent closings, live from the MLS and curated by Miguel Perez of Luxe Properties.'},
+  'featured-coral-gables': {title: 'Coral Gables Listings: New, Price Changes, Sold | Elevated Listings', description: 'New Coral Gables listings, price changes and recent closings, live from the MLS and curated by Miguel Perez of Luxe Properties.'},
+  'featured-fort-lauderdale': {title: 'Fort Lauderdale Listings: New, Price Changes, Sold | Elevated Listings', description: 'New Fort Lauderdale listings, price changes and recent closings, live from the MLS and curated by Miguel Perez of Luxe Properties.'},
   'home-value': {title: "What's My Home Worth? Free Home Evaluation | Miguel Perez", description: 'Get a free, personalized home evaluation from Miguel Perez of Luxe Properties, based on local sales and your home\'s features. Fort Lauderdale to Miami.'},
   'free-home-evaluation': {title: 'Free Home Evaluation | Miguel Perez, Luxe Properties', description: 'Get a free, personalized home evaluation from Miguel Perez of Luxe Properties, informed by relevant local sales and your home\'s features.'},
   notfound: {title: 'Page Not Found | South Florida Elevated', description: 'That page has moved or no longer exists. Explore South Florida real estate, neighborhoods and the Journal with Miguel Perez of Luxe Properties.'},
@@ -162,7 +168,7 @@ export function headFor(route) {
   if (view !== 'notfound') graph.push(AGENT, PERSON);
   if (FAQS[view]) graph.push({'@type': 'FAQPage', '@id': `${url}#faq`, mainEntity: FAQS[view].map((f) => ({'@type': 'Question', name: f.q, acceptedAnswer: {'@type': 'Answer', text: f.a}}))});
   if (url) {
-    const pageType = view === 'about' ? 'AboutPage' : view === 'journal' || view === 'listings' || view === 'neighborhoods' || view === 'miami-neighborhood-guide' || view === 'guides' ? 'CollectionPage' : 'WebPage';
+    const pageType = view === 'about' ? 'AboutPage' : view === 'journal' || view === 'listings' || view === 'neighborhoods' || view === 'miami-neighborhood-guide' || view === 'guides' || view === 'featured' || view.startsWith('featured-') ? 'CollectionPage' : 'WebPage';
     const page = {'@type': pageType, '@id': `${url}#webpage`, url, name: meta.title, description: meta.description, isPartOf: {'@id': `${SITE_URL}/#website`}, inLanguage: 'en-US'};
     if (view === 'home' || view === 'about') page.about = {'@id': `${SITE_URL}/#agent`};
     if (view === 'miami-neighborhood-guide') {

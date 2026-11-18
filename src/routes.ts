@@ -23,6 +23,12 @@ export const PAGE_ROUTES = [
   {view: 'about', path: '/about', label: 'About'},
   {view: 'listings', path: '/listings', label: 'Listings'},
   {view: 'journal', path: '/journal', label: 'Journal'},
+  {view: 'featured', path: '/featured', label: 'Elevated Listings'},
+  {view: 'featured-submit', path: '/featured/submit', label: 'Get Featured'},
+  {view: 'featured-miami-beach', path: '/featured/miami-beach', label: 'Miami Beach Listings'},
+  {view: 'featured-brickell', path: '/featured/brickell', label: 'Brickell Listings'},
+  {view: 'featured-coral-gables', path: '/featured/coral-gables', label: 'Coral Gables Listings'},
+  {view: 'featured-fort-lauderdale', path: '/featured/fort-lauderdale', label: 'Fort Lauderdale Listings'},
   {view: 'terms-of-service', path: '/terms-of-service', label: 'Terms of Service'},
   {view: 'privacy-policy', path: '/privacy-policy', label: 'Privacy Policy'},
 ];
