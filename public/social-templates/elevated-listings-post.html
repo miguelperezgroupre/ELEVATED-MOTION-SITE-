@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Elevated Listings post template (1080 x 1350)</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  /* Elevated Listings Instagram post. 1080 x 1350 (4:5). South Florida Elevated palette.
+     Render from MLS data:  window.renderPost({...})   (see scripts/render-listing-post.py)
+     Variants: new-listing | price-change | just-sold | featured-agent */
+  :root{--teal:#052C3A;--gold:#C9A24A;--gold-light:#E7C878;--onyx:#000;--ivory:#F4EFE2}
+  *{box-sizing:border-box;margin:0;padding:0}
+  [hidden]{display:none!important}
+  html,body{background:#111}
+  #post{position:relative;width:1080px;height:1350px;overflow:hidden;background:var(--teal);font-family:'Manrope',system-ui,sans-serif;color:var(--ivory)}
+  #photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .shade-top{position:absolute;left:0;right:0;top:0;height:260px;background:linear-gradient(180deg,rgba(0,0,0,.55),rgba(0,0,0,0))}
+  .shade-bot{position:absolute;left:0;right:0;bottom:0;height:640px;background:linear-gradient(0deg,rgba(0,0,0,.55),rgba(0,0,0,0))}
+  .tag{position:absolute;top:44px;left:48px;padding:12px 20px;background:rgba(5,44,58,.9);border:1.5px solid var(--gold);font-size:19px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--gold-light)}
+  .ribbon{position:absolute;top:44px;right:48px;padding:12px 22px;background:var(--gold);color:var(--onyx);font-size:20px;font-weight:800;letter-spacing:.22em;text-transform:uppercase}
+  .example{position:absolute;top:130px;right:48px;padding:8px 16px;background:rgba(0,0,0,.75);border:1.5px dashed var(--ivory);font-size:16px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--ivory)}
+  .panel{position:absolute;left:48px;right:48px;bottom:74px;background:rgba(5,44,58,.95);border:3px solid var(--gold);padding:38px 44px 0;overflow:hidden}
+  .panel::before{content:"";position:absolute;inset:9px;border:1px solid rgba(201,162,74,.55);pointer-events:none}
+  .row1{display:flex;justify-content:space-between;align-items:flex-start;gap:24px}
+  .addr{font-family:'Instrument Serif',Georgia,serif;font-size:66px;line-height:1.02;white-space:nowrap;color:var(--ivory)}
+  .city{margin-top:10px;font-size:22px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--ivory);opacity:.85}
+  .badge{flex:none;margin-top:6px;padding:11px 20px;background:var(--gold);color:var(--onyx);font-size:20px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;white-space:nowrap}
+  .price{margin-top:20px;font-family:'Instrument Serif',Georgia,serif;font-size:104px;line-height:1;color:var(--gold-light);display:flex;align-items:baseline;gap:22px}
+  .price s{font-size:44px;color:var(--ivory);opacity:.55}
+  .pricenote{font-size:18px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--ivory);opacity:.7;margin-left:4px}
+  .specs{margin-top:22px;display:flex;border-top:1px solid rgba(201,162,74,.6);border-bottom:1px solid rgba(201,162,74,.6)}
+  .spec{flex:1;padding:16px 0;text-align:center}
+  .spec+.spec{border-left:1px solid rgba(201,162,74,.6)}
+  .spec b{display:block;font-family:'Instrument Serif',Georgia,serif;font-weight:400;font-size:46px;line-height:1;color:var(--ivory)}
+  .spec span{display:block;margin-top:6px;font-size:15px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--gold)}
+  .agent{margin-top:20px;display:flex;align-items:center;gap:20px;font-size:21px}
+  .agent .av{width:68px;height:68px;border-radius:50%;border:2px solid var(--gold);background:rgba(244,239,226,.08) center/cover;flex:none}
+  .agent b{display:block;font-family:'Instrument Serif',serif;font-weight:400;font-size:34px;line-height:1.05}
+  .agent small{font-size:16px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-light);font-weight:700}
+  .brand{margin-top:20px;text-align:center;font-size:19px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ivory)}
+  .brand i{font-style:normal;color:var(--gold);padding:0 .5em}
+  .sky{display:block;width:calc(100% + 88px);margin:14px -44px 0;height:62px}
+  .courtesy{position:absolute;left:48px;right:48px;bottom:22px;font-size:15px;line-height:1.3;color:var(--ivory);opacity:.9;text-shadow:0 1px 3px rgba(0,0,0,.8)}
+</style>
+</head>
+<body>
+<div id="post">
+  <img id="photo" alt="">
+  <div class="shade-top"></div><div class="shade-bot"></div>
+  <div class="tag" id="tag"></div>
+  <div class="ribbon" id="ribbon"></div>
+  <div class="example" id="example" hidden>Example layout</div>
+  <div class="panel" id="panel">
+    <div class="row1"><div><div class="addr" id="addr"></div><div class="city" id="city"></div></div><div class="badge" id="badge"></div></div>
+    <div class="price" id="price"></div>
+    <div class="specs" id="specs"></div>
+    <div class="agent" id="agent" hidden><div class="av" id="av"></div><div><small>Featured agent</small><b id="agentName"></b><small id="agentOffice" style="color:var(--ivory);opacity:.8"></small></div></div>
+    <div class="brand">Miguel Perez<i>|</i>Luxe Properties<i>|</i>South Florida Property Advisor</div>
+    <svg class="sky" id="sky" viewBox="0 0 1080 62" preserveAspectRatio="none" aria-hidden="true"></svg>
+  </div>
+  <div class="courtesy" id="courtesy"></div>
+</div>
+<script>
+const VARIANTS={
+  'new-listing':{ribbon:'New Listing',badge:'For Sale'},
+  'price-change':{ribbon:'Price Change',badge:'For Sale'},
+  'just-sold':{ribbon:'Just Sold',badge:'Sold'},
+  'featured-agent':{ribbon:'Featured Agent',badge:'For Sale'}
+};
+const fmt=n=>'$'+Math.round(n).toLocaleString('en-US');
+function skyline(){
+  // deterministic generic skyline strip, gold at low opacity. Not a depiction of any specific building.
+  let x=0,i=0,out='';const hs=[22,34,28,46,30,54,26,40,58,32,24,48,36,28,52,30,42,26,38,56,28,34,44,24,50,32,40,27,46,31];
+  while(x<1080){const w=26+((i*7)%5)*9,h=hs[i%hs.length];out+=`<rect x="${x}" y="${62-h}" width="${w-3}" height="${h}" fill="#C9A24A" fill-opacity="${.22+((i%4)*.06)}"/>`;
+    if(i%6===3)out+=`<rect x="${x+w/2-4}" y="${62-h-12}" width="2" height="12" fill="#C9A24A" fill-opacity=".35"/>`;x+=w;i++}
+  document.getElementById('sky').innerHTML=out;
+}
+function fit(el,max,min){let s=max;el.style.fontSize=s+'px';const lim=el.parentElement.parentElement.clientWidth-el.parentElement.parentElement.querySelector('.badge').offsetWidth-90;
+  while(el.scrollWidth>lim&&s>min){s-=2;el.style.fontSize=s+'px'}}
+window.renderPost=async function(d){
+  const v=VARIANTS[d.variant]||VARIANTS['new-listing'];
+  document.getElementById('tag').textContent='Elevated Listings  ·  '+(d.market||'South Florida');
+  document.getElementById('ribbon').textContent=v.ribbon;
+  document.getElementById('badge').textContent=v.badge;
+  document.getElementById('addr').textContent=d.address;
+  document.getElementById('city').textContent=d.cityLine;
+  const p=document.getElementById('price');
+  p.innerHTML='';
+  const main=document.createElement('span');main.textContent=fmt(d.price);p.appendChild(main);
+  if(d.variant==='price-change'&&d.prevPrice>0){const s=document.createElement('s');s.textContent=fmt(d.prevPrice);p.appendChild(s)}
+  if(d.variant==='just-sold'&&d.soldNote){const n=document.createElement('span');n.className='pricenote';n.textContent=d.soldNote;p.appendChild(n)}
+  const specs=[[d.beds,'Beds'],[d.baths,'Baths'],[d.sqft?Number(d.sqft).toLocaleString('en-US'):'','Sq Ft'],[d.acres>=0.1?Number(d.acres).toFixed(2):'','Acres']].filter(s=>s[0]);
+  document.getElementById('specs').innerHTML=specs.map(s=>`<div class="spec"><b>${s[0]}</b><span>${s[1]}</span></div>`).join('');
+  const ag=document.getElementById('agent');
+  if(d.variant==='featured-agent'&&d.agent){ag.hidden=false;document.getElementById('agentName').textContent=d.agent.name;document.getElementById('agentOffice').textContent=[d.agent.brokerage,d.agent.handle].filter(Boolean).join('  ·  ');
+    if(d.agent.headshot)document.getElementById('av').style.backgroundImage=`url(${d.agent.headshot})`}else ag.hidden=true;
+  document.getElementById('example').hidden=!d.example;
+  document.getElementById('courtesy').textContent=d.courtesy||'';
+  skyline();
+  const img=document.getElementById('photo');
+  await new Promise(r=>{img.onload=r;img.onerror=r;img.src=d.photo});
+  await document.fonts.ready;
+  fit(document.getElementById('addr'),66,38);
+  document.body.dataset.ready='1';
+};
+if(window.__POST__)window.renderPost(window.__POST__);
+</script>
+</body>
+</html>

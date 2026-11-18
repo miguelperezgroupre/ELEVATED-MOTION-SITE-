@@ -91,6 +91,8 @@ ${[
   L('/miami-neighborhood-guide', 'Miami Neighborhood Guide', 'Brickell, Edgewater, Wynwood, Coconut Grove, Coral Gables, Little Havana, Miami Beach, Aventura, Key Biscayne, Doral and more, with sourced median prices, walk scores and flood risk'),
   L('/south-florida', 'South Florida Lifestyle', 'living in Miami-Dade, Broward and Palm Beach'),
   L('/listings', 'Listings', 'active South Florida listings'),
+  L('/featured', 'Elevated Listings', 'new listings, price changes and closed sales in Miami Beach, Brickell, Coral Gables and Fort Lauderdale, live from the MLS'),
+  L('/featured/submit', 'Agents: Get Featured', 'submission form for real estate agents who want a listing featured'),
   L('/journal', 'The Journal', 'guides and market articles'),
 ].join('\n')}
 ${ARTICLES.length ? `\n## Journal articles\n${ARTICLES.map((a) => `- [${a.title}](${absUrl(`/journal/${a.slug}`)}): ${a.description}`).join('\n')}\n` : ''}

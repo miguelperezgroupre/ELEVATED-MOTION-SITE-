@@ -129,6 +129,13 @@ function Footer({
        })
       }), n.jsx('li', {
        children: n.jsx('a', {
+        href: '/featured',
+        onClick: e => { if (e.metaKey || e.ctrlKey || e.shiftKey) return; e.preventDefault(); c('featured'); },
+        className: 'hover:text-[#c9a24a] transition-colors cursor-pointer bg-transparent border-none p-0',
+        children: 'Elevated Listings'
+       })
+      }), n.jsx('li', {
+       children: n.jsx('a', {
         href: '/journal',
         onClick: e => { if (e.metaKey || e.ctrlKey || e.shiftKey) return; e.preventDefault(); c('journal'); },
         className: 'hover:text-[#c9a24a] transition-colors cursor-pointer bg-transparent border-none p-0',
